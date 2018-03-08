@@ -3,6 +3,7 @@ import {Row, Col} from 'antd';
 
 import Post from './Post';
 import PostApi from '../services/PostApi';
+import './popit.css';
 
 export default class RecentPosts extends React.Component {
   constructor(props) {
@@ -20,7 +21,6 @@ export default class RecentPosts extends React.Component {
           return;
         }
 
-        console.log(">>>Data:", json.data);
         this.setState({
           posts: json.data
         });
@@ -32,18 +32,17 @@ export default class RecentPosts extends React.Component {
 
   render() {
     const { posts } = this.state;
-    const postItems = [];
-
-    posts.forEach((post, index) => {
-      const marginRight = index < 4 ? 20 : 0;
-      postItems.push(<div style={{float: "left", marginRight: marginRight}}><Post post={post} showAuthor={true}/></div>);
+    const postItems = posts.map((post, index) => {
+      return(<div key={index} style={{float: "left", marginRight: 20}}><Post key={"recent-" + post.id} post={post} showAuthor={true} showDescription={true}/></div>);
     });
 
     return (
       <div>
-        <h2>최신글</h2>
-        <div>{ postItems }</div>
-        <div style={{clear: 'both'}}></div>
+        <div>
+          <div>{ postItems }</div>
+          <div style={{float: "left", background: "#eee", width: 200, minHeight: 300}}>광고 영역</div>
+          <div style={{clear: "both"}}></div>
+        </div>
       </div>
     )
   }

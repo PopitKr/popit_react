@@ -36,11 +36,9 @@ export default class ChannelPostsList extends React.Component {
       return (<div></div>);
     }
 
-    const items = [];
-
-    termPostsList.forEach((termPosts, index) => {
+    const items = termPostsList.map((termPosts, index) => {
       const marginTop = index == 0 ? 0 : 20;
-      items.push(<div style={{marginTop: marginTop}}><ChannelPosts termPosts={termPosts}/></div>);
+      return (<div key={"channels-" + index} style={{marginTop: marginTop}}><ChannelPosts termPosts={termPosts}/></div>);
     });
 
     return (

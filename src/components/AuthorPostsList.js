@@ -20,7 +20,6 @@ export default class AuthorPostsList extends React.Component {
           return;
         }
 
-        console.log(">>>authorPostsList:", json.data);
         this.setState({
           authorPostsList: json.data
         });
@@ -36,11 +35,9 @@ export default class AuthorPostsList extends React.Component {
       return (<div></div>);
     }
 
-    const items = [];
-
-    authorPostsList.forEach((authorPosts, index) => {
+    const items = authorPostsList.map((authorPosts, index) => {
       const marginTop = index == 0 ? 0 : 20;
-      items.push(<div style={{marginTop: marginTop}}><AuthorPosts authorPosts={authorPosts}/></div>);
+      return (<div key={"authorlist-" + index} style={{marginTop: marginTop}}><AuthorPosts authorPosts={authorPosts}/></div>);
     });
 
     return (
