@@ -12,7 +12,7 @@ const HttpUtil = {
 
 export default class PostApi extends React.Component {
   static getApiServer = () => {
-    if (process.env.REACT_APP_ENV === 'production') {
+    if (process.env.NODE_ENV === 'production') {
       return "http://www.popit.kr";
     } else {
       return "http://127.0.0.1:8000";

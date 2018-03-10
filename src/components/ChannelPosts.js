@@ -18,7 +18,12 @@ export default class ChannelPosts extends React.Component {
         return null;
       }
       const marginRight = index < 2 ? 15 : 0;
-      return (<div key={"channel-" + index} style={{float: "left", marginRight: marginRight}}><Post post={post} showAuthor={true} showDescription={true}/></div>);
+      const showNext = index < 2 ? false : true;
+      return (
+        <div key={"channel-" + index} style={{float: "left", marginRight: marginRight}}>
+          <Post post={post} showAuthor={true} showDescription={true} showNext={showNext}/>
+        </div>
+      );
     });
 
     return (

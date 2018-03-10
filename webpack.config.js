@@ -25,7 +25,7 @@ module.exports = (env) => {
     devServer: {
       inline: true,
       compress: true,
-      port: 7777,
+      port: 5000,
       contentBase: __dirname + '/dist/',
       publicPath: '/',
       historyApiFallback: true,

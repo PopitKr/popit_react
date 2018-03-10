@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.js --progress --hot --host 0.0.0.0 --mode development",
+    "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.js --progress --hot --host 0.0.0.0 --mode production",
+    "dev": "./node_modules/.bin/webpack-dev-server --config webpack.config.js --progress --hot --host 0.0.0.0 --mode development",
     "build": "./node_modules/.bin/webpack --config webpack.config.js --progress --colors --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

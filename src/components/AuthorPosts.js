@@ -14,14 +14,16 @@ export default class AuthorPosts extends React.Component {
     const posts = authorPosts.posts;
     const author = authorPosts.author;
     const authorPostsLink = `http://www.popit.kr/author/${author.userLogin}`;
-    const postItems = [];
-
-    posts.forEach((post, index) => {
+    const postItems = posts.map((post, index) => {
       if (index > 1) {
         return null;
       }
       const marginRight = index < 1 ? 15 : 0;
-      postItems.push(<div key={"author-" + index} style={{float: "left", marginRight: marginRight}}><Post post={post} showAuthor={true} showDescription={true}/></div>);
+      return (
+        <div key={"author-" + index} style={{float: "left", marginRight: marginRight}}>
+          <Post post={post} showAuthor={true} showDescription={true}/>
+        </div>
+      );
     });
 
     return (

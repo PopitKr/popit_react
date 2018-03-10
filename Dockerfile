@@ -10,9 +10,10 @@ COPY . .
 #RUN npm install webpack-cli -D
 RUN npm install
 RUN npm run build --production
-RUN npm install serve -g
+#RUN npm install serve -g
 
 ENV NODE_ENV=production
-CMD serve -s dist
+#CMD serve -s dist
+CMD npm run start
 
 EXPOSE 5000
