@@ -12,8 +12,7 @@ RUN npm install
 RUN npm run build --production
 RUN npm install serve -g
 
-#ENV NODE_ENV=production
-
-CMD serve -s build
+ENV NODE_ENV=production
+CMD serve -s dist
 
 EXPOSE 5000

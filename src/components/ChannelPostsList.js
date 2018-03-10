@@ -37,7 +37,7 @@ export default class ChannelPostsList extends React.Component {
     }
 
     const items = termPostsList.map((termPosts, index) => {
-      const marginTop = index == 0 ? 0 : 20;
+      const marginTop = index === 0 ? 10 : 40;
       return (<div key={"channels-" + index} style={{marginTop: marginTop}}><ChannelPosts termPosts={termPosts}/></div>);
     });
 

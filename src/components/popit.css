@@ -142,3 +142,12 @@ a {
   position: relative;
   left: 50%;
 }
+
+.circle_more_btn {
+  display:block;
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  /*border: 1px solid red;*/
+  background-color: #ffffff;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { FacebookButton, LinkedinButton, TwitterTweetButton } from 'react-social-sharebuttons';
+import { Icon } from 'antd';
 
 import './popit.css';
 
@@ -52,10 +53,21 @@ export default class Post extends React.Component {
     const authorPostLink = `http://www.popit.kr/author/${post.author.userLogin}`;
 
     return (
-      <div className="post">
+      <div className="post" style={{position: 'relative'}}>
         <div>
           <a href={postUrl}><img src={coverImage} style={{width: 210, height: 120}}/></a>
         </div>
+        {
+          this.props.showNext === true
+            ?
+            (
+              <div style={{position: 'absolute', top: 40, left: 190}}>
+                <a href=""><Icon type="right-circle" style={{ fontSize: 42, color: '#F0F0F0'}} /></a>
+              </div>
+            )
+            :
+            (<div></div>)
+        }
         <div>
           <a href={postUrl}><h3 className="post_title">{post.title}</h3></a>
         </div>

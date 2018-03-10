@@ -36,8 +36,14 @@ export default class AuthorPostsList extends React.Component {
     }
 
     const items = authorPostsList.map((authorPosts, index) => {
-      const marginTop = index == 0 ? 0 : 20;
-      return (<div key={"authorlist-" + index} style={{marginTop: marginTop}}><AuthorPosts authorPosts={authorPosts}/></div>);
+      const marginTop = index === 0 ? 10 : 40;
+      const hrTag = index >= 10 ? (<hr/>) : (<div></div>);
+      return (
+        <div key={"authorlist-" + index} style={{marginTop: marginTop}}>
+          { hrTag }
+          <AuthorPosts authorPosts={authorPosts}/>
+        </div>
+      );
     });
 
     return (

@@ -38,12 +38,14 @@ export default class RecentPosts extends React.Component {
       }
       const marginRight = index < 4 ? 15 : 0;
       // const marginRight = 15;
+      const showNext = index < 4 ? false : true;
       return(
         <div key={index} style={{float: "left", marginRight: marginRight}}>
           <Post key={"recent-" + post.id}
                 post={post} showAuthor={true}
                 showDescription={true}
                 showDescriptionLink={true}
+                showNext={showNext}
           />
         </div>
       );
