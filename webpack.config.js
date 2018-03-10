@@ -18,7 +18,7 @@ module.exports = (env) => {
     output: {
       path: __dirname + '/dist/',               // 번들 파일 폴더
       filename: 'js/[name].[hash].bundle.js',   // 번들 파일 이름 규칙
-      // sourceMapFilename: 'js/[name].[chunkhash].bundle.map',  // SourceMap 이름 규칙
+      sourceMapFilename: 'js/[name].[chunkhash].bundle.map',  // SourceMap 이름 규칙
       chunkFilename: 'js/[name].[chunkhash].chunk.js',  // Chunk file 이름 규칙
     },
 

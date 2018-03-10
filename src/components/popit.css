@@ -16,17 +16,23 @@
   /*padding: 0;*/
   /*min-height: 100vh;*/
 /*}*/
-/*a {*/
-  /*text-decoration: none;*/
-/*}*/
 
-.logo {
-  width: 282px;
-  height: 32px;
-  /*background: rgba(255,255,255,.2);*/
-  background-image: url('http://www.popit.kr/wp-content/uploads/2016/08/web_title_1280x77-1.png');
-  margin: 16px 24px 16px 0;
-  float: left;
+a {
+  text-decoration: none;
+}
+
+.post {
+  width: 210px;
+}
+
+.author a,
+.author a:hover,
+.author a:active,
+.author a:visited,
+.author a:link {
+  font-weight: bold;
+  /*color: #000000;*/
+  color: #ECECEC;
 }
 
 .author_avatar {
@@ -35,8 +41,94 @@
   border-radius: 100%;
 }
 
-.post {
-  width: 210px;
+.post_description {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+  font-size: 13px;
+  line-height: 17px;
+  margin-top: 5px;
+  height: 68px;
+  max-height: 68px;
+  color: #C3C3C3;
+}
+
+.post_description_link a,
+.post_description_link a:hover,
+.post_description_link a:active,
+.post_description_link a:visited,
+.post_description_link a:link {
+  /*color: #000000;*/
+  color: #C3C3C3;
+}
+
+.post_title {
+  color: #DEDEDE;
+  height: 36px;
+  max-height: 36px;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: bold;
+  margin-top: 5px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.post_tag {
+  color: #868686;
+  text-decoration: none;
+  outline: none;
+  font-size: 11px;
+  margin-top: 5px;
+  max-height: 16px;
+  overflow: hidden;
+}
+
+.post_tag a:hover,
+.post_tag a:active,
+.post_tag a:visited,
+.post_tag a:link {
+  color: #868686;
+}
+
+.author_title {
+  color: #F8F8F8;
+  font-size: 24px;
+  text-decoration: none;
+  outline: none;
+  font-weight: bold;
+}
+
+.author_title a:hover {
+  color: #40a9ff;
+}
+
+.author_home {
+  font-size: 12px;
+  max-width: 250px;
+  text-overflow: ellipsis;
+  /*overflow: hidden;*/
+  margin-left: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  color: #C3C3C3;
+}
+
+.author_home a:hover,
+.author_home a:active,
+.author_home a:visited,
+.author_home a:link {
+  color: #C3C3C3;
+}
+
+.logo {
+  width: 282px;
+  height: 32px;
+  /*background: rgba(255,255,255,.2);*/
+  background-image: url('http://www.popit.kr/wp-content/uploads/2016/08/web_title_1280x77-1.png');
+  margin: 16px 24px 16px 0;
+  float: left;
 }
 
 .float_center {

@@ -13,34 +13,36 @@ export default class AuthorPosts extends React.Component {
     const { authorPosts } = this.props;
     const posts = authorPosts.posts;
     const author = authorPosts.author;
-
+    const authorPostsLink = `http://www.popit.kr/author/${author.userLogin}`;
     const postItems = [];
 
     posts.forEach((post, index) => {
       if (index > 1) {
         return null;
       }
-      const marginRight = index < 1 ? 20 : 0;
+      const marginRight = index < 1 ? 15 : 0;
       postItems.push(<div key={"author-" + index} style={{float: "left", marginRight: marginRight}}><Post post={post} showAuthor={true} showDescription={true}/></div>);
     });
-
-    const authorStyle = {
-      color: "#111111",
-      textDecoration: "none",
-      outline: "none",
-      fontWeight: "bold",
-    };
 
     return (
       <div>
         <div>
-          <h2>
-            <a style={authorStyle}
-               href={`http://www.popit.kr/author/${author.userLogin}`}
-               target="_blank">
-              {author.displayName}
-            </a>
-          </h2>
+          <span style={{display: 'inline-block'}}>
+            <h2>
+              <a className="author_title"
+                 href={authorPostsLink}>
+                {author.displayName}
+              </a>
+            </h2>
+          </span>
+          {
+            author.userUrl
+            ?
+              (<span className="author_home"><a href={author.userUrl} target="_blank">{author.userUrl}</a></span>)
+            :
+              (<span></span>)
+          }
+
           <div>{ postItems }</div>
           <div style={{clear: 'both'}}></div>
         </div>

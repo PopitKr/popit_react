@@ -5,48 +5,69 @@ import RecentPosts from "./RecentPosts";
 import './popit.css';
 import ChannelPostsList from "./ChannelPostsList";
 import AuthorPostsList from "./AuthorPostsList";
+import AdSense from 'react-adsense';
 
 const { Content, Footer } = Layout;
 
 export default class App extends React.Component {
+  componentDidMount() {
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+  }
+
   render(){
-    const channelDivStyle = {
-      maxWitdh: 800,
-      // padding: "20px",
-      // marginTop: "20px",
-      float: "left",
-    };
-
-    const authorDivStyle = {
-      maxWitdh: 500,
-      // padding: "20px",
-      // marginTop: "20px",
-      float: "left",
-      marginRight: 20
-    };
-
     return (
-      <Layout className="layout" hasSider={false}>
+      <Layout className="layout" hasSider={false} style={{background: '#2b2b2b'}}>
         <PopitHeader/>
-        <Content style={{ padding: '0 20px'}}>
-          <div style={{ background: '#fff', padding: 15, maxWidth: 1490}}>
-            <div style={{padding: 15}}>
+        <Content style={{ padding: '0 10px'}}>
+          <div style={{float: 'left', maxWidth: 1130}}>
+            <div style={{padding: 10}}>
               <RecentPosts/>
             </div>
-            <div style={{height: 100, padding: 15, background: "#eee"}}>
-              광고 영역
+            <div style={{background: "#2b2b2b"}}>
+              <ins className="adsbygoogle"
+                   style={{display: 'inline-block', width:728, height:90}}
+                   data-ad-client="ca-pub-9913849834747247"
+                   data-ad-slot="8038920473"></ins>
             </div>
-            <div style={{padding: 15}}>
-              <div style={authorDivStyle}>
-                <AuthorPostsList/>
+            <div>
+              <div style={{padding: 10}}>
+                <div style={{float: "left", marginBottom: 10, marginRight: 15}}>
+                  <AuthorPostsList/>
+                </div>
+                <div style={{float: "left", marginBottom: 10}}>
+                  <ChannelPostsList/>
+                </div>
+                <div style={{clear: "both"}}/>
               </div>
-              <div style={channelDivStyle}>
-                <ChannelPostsList/>
-              </div>
-              <div style={{float: "left", background: "#eee", width: 200, minHeight: 500}}>광고 영역</div>
-              <div style={{clear: "both"}}/>
             </div>
           </div>
+          <div style={{float: 'left', marginLeft: 15, maxWidth: 250}}>
+            <div style={{float: 'left', background: "#2b2b2b", width: 250, marginBottom: 20}}>
+              <ins className="adsbygoogle"
+                   style={{display: "block"}}
+                   data-ad-format="fluid"
+                   data-ad-layout-key="-8d+1f-e9+fe+k6"
+                   data-ad-client="ca-pub-9913849834747247"
+                   data-ad-slot="5956995695"></ins>
+            </div>
+            <div className="fb-page"
+                 data-href="https://www.facebook.com/popitkr"
+                 data-width="250"
+                 small_header="true"
+                 data-hide-cover="false"
+                 adapt_container_width="false"
+                 data-show-facepile="true">
+            </div>
+            <div style={{float: 'left', background: "#2b2b2b", width: 250, marginTop: 120}}>
+              <ins className="adsbygoogle"
+                   style={{display: 'block'}}
+                   data-ad-format="fluid"
+                   data-ad-layout-key="-8d+1f-e9+fe+k6"
+                   data-ad-client="ca-pub-9913849834747247"
+                   data-ad-slot="5897285940"></ins>
+            </div>
+          </div>
+          <div style={{clear: 'both'}}></div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
           Copyright popit.kr

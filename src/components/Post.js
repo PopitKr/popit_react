@@ -1,6 +1,8 @@
 import React from 'react';
 import { FacebookButton, LinkedinButton, TwitterTweetButton } from 'react-social-sharebuttons';
 
+import './popit.css';
+
 // import {
 //   FacebookShareCount,
 //   FacebookShareButton,
@@ -26,29 +28,13 @@ export default class Post extends React.Component {
   }
 
   //get facebook like ==> https://www.facebook.com/v2.11/plugins/like.php?app_id=0&channel=http://staticxx.facebook.com/connect/xd_arbiter/r/Nh1oH0K63yz.js?version=42
+
   render() {
-    const tagStyle = {
-      color: "#C3C3C3",
-      textDecoration: "none",
-      outline: "none",
-      fontSize: "12px",
-      lineHeight: "15px",
-      marginTop: "5px",
-    };
-
-    const authorStyle = {
-      color: "#CCCCCC",
-      outline: "none",
-      fontSize: "12px",
-      lineHeight: "15px",
-      wordWarp: "break-word",
-    };
-
     const { post } = this.props;
 
     const categories = post.categories.map((category, index) => {
       const delimiter = index === 0 ? "" : ",";
-      return (<span key={"categories-" + index}>{delimiter} <a style={tagStyle} href={`http://www.popit.kr/${category.slug}`}>{category.name}</a></span>)
+      return (<span key={"categories-" + index}>{delimiter} <a href={`http://www.popit.kr/${category.slug}`}>{category.name}</a></span>)
     });
 
     const tags = post.tags.map((tag, index) => {
@@ -56,19 +42,22 @@ export default class Post extends React.Component {
         return null;
       }
       const delimiter = index === 0 ? "" : ",";
-      return (<span key={"tags-" + index}>{delimiter} <a style={tagStyle} href={`http://www.popit.kr/${tag.slug}`}>{tag.name}</a></span>)
+      return (<span key={"tags-" + index}>{delimiter} <a href={`http://www.popit.kr/${tag.slug}`}>{tag.name}</a></span>)
     });
 
     //http://dapperdeveloper.com/2015/01/23/creating-custom-social-share-buttons/
     const separator = tags.length > 0 ? " | " : "";
     const coverImage = post.image ? post.image : defaultCover;
-    const postUrl = "http://www.popit.kr/" + post.postName + "/";
-    const encodedUrl = encodeURIComponent(postUrl);
+    const postUrl = `http://www.popit.kr/${post.postName}/`;
+    const authorPostLink = `http://www.popit.kr/author/${post.author.userLogin}`;
+
     return (
       <div className="post">
-        <div><h3 style={{fontSize: "14px", lineHeight: "18px", fontWeight: 'bold'}}>{post.title}</h3></div>
         <div>
-          <img src={coverImage} style={{width: 210, height: 120, marginTop: 5}}/>
+          <a href={postUrl}><img src={coverImage} style={{width: 210, height: 120}}/></a>
+        </div>
+        <div>
+          <a href={postUrl}><h3 className="post_title">{post.title}</h3></a>
         </div>
         <div style={{marginTop: 5}}>
           <FacebookButton url={postUrl} layout="button_count" action="like" share={true}/>
@@ -77,23 +66,35 @@ export default class Post extends React.Component {
           this.props.showAuthor === true
             ?
             (
-              <div style={{marginTop:5}}>
-                <p style={{marginRight: 10}}><img src={post.author.avatar} className="author_avatar"/></p>
-                <span style={authorStyle}>
-                  <a style={{textDecoration: "none"}} href={`http://www.popit.kr/author/${post.author.userLogin}`} target="_blank">{post.author.displayName}</a>
-                </span>
-                <span style={authorStyle}>{post.date.substr(0, 10)}</span>
+              <div className="author" style={{marginTop:5}}>
+                <div style={{float: 'left', marginRight: 10}}>
+                  <a href={authorPostLink}><img src={post.author.avatar} className="author_avatar"/></a>
+                </div>
+                <div style={{float: 'left', marginRight: 10, fontSize: 12}}>
+                  <div>
+                    <a style={{textDecoration: "none"}} href={authorPostLink} target="_blank">{post.author.displayName}</a>
+                  </div>
+                  <div style={{color: "#CCCCCC"}}>
+                    {post.date.substr(0, 10)}
+                  </div>
+                </div>
+                <div style={{clear: 'both'}}></div>
               </div>
             )
             :
             (<div></div>)
         }
-        <div style={tagStyle}>{categories}{separator}{tags}</div>
+        <div className="post_tag">{categories}{separator}{tags}</div>
 
         {
           this.props.showDescription === true
           ?
-            (<div style={{wordBreak: "break-all", fontSize: "14px", lineHeight: "17px", marginTop: 5}}>{post.socialDesc}</div>)
+            (
+              <div>
+                <div className="post_description">{post.socialDesc}</div>
+                { (this.props.showDescriptionLink === true) ? (<div className={"post_description_link"}><a href={postUrl} target="_blank">[...]</a></div>) : (<div></div>) }
+                </div>
+            )
           :
             (<div></div>)
         }

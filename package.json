@@ -13,6 +13,7 @@
     "antd": "^3.2.3",
     "gravatar-api": "^1.5.0",
     "react": "^16.2.0",
+    "react-adsense": "0.0.4",
     "react-dom": "^16.2.0",
     "react-share": "^2.0.0",
     "react-social-sharebuttons": "^2.1.4"

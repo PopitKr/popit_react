@@ -33,14 +33,26 @@ export default class RecentPosts extends React.Component {
   render() {
     const { posts } = this.state;
     const postItems = posts.map((post, index) => {
-      return(<div key={index} style={{float: "left", marginRight: 20}}><Post key={"recent-" + post.id} post={post} showAuthor={true} showDescription={true}/></div>);
+      if (index >= 5) {
+        return null;
+      }
+      const marginRight = index < 4 ? 15 : 0;
+      // const marginRight = 15;
+      return(
+        <div key={index} style={{float: "left", marginRight: marginRight}}>
+          <Post key={"recent-" + post.id}
+                post={post} showAuthor={true}
+                showDescription={true}
+                showDescriptionLink={true}
+          />
+        </div>
+      );
     });
 
     return (
       <div>
         <div>
           <div>{ postItems }</div>
-          <div style={{float: "left", background: "#eee", width: 200, minHeight: 300}}>광고 영역</div>
           <div style={{clear: "both"}}></div>
         </div>
       </div>
