@@ -7,6 +7,7 @@ ENV NPM_CONFIG_LOGLEVEL warn
 COPY . .
 
 RUN npm install webpack -g
+RUN npm install webpack-cli -D
 RUN npm run build --production
 RUN npm install -g serve
 
