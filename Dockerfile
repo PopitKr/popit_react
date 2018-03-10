@@ -6,10 +6,11 @@ FROM node:7.8.0
 # In your Dockerfile.
 COPY . .
 
-RUN npm install webpack
-RUN npm install webpack-cli -D
+#RUN npm install webpack
+#RUN npm install webpack-cli -D
+RUN npm install
 RUN npm run build --production
-RUN npm install serve
+RUN npm install serve -g
 
 #ENV NODE_ENV=production
 
