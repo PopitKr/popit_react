@@ -41,30 +41,26 @@ export default class App extends React.Component {
               </div>
             </div>
           </div>
-          <div style={{float: 'left', marginLeft: 15, maxWidth: 250}}>
-            <div style={{float: 'left', background: "#2b2b2b", width: 250, marginBottom: 20}}>
+          <div style={{float: 'left', marginLeft: 15, maxWidth: 300}}>
+            <div style={{float: 'left', background: "#2b2b2b", width: 300, marginBottom: 20}}>
               <ins className="adsbygoogle"
-                   style={{display: "block"}}
-                   data-ad-format="fluid"
-                   data-ad-layout-key="-8d+1f-e9+fe+k6"
+                   style={{ display: 'inline-block', width: 300, height:250}}
                    data-ad-client="ca-pub-9913849834747247"
-                   data-ad-slot="5956995695"></ins>
+                   data-ad-slot="6500771233"></ins>
             </div>
             <div className="fb-page"
                  data-href="https://www.facebook.com/popitkr"
-                 data-width="250"
+                 data-width="300"
                  small_header="true"
                  data-hide-cover="false"
                  adapt_container_width="false"
                  data-show-facepile="true">
             </div>
-            <div style={{float: 'left', background: "#2b2b2b", width: 250, marginTop: 120}}>
+            <div style={{float: 'left', background: "#2b2b2b", width: 300, marginTop: 120}}>
               <ins className="adsbygoogle"
-                   style={{display: 'block'}}
-                   data-ad-format="fluid"
-                   data-ad-layout-key="-8d+1f-e9+fe+k6"
+                   style={{display: 'inline-block', width: 300, height:600}}
                    data-ad-client="ca-pub-9913849834747247"
-                   data-ad-slot="5897285940"></ins>
+                   data-ad-slot="9919828418"></ins>
             </div>
           </div>
           <div style={{clear: 'both'}}></div>
