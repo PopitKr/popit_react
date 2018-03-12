@@ -41,26 +41,30 @@ export default class App extends React.Component {
               </div>
             </div>
           </div>
-          <div style={{float: 'left', marginLeft: 15, maxWidth: 300}}>
-            <div style={{float: 'left', background: "#2b2b2b", width: 300, marginBottom: 20}}>
+          <div style={{float: 'left', marginLeft: 15}}>
+            <div style={{background: "#2b2b2b", width: 300, marginBottom: 20}}>
               <ins className="adsbygoogle"
-                   style={{ display: 'inline-block', width: 300, height:250}}
+                   style={{ display: 'inline-block'}}
                    data-ad-client="ca-pub-9913849834747247"
-                   data-ad-slot="6500771233"></ins>
+                   data-ad-slot="6500771233"
+                   data-ad-format="auto"></ins>
             </div>
-            <div className="fb-page"
-                 data-href="https://www.facebook.com/popitkr"
-                 data-width="300"
-                 small_header="true"
-                 data-hide-cover="false"
-                 adapt_container_width="false"
-                 data-show-facepile="true">
+            <div style={{background: "#2b2b2b", width: 300}}>
+              <div className="fb-page"
+                   data-href="https://www.facebook.com/popitkr"
+                   data-width="300"
+                   small_header="true"
+                   data-hide-cover="false"
+                   adapt_container_width="false"
+                   data-show-facepile="true">
+              </div>
             </div>
-            <div style={{float: 'left', background: "#2b2b2b", width: 300, marginTop: 120}}>
+            <div style={{background: "#2b2b2b", width: 300, marginTop: 120}}>
               <ins className="adsbygoogle"
-                   style={{display: 'inline-block', width: 300, height:600}}
+                   style={{display: 'inline-block'}}
                    data-ad-client="ca-pub-9913849834747247"
-                   data-ad-slot="9919828418"></ins>
+                   data-ad-slot="9919828418"
+                   data-ad-format="auto"></ins>
             </div>
           </div>
           <div style={{clear: 'both'}}></div>
