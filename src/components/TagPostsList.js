@@ -1,5 +1,4 @@
 import React from 'react';
-import {Row, Col} from 'antd';
 
 import TagPosts from './TagPosts';
 import PostApi from '../services/PostApi';

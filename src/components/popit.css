@@ -25,7 +25,7 @@ a {
   width: 210px;
 }
 
-.author
+.author,
 .author a,
 .author a:hover,
 .author a:active,
@@ -45,11 +45,11 @@ a {
   text-overflow: ellipsis;
   overflow: hidden;
   word-break: break-all;
-  font-size: 13px;
-  line-height: 17px;
+  font-size: 12px;
+  line-height: 16px;
   margin-top: 5px;
-  height: 68px;
-  max-height: 68px;
+  height: 64px;
+  max-height: 64px;
   color: #888888;
 }
 
@@ -65,7 +65,7 @@ a {
   color: #111111;
   height: 36px;
   max-height: 36px;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 18px;
   font-weight: bold;
   margin-top: 5px;

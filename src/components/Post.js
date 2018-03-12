@@ -1,5 +1,4 @@
 import React from 'react';
-import { FacebookButton } from 'react-social-sharebuttons';
 import { Icon, Button } from 'antd';
 import ShareButton from './ShareButton';
 import './popit.css';

@@ -1,5 +1,4 @@
 import React from 'react';
-import {Row, Col} from 'antd';
 
 import Post from './Post';
 import "./popit.css";
