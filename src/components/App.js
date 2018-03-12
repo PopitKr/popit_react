@@ -9,10 +9,6 @@ import AuthorPostsList from "./AuthorPostsList";
 const { Content, Footer } = Layout;
 
 export default class App extends React.Component {
-  componentDidMount() {
-    (window.adsbygoogle = window.adsbygoogle || []).push({});
-  }
-
   render(){
     return (
       <Layout className="layout" hasSider={false} style={{background: '#ffffff'}}>
@@ -71,7 +67,7 @@ export default class App extends React.Component {
           <div style={{clear: 'both'}}></div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
-          Copyright popit.kr | popit.kr에 등록된 모든 글의 저작권은 저작자에 있으며<br/>
+          Copyright© popit.kr | popit.kr에 등록된 모든 글의 저작권은 저작자에 있으며<br/>
           popit.kr은 사용권만 가지고 있습니다.
         </Footer>
       </Layout>

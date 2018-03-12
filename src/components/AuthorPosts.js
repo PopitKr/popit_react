@@ -26,7 +26,7 @@ export default class AuthorPosts extends React.Component {
       }
       const marginRight = index < 1 ? 15 : 0;
       return (
-        <div key={"author-" + index} style={{float: "left", marginRight: marginRight}}>
+        <div key={"author-" + post.id} style={{float: "left", marginRight: marginRight}}>
           <Post post={post} showAuthor={true} showDescription={true}/>
         </div>
       );

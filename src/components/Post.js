@@ -1,7 +1,7 @@
 import React from 'react';
 import { FacebookButton } from 'react-social-sharebuttons';
 import { Icon, Button } from 'antd';
-
+import ShareButton from './ShareButton';
 import './popit.css';
 
 import defaultCover from '../asset/default_cover.jpg';
@@ -10,6 +10,7 @@ export default class Post extends React.Component {
   constructor(props) {
     super(props);
 
+    //console.log("Post created:", this.props.post.title);
     this.state = {
       avatar: "",
     }
@@ -78,7 +79,7 @@ export default class Post extends React.Component {
           <a href={postUrl}><h3 className="post_title">{post.title}</h3></a>
         </div>
         <div style={{marginTop: 5}}>
-          <FacebookButton url={postUrl} layout="button_count" action="like" share={true}/>
+          <ShareButton url={postUrl} title={post.title}/>
         </div>
         {
           this.props.showAuthor === true

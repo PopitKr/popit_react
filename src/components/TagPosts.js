@@ -81,7 +81,7 @@ export default class TagPosts extends React.Component {
       const showNext = index >= 2;
       const showPrev = index == 0 && this.page > 0;
       return (
-        <div key={"channel-" + index} style={{float: "left", marginRight: marginRight}}>
+        <div key={"tag-" + post.id} style={{float: "left", marginRight: marginRight}}>
           <Post post={post}
                 showAuthor={true}
                 showDescription={true}
@@ -95,15 +95,13 @@ export default class TagPosts extends React.Component {
     });
     return (
       <div>
-        <div>
-          <h2>
-            <a className="author_title" href={termLink}>
-              {this.term.name.toUpperCase()}
-            </a>
-          </h2>
-          <div>{ postItems }</div>
-          <div style={{clear: 'both'}}></div>
-        </div>
+        <h2>
+          <a className="author_title" href={termLink}>
+            {this.term.name.toUpperCase()}
+          </a>
+        </h2>
+        <div>{ postItems }</div>
+        <div style={{clear: 'both'}}></div>
       </div>
     )
   }

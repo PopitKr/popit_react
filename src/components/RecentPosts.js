@@ -1,8 +1,7 @@
 import React from 'react';
-import {Row, Col} from 'antd';
-
 import Post from './Post';
 import PostApi from '../services/PostApi';
+
 import './popit.css';
 
 export default class RecentPosts extends React.Component {
@@ -64,9 +63,9 @@ export default class RecentPosts extends React.Component {
       const showNext = index >= 4;
       const showPrev = this.page > 1 && index == 0;
       return(
-        <div key={index} style={{float: "left", marginRight: marginRight}}>
-          <Post key={"recent-" + post.id}
-                post={post} showAuthor={true}
+        <div key={"recent-" + post.id} style={{float: "left", marginRight: marginRight}}>
+          <Post post={post}
+                showAuthor={true}
                 showDescription={true}
                 showDescriptionLink={true}
                 showNext={showNext}
@@ -80,10 +79,8 @@ export default class RecentPosts extends React.Component {
 
     return (
       <div>
-        <div>
-          <div>{ postItems }</div>
-          <div style={{clear: "both"}}></div>
-        </div>
+        <div>{ postItems }</div>
+        <div style={{clear: "both"}}></div>
       </div>
     )
   }

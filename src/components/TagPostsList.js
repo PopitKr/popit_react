@@ -37,7 +37,10 @@ export default class TagPostsList extends React.Component {
 
     const items = termPostsList.map((termPosts, index) => {
       const marginTop = index === 0 ? 10 : 40;
-      return (<div key={"channels-" + index} style={{marginTop: marginTop}}><TagPosts termPosts={termPosts}/></div>);
+      return (
+        <div key={"tags-" + index} style={{marginTop: marginTop}}>
+          <TagPosts termPosts={termPosts}/>
+        </div>);
     });
 
     return (
