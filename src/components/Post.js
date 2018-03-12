@@ -1,21 +1,8 @@
 import React from 'react';
-import { FacebookButton, LinkedinButton, TwitterTweetButton } from 'react-social-sharebuttons';
+import { FacebookButton } from 'react-social-sharebuttons';
 import { Icon, Button } from 'antd';
 
 import './popit.css';
-
-// import {
-//   FacebookShareCount,
-//   FacebookShareButton,
-//   LinkedinShareCount,
-//   TwitterShareButton
-// } from 'react-share';
-//
-// import {
-//   FacebookIcon,
-//   TwitterIcon,
-//   LinkedinIcon
-// } from 'react-share';
 
 import defaultCover from '../asset/default_cover.jpg';
 
@@ -60,11 +47,27 @@ export default class Post extends React.Component {
           this.props.showNext === true
             ?
             (
-              <div style={{position: 'absolute', top: 40, left: 190}}>
+              <div style={{position: 'absolute', top: 40, left: 195}}>
                 <Button shape="circle"
                         icon="right"
                         onClick={this.props.handleNextButton}
                         // style={{ color: '#F0F0F0'}}
+                />
+              </div>
+            )
+            :
+            (<div></div>)
+        }
+
+        {
+          this.props.showPrev === true
+            ?
+            (
+              <div style={{position: 'absolute', top: 40, left: -10}}>
+                <Button shape="circle"
+                        icon="left"
+                        onClick={this.props.handlePrevButton}
+                  // style={{ color: '#F0F0F0'}}
                 />
               </div>
             )
@@ -89,7 +92,7 @@ export default class Post extends React.Component {
                   <div>
                     <a style={{textDecoration: "none"}} href={authorPostLink} target="_blank">{post.author.displayName}</a>
                   </div>
-                  <div style={{color: "#CCCCCC"}}>
+                  <div style={{color: "#888888"}}>
                     {post.date.substr(0, 10)}
                   </div>
                 </div>

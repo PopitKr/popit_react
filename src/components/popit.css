@@ -25,14 +25,14 @@ a {
   width: 210px;
 }
 
+.author
 .author a,
 .author a:hover,
 .author a:active,
 .author a:visited,
 .author a:link {
   font-weight: bold;
-  /*color: #000000;*/
-  color: #ECECEC;
+  color: #111111;
 }
 
 .author_avatar {
@@ -50,7 +50,7 @@ a {
   margin-top: 5px;
   height: 68px;
   max-height: 68px;
-  color: #C3C3C3;
+  color: #888888;
 }
 
 .post_description_link a,
@@ -58,12 +58,11 @@ a {
 .post_description_link a:active,
 .post_description_link a:visited,
 .post_description_link a:link {
-  /*color: #000000;*/
-  color: #C3C3C3;
+  color: #888888;
 }
 
 .post_title {
-  color: #DEDEDE;
+  color: #111111;
   height: 36px;
   max-height: 36px;
   font-size: 14px;
@@ -76,7 +75,7 @@ a {
 }
 
 .post_tag {
-  color: #868686;
+  color: #6F6F6F;
   text-decoration: none;
   outline: none;
   font-size: 11px;
@@ -89,11 +88,11 @@ a {
 .post_tag a:active,
 .post_tag a:visited,
 .post_tag a:link {
-  color: #868686;
+  color: #6F6F6F;
 }
 
 .author_title {
-  color: #F8F8F8;
+  color: #111111;
   font-size: 24px;
   text-decoration: none;
   outline: none;
@@ -101,7 +100,7 @@ a {
 }
 
 .author_title a:hover {
-  color: #40a9ff;
+  color: #111111;
 }
 
 .author_home {
@@ -112,14 +111,14 @@ a {
   margin-left: 10px;
   display: inline-block;
   vertical-align: middle;
-  color: #C3C3C3;
+  color: #6F6F6F;
 }
 
 .author_home a:hover,
 .author_home a:active,
 .author_home a:visited,
 .author_home a:link {
-  color: #C3C3C3;
+  color: #6F6F6F;
 }
 
 .logo {

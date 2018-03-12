@@ -15,21 +15,21 @@ export default class App extends React.Component {
 
   render(){
     return (
-      <Layout className="layout" hasSider={false} style={{background: '#2b2b2b'}}>
+      <Layout className="layout" hasSider={false} style={{background: '#ffffff'}}>
         <PopitHeader/>
         <Content style={{ padding: '0 10px'}}>
-          <div style={{float: 'left', maxWidth: 1130}}>
-            <div style={{padding: 10}}>
+          <div style={{float: 'left', maxWidth: 1140}}>
+            <div style={{marginLeft: 10, padding: 10}}>
               <RecentPosts/>
             </div>
-            <div style={{background: "#2b2b2b"}}>
+            <div style={{textAlign: 'center'}}>
               <ins className="adsbygoogle"
                    style={{display: 'inline-block', width:728, height:90}}
                    data-ad-client="ca-pub-9913849834747247"
                    data-ad-slot="8038920473"></ins>
             </div>
             <div>
-              <div style={{padding: 10}}>
+              <div style={{marginLeft: 10, padding: 10}}>
                 <div style={{float: "left", marginBottom: 10, marginRight: 15}}>
                   <AuthorPostsList/>
                 </div>
@@ -41,29 +41,31 @@ export default class App extends React.Component {
             </div>
           </div>
           <div style={{float: 'left', marginLeft: 15}}>
-            <div style={{background: "#2b2b2b", width: 300, marginBottom: 20}}>
+            <div style={{width: 260, marginBottom: 20}}>
               <ins className="adsbygoogle"
-                   style={{ display: 'inline-block'}}
+                   style={{display: 'block'}}
+                   data-ad-format="fluid"
+                   data-ad-layout-key="-8d+1f-e9+fe+k6"
                    data-ad-client="ca-pub-9913849834747247"
-                   data-ad-slot="6500771233"
-                   data-ad-format="auto"></ins>
+                   data-ad-slot="5956995695"></ins>
             </div>
-            <div style={{background: "#2b2b2b", width: 300}}>
+            <div style={{width: 260}}>
               <div className="fb-page"
                    data-href="https://www.facebook.com/popitkr"
-                   data-width="300"
+                   data-width="260"
                    small_header="true"
                    data-hide-cover="false"
                    adapt_container_width="false"
                    data-show-facepile="true">
               </div>
             </div>
-            <div style={{background: "#2b2b2b", width: 300, marginTop: 120}}>
+            <div style={{width: 260, marginTop: 120}}>
               <ins className="adsbygoogle"
-                   style={{display: 'inline-block'}}
+                   style={{display: 'block'}}
+                   data-ad-format="fluid"
+                   data-ad-layout-key="-8d+1f-e9+fe+k6"
                    data-ad-client="ca-pub-9913849834747247"
-                   data-ad-slot="9919828418"
-                   data-ad-format="auto"></ins>
+                   data-ad-slot="5897285940"></ins>
             </div>
           </div>
           <div style={{clear: 'both'}}></div>

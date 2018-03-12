@@ -15,11 +15,23 @@ export default class RecentPosts extends React.Component {
     this.page = 0;
   }
   componentDidMount() {
-    this.getPosts();
+    this.getNextPosts();
+  };
+
+  getPrevPosts = () => {
+    if (this.page == 1) {
+      return;
+    }
+    this.page--;
+    this.getPosts()
+  };
+
+  getNextPosts = () => {
+    this.page++;
+    this.getPosts()
   };
 
   getPosts = () => {
-    this.page++;
     PostApi.getRecentPosts(this.page)
       .then(json => {
         if (json.success !== true) {
@@ -48,7 +60,8 @@ export default class RecentPosts extends React.Component {
       }
       const marginRight = index < 4 ? 15 : 0;
       // const marginRight = 15;
-      const showNext = index < 4 ? false : true;
+      const showNext = index >= 4;
+      const showPrev = this.page > 1 && index == 0;
       return(
         <div key={index} style={{float: "left", marginRight: marginRight}}>
           <Post key={"recent-" + post.id}
@@ -56,7 +69,9 @@ export default class RecentPosts extends React.Component {
                 showDescription={true}
                 showDescriptionLink={true}
                 showNext={showNext}
-                handleNextButton={this.getPosts}
+                showPrev={showPrev}
+                handleNextButton={this.getNextPosts}
+                handlePrevButton={this.getPrevPosts}
           />
         </div>
       );

@@ -18,8 +18,22 @@ export default class TagPosts extends React.Component {
 
   getNextTagPost = () => {
     this.useProps = false;
-    this.page += 1;
+    this.page++;
+    this.getTagPosts();
+  };
 
+  getPrevTagPost = () => {
+    this.page--;
+    if (this.page === 0) {
+      this.setState({
+        posts: this.props.termPosts.posts,
+      });
+    } else {
+      this.getTagPosts();
+    }
+  };
+
+  getTagPosts = () => {
     const excludePostIds = this.initShownPosts.map(post => post.id);
 
     PostApi.getPostsByTag(this.term.id, excludePostIds, this.page)
@@ -31,6 +45,7 @@ export default class TagPosts extends React.Component {
 
         const posts = json.data;
         if (posts.length == 0) {
+          this.page++;
           alert("마지막 페이지 입니다.");
           return;
         }
@@ -63,10 +78,18 @@ export default class TagPosts extends React.Component {
         this.initShownPosts.push(post);
       }
       const marginRight = index < 2 ? 15 : 0;
-      const showNext = index < 2 ? false : true;
+      const showNext = index >= 2;
+      const showPrev = index == 0 && this.page > 0;
       return (
         <div key={"channel-" + index} style={{float: "left", marginRight: marginRight}}>
-          <Post post={post} showAuthor={true} showDescription={true} showNext={showNext} handleNextButton={this.getNextTagPost}/>
+          <Post post={post}
+                showAuthor={true}
+                showDescription={true}
+                showNext={showNext}
+                showPrev={showPrev}
+                handleNextButton={this.getNextTagPost}
+                handlePrevButton={this.getPrevTagPost}
+          />
         </div>
       );
     });
