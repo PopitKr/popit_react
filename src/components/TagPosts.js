@@ -45,8 +45,8 @@ export default class TagPosts extends React.Component {
 
         const posts = json.data;
         if (posts.length == 0) {
-          this.page++;
-          alert("마지막 페이지 입니다.");
+          this.page--;
+          alert("마지막 글 입니다.");
           return;
         }
 

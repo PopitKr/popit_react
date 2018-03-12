@@ -40,7 +40,8 @@ export default class RecentPosts extends React.Component {
         }
 
         if (json.data.lenght == 0) {
-          alert("마지막 글입니다.");
+          this.page--;
+          alert("마지막 글 입니다.");
           return;
         }
         this.setState({
