@@ -7,10 +7,16 @@ import "./popit.css";
 export default class AuthorPosts extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      posts: [],
+    };
   }
 
   render() {
     const { authorPosts } = this.props;
+    if (!authorPosts) {
+      return (<div></div>);
+    }
     const posts = authorPosts.posts;
     const author = authorPosts.author;
     const authorPostsLink = `http://www.popit.kr/author/${author.userLogin}`;

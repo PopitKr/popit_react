@@ -3,9 +3,8 @@ import { Layout } from 'antd';
 import PopitHeader from "./PopitHeader";
 import RecentPosts from "./RecentPosts";
 import './popit.css';
-import ChannelPostsList from "./ChannelPostsList";
+import TagPostsList from "./TagPostsList";
 import AuthorPostsList from "./AuthorPostsList";
-import AdSense from 'react-adsense';
 
 const { Content, Footer } = Layout;
 
@@ -35,7 +34,7 @@ export default class App extends React.Component {
                   <AuthorPostsList/>
                 </div>
                 <div style={{float: "left", marginBottom: 10}}>
-                  <ChannelPostsList/>
+                  <TagPostsList/>
                 </div>
                 <div style={{clear: "both"}}/>
               </div>

@@ -11,16 +11,26 @@ export default class RecentPosts extends React.Component {
 
     this.state = {
       posts: [],
-    }
+    };
+    this.page = 0;
   }
   componentDidMount() {
-    PostApi.getRecentPosts()
+    this.getPosts();
+  };
+
+  getPosts = () => {
+    this.page++;
+    PostApi.getRecentPosts(this.page)
       .then(json => {
         if (json.success !== true) {
           alert("Error:" + json.message);
           return;
         }
 
+        if (json.data.lenght == 0) {
+          alert("마지막 글입니다.");
+          return;
+        }
         this.setState({
           posts: json.data
         });
@@ -46,6 +56,7 @@ export default class RecentPosts extends React.Component {
                 showDescription={true}
                 showDescriptionLink={true}
                 showNext={showNext}
+                handleNextButton={this.getPosts}
           />
         </div>
       );

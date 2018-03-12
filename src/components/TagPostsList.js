@@ -1,10 +1,10 @@
 import React from 'react';
 import {Row, Col} from 'antd';
 
-import ChannelPosts from './ChannelPosts';
+import TagPosts from './TagPosts';
 import PostApi from '../services/PostApi';
 
-export default class ChannelPostsList extends React.Component {
+export default class TagPostsList extends React.Component {
   constructor(props) {
     super(props);
 
@@ -13,14 +13,13 @@ export default class ChannelPostsList extends React.Component {
     }
   }
   componentDidMount() {
-    PostApi.getChannelPosts()
+    PostApi.getTagPosts()
       .then(json => {
         if (json.success !== true) {
           alert("Error:" + json.message);
           return;
         }
 
-        console.log(">>>termPostsList:", json.data);
         this.setState({
           termPostsList: json.data
         });
@@ -32,13 +31,13 @@ export default class ChannelPostsList extends React.Component {
 
   render() {
     const { termPostsList } = this.state;
-    if (!termPostsList) {
+    if (!termPostsList || termPostsList.length == 0) {
       return (<div></div>);
     }
 
     const items = termPostsList.map((termPosts, index) => {
       const marginTop = index === 0 ? 10 : 40;
-      return (<div key={"channels-" + index} style={{marginTop: marginTop}}><ChannelPosts termPosts={termPosts}/></div>);
+      return (<div key={"channels-" + index} style={{marginTop: marginTop}}><TagPosts termPosts={termPosts}/></div>);
     });
 
     return (

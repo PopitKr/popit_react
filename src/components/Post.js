@@ -1,6 +1,6 @@
 import React from 'react';
 import { FacebookButton, LinkedinButton, TwitterTweetButton } from 'react-social-sharebuttons';
-import { Icon } from 'antd';
+import { Icon, Button } from 'antd';
 
 import './popit.css';
 
@@ -29,7 +29,6 @@ export default class Post extends React.Component {
   }
 
   //get facebook like ==> https://www.facebook.com/v2.11/plugins/like.php?app_id=0&channel=http://staticxx.facebook.com/connect/xd_arbiter/r/Nh1oH0K63yz.js?version=42
-
   render() {
     const { post } = this.props;
 
@@ -62,7 +61,11 @@ export default class Post extends React.Component {
             ?
             (
               <div style={{position: 'absolute', top: 40, left: 190}}>
-                <a href=""><Icon type="right-circle" style={{ fontSize: 42, color: '#F0F0F0'}} /></a>
+                <Button shape="circle"
+                        icon="right"
+                        onClick={this.props.handleNextButton}
+                        // style={{ color: '#F0F0F0'}}
+                />
               </div>
             )
             :

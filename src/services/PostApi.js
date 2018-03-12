@@ -19,15 +19,22 @@ export default class PostApi extends React.Component {
     }
   };
 
-  static getRecentPosts = () => {
-    const apiPath = `${PostApi.getApiServer()}/api/RecentPosts`;
+  static getRecentPosts = (page) => {
+    const apiPath = `${PostApi.getApiServer()}/api/RecentPosts?page=${page}`;
     return fetch(apiPath, {headers: PostApi.getHeader()})
       .then(HttpUtil.handleHttpStatus)
       .then(res => res.json())
   };
 
-  static getChannelPosts = () => {
-    const apiPath = `${PostApi.getApiServer()}/api/ChannelPosts`;
+  static getTagPosts = () => {
+    const apiPath = `${PostApi.getApiServer()}/api/TagPosts`;
+    return fetch(apiPath, {headers: PostApi.getHeader()})
+      .then(HttpUtil.handleHttpStatus)
+      .then(res => res.json())
+  };
+
+  static getPostsByTag = (tagId, excludePostIds, page) => {
+    const apiPath = `${PostApi.getApiServer()}/api/PostsByTag?tag=${tagId}&page=${page}&excludes=${excludePostIds}`;
     return fetch(apiPath, {headers: PostApi.getHeader()})
       .then(HttpUtil.handleHttpStatus)
       .then(res => res.json())
