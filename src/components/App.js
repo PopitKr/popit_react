@@ -14,7 +14,7 @@ export default class App extends React.Component {
     return (
       <Layout className="layout" hasSider={false} style={{background: '#ffffff'}}>
         <PopitHeader/>
-        <Content style={{ padding: '0 10px'}}>
+        <Content style={{ padding: '0 10px', maxWidth: 1360, margin: 'auto auto'}}>
           <div style={{float: 'left', maxWidth: 1040}}>
             <div style={{padding: 15}}>
               <RecentPosts/>
@@ -37,22 +37,22 @@ export default class App extends React.Component {
             </div>
           </div>
           <div style={{float: 'left'}}>
-            <div style={{width: 320, height: 250, marginTop: 15, marginBottom: 15}}>
-              <GoogleAd adStyle={{display: 'inline-block', width: 300, height: 250 }}
+            <div style={{width: 300, height: 250, marginTop: 15, marginBottom: 15}}>
+              <GoogleAd adStyle={{display: 'inline-block', width: 300}}
                         slot="6500771233">
               </GoogleAd>
             </div>
-            <div style={{width: 320}}>
+            <div style={{width: 300}}>
               <div className="fb-page"
                    data-href="https://www.facebook.com/popitkr"
-                   data-width="320"
+                   data-width="300"
                    small_header="true"
                    data-hide-cover="false"
                    adapt_container_width="false"
                    data-show-facepile="true">
               </div>
             </div>
-            <div style={{width: 320, marginTop: 15}}>
+            <div style={{width: 300, marginTop: 15}}>
               <GoogleAd adStyle={{display: 'inline-block', width: 300, height: 600 }}
                         slot="9919828418">
               </GoogleAd>
