@@ -2,13 +2,9 @@ import React from 'react';
 
 let fbInjected = false;
 let fbLoaded = !!window.FB;
-let fbCallbacks = [];
 
 function onFbLoad() {
   fbLoaded = true;
-//   fbCallbacks.forEach((cb) => {
-//     cb();
-//   });
 }
 
 export default class FBLoader extends React.Component {
@@ -20,11 +16,6 @@ export default class FBLoader extends React.Component {
       if (props.onFbLoad) {
         props.onFbLoad();
       }
-    } else if (fbInjected) {
-      // Injected but not loaded
-      // if (props.onFbLoad) {
-      //   fbCallbacks.push(props.onFbLoad);
-      // }
     } else {
       // Not yet injected
       fbInjected = true;

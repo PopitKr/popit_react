@@ -13,11 +13,7 @@ export default class ShareButton extends React.Component {
 
   componentWillUpdate(nextProps, nextState) {
     if (nextState.fbLoaded && !this.state.fbLoaded) {
-      try {
-        window.FB.XFBML.parse(this._scope);
-      } catch (error) {
-        console.log(">>>>>error:", error);
-      };
+      window.FB.XFBML.parse(this._scope);
     }
   }
 

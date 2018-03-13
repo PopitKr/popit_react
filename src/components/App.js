@@ -20,7 +20,7 @@ export default class App extends React.Component {
               <RecentPosts/>
             </div>
             <div style={{textAlign: 'center'}}>
-              <GoogleAd adStyle={{display: 'inline-block', width: 728,  height: 90 }}
+              <GoogleAd adStyle={{display: 'inline-block', width: 728, height: 90}}
                         slot="8038920473">
               </GoogleAd>
             </div>
@@ -53,7 +53,7 @@ export default class App extends React.Component {
               </div>
             </div>
             <div style={{width: 300, marginTop: 15}}>
-              <GoogleAd adStyle={{display: 'inline-block', width: 300, height: 600 }}
+              <GoogleAd adStyle={{display: 'inline-block', width: 300, height: 600}}
                         slot="9919828418">
               </GoogleAd>
             </div>

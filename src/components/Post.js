@@ -32,7 +32,6 @@ export default class Post extends React.Component {
       return (<span key={"tags-" + index}>{delimiter} <a href={`http://www.popit.kr/${tag.slug}`}>{tag.name}</a></span>)
     });
 
-    //http://dapperdeveloper.com/2015/01/23/creating-custom-social-share-buttons/
     const separator = tags.length > 0 ? " | " : "";
     const coverImage = post.image ? post.image : defaultCover;
     const postUrl = `http://www.popit.kr/${post.postName}/`;
