@@ -1,6 +1,6 @@
 import React from 'react';
 
-class GoogleAd extends React.Component {
+export default class GoogleAd extends React.Component {
   componentDidMount() {
     (window.adsbygoogle = window.adsbygoogle || []).push({})
   }
