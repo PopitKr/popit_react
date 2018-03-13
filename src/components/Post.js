@@ -41,13 +41,13 @@ export default class Post extends React.Component {
     return (
       <div className="post" style={{position: 'relative'}}>
         <div>
-          <a href={postUrl}><img src={coverImage} style={{width: 210, height: 120}}/></a>
+          <a href={postUrl}><img src={coverImage} style={{width: 230, height: 140}}/></a>
         </div>
         {
           this.props.showNext === true
             ?
             (
-              <div style={{position: 'absolute', top: 40, left: 195}}>
+              <div style={{position: 'absolute', top: 45, left: 215}}>
                 <Button shape="circle"
                         icon="right"
                         onClick={this.props.handleNextButton}
@@ -63,7 +63,7 @@ export default class Post extends React.Component {
           this.props.showPrev === true
             ?
             (
-              <div style={{position: 'absolute', top: 40, left: -10}}>
+              <div style={{position: 'absolute', top: 45, left: -15}}>
                 <Button shape="circle"
                         icon="left"
                         onClick={this.props.handlePrevButton}

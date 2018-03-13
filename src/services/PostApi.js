@@ -19,8 +19,8 @@ export default class PostApi extends React.Component {
     }
   };
 
-  static getRecentPosts = (page) => {
-    const apiPath = `${PostApi.getApiServer()}/api/RecentPosts?page=${page}`;
+  static getRecentPosts = (page, pageSize) => {
+    const apiPath = `${PostApi.getApiServer()}/api/RecentPosts?page=${page}&size=${pageSize}`;
     return fetch(apiPath, {headers: PostApi.getHeader()})
       .then(HttpUtil.handleHttpStatus)
       .then(res => res.json())
@@ -33,8 +33,8 @@ export default class PostApi extends React.Component {
       .then(res => res.json())
   };
 
-  static getPostsByTag = (tagId, excludePostIds, page) => {
-    const apiPath = `${PostApi.getApiServer()}/api/PostsByTag?tag=${tagId}&page=${page}&excludes=${excludePostIds}`;
+  static getPostsByTag = (tagId, excludePostIds, page, pageSize) => {
+    const apiPath = `${PostApi.getApiServer()}/api/PostsByTag?tag=${tagId}&page=${page}&size=${pageSize}&excludes=${excludePostIds}`;
     return fetch(apiPath, {headers: PostApi.getHeader()})
       .then(HttpUtil.handleHttpStatus)
       .then(res => res.json())
@@ -42,6 +42,13 @@ export default class PostApi extends React.Component {
 
   static getRandomAuthorPosts = () => {
     const apiPath = `${PostApi.getApiServer()}/api/RandomAuthorPosts`;
+    return fetch(apiPath, {headers: PostApi.getHeader()})
+      .then(HttpUtil.handleHttpStatus)
+      .then(res => res.json())
+  };
+
+  static getPostsByAuthor = (authorId, excludePostIds, page, pageSize) => {
+    const apiPath = `${PostApi.getApiServer()}/api/PostsByAuthor?id=${authorId}&page=${page}&size=${pageSize}&excludes=${excludePostIds}`;
     return fetch(apiPath, {headers: PostApi.getHeader()})
       .then(HttpUtil.handleHttpStatus)
       .then(res => res.json())

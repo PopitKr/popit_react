@@ -4,6 +4,8 @@ import PostApi from '../services/PostApi';
 
 import './popit.css';
 
+const MAX_NUM_POSTS = 4;
+
 export default class RecentPosts extends React.Component {
   constructor(props) {
     super(props);
@@ -31,7 +33,7 @@ export default class RecentPosts extends React.Component {
   };
 
   getPosts = () => {
-    PostApi.getRecentPosts(this.page)
+    PostApi.getRecentPosts(this.page, MAX_NUM_POSTS)
       .then(json => {
         if (json.success !== true) {
           alert("Error:" + json.message);
@@ -55,12 +57,11 @@ export default class RecentPosts extends React.Component {
   render() {
     const { posts } = this.state;
     const postItems = posts.map((post, index) => {
-      if (index >= 5) {
+      if (index >= MAX_NUM_POSTS) {
         return null;
       }
-      const marginRight = index < 4 ? 15 : 0;
-      // const marginRight = 15;
-      const showNext = index >= 4;
+      const marginRight = index < (MAX_NUM_POSTS - 1) ? 25 : 10;
+      const showNext = index >= (MAX_NUM_POSTS - 1);
       const showPrev = this.page > 1 && index == 0;
       return(
         <div key={"recent-" + post.id} style={{float: "left", marginRight: marginRight}}>

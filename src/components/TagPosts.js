@@ -3,6 +3,8 @@ import React from 'react';
 import Post from './Post';
 import PostApi from "../services/PostApi";
 
+const MAX_NUM_POSTS = 2;
+
 export default class TagPosts extends React.Component {
   constructor(props) {
     super(props);
@@ -35,7 +37,7 @@ export default class TagPosts extends React.Component {
   getTagPosts = () => {
     const excludePostIds = this.initShownPosts.map(post => post.id);
 
-    PostApi.getPostsByTag(this.term.id, excludePostIds, this.page)
+    PostApi.getPostsByTag(this.term.id, excludePostIds, this.page, MAX_NUM_POSTS)
       .then(json => {
         if (json.success !== true) {
           alert("Error:" + json.message);
@@ -70,14 +72,14 @@ export default class TagPosts extends React.Component {
     const termLink = `http://www.popit.kr/tag/${this.term.name}`;
 
     const postItems = posts.map((post, index) => {
-      if (index > 2) {
+      if (index >= MAX_NUM_POSTS) {
         return null;
       }
       if (this.useProps) {
         this.initShownPosts.push(post);
       }
-      const marginRight = index < 2 ? 15 : 0;
-      const showNext = index >= 2;
+      const marginRight = index < (MAX_NUM_POSTS - 1) ? 15 : 10;
+      const showNext = index >= (MAX_NUM_POSTS - 1);
       const showPrev = index == 0 && this.page > 0;
       return (
         <div key={"tag-" + post.id} style={{float: "left", marginRight: marginRight}}>

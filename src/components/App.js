@@ -14,8 +14,8 @@ export default class App extends React.Component {
       <Layout className="layout" hasSider={false} style={{background: '#ffffff'}}>
         <PopitHeader/>
         <Content style={{ padding: '0 10px'}}>
-          <div style={{float: 'left', maxWidth: 1140}}>
-            <div style={{marginLeft: 10, padding: 10}}>
+          <div style={{float: 'left', maxWidth: 1040}}>
+            <div style={{padding: 15}}>
               <RecentPosts/>
             </div>
             <div style={{textAlign: 'center'}}>
@@ -25,8 +25,8 @@ export default class App extends React.Component {
                    data-ad-slot="8038920473"></ins>
             </div>
             <div>
-              <div style={{marginLeft: 10, padding: 10}}>
-                <div style={{float: "left", marginBottom: 10, marginRight: 15}}>
+              <div style={{padding: 15}}>
+                <div style={{float: "left", marginBottom: 10, marginRight: 45}}>
                   <AuthorPostsList/>
                 </div>
                 <div style={{float: "left", marginBottom: 10}}>
@@ -36,8 +36,8 @@ export default class App extends React.Component {
               </div>
             </div>
           </div>
-          <div style={{float: 'left', marginLeft: 15}}>
-            <div style={{width: 260, marginBottom: 20}}>
+          <div style={{float: 'left'}}>
+            <div style={{width: 320, marginBottom: 15}}>
               <ins className="adsbygoogle"
                    style={{display: 'block'}}
                    data-ad-format="fluid"
@@ -45,17 +45,17 @@ export default class App extends React.Component {
                    data-ad-client="ca-pub-9913849834747247"
                    data-ad-slot="5956995695"></ins>
             </div>
-            <div style={{width: 260}}>
+            <div style={{width: 320}}>
               <div className="fb-page"
                    data-href="https://www.facebook.com/popitkr"
-                   data-width="260"
+                   data-width="320"
                    small_header="true"
                    data-hide-cover="false"
                    adapt_container_width="false"
                    data-show-facepile="true">
               </div>
             </div>
-            <div style={{width: 260, marginTop: 120}}>
+            <div style={{width: 320, marginTop: 120}}>
               <ins className="adsbygoogle"
                    style={{display: 'block'}}
                    data-ad-format="fluid"
