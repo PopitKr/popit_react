@@ -20,7 +20,7 @@ export default class App extends React.Component {
               <RecentPosts/>
             </div>
             <div style={{textAlign: 'center'}}>
-              <GoogleAd style={{display: 'inline-block', width:728, height:90}}
+              <GoogleAd adStyle={{display: 'inline-block', width: 728,  height: 90 }}
                         slot="8038920473">
               </GoogleAd>
             </div>
@@ -37,8 +37,8 @@ export default class App extends React.Component {
             </div>
           </div>
           <div style={{float: 'left'}}>
-            <div style={{width: 320, marginBottom: 15}}>
-              <GoogleAd style={{display: 'inline-block', width:300, height: 250}}
+            <div style={{width: 320, height: 250, marginTop: 15, marginBottom: 15}}>
+              <GoogleAd adStyle={{display: 'inline-block', width: 300, height: 250 }}
                         slot="6500771233">
               </GoogleAd>
             </div>
@@ -52,8 +52,8 @@ export default class App extends React.Component {
                    data-show-facepile="true">
               </div>
             </div>
-            <div style={{width: 320, marginTop: 120}}>
-              <GoogleAd style={{display: 'inline-block', width:300, height: 600}}
+            <div style={{width: 320, marginTop: 15}}>
+              <GoogleAd adStyle={{display: 'inline-block', width: 300, height: 600 }}
                         slot="9919828418">
               </GoogleAd>
             </div>

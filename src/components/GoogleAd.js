@@ -12,7 +12,7 @@ export default class GoogleAd extends React.Component {
 
     return(
       <ins className="adsbygoogle"
-           style={style}
+           style={this.props.adStyle}
            data-ad-client="ca-pub-9913849834747247"
            data-ad-slot={this.props.slot}
            data-ad-format="auto">

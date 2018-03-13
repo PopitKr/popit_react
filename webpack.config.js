@@ -3,6 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = (env) => {
   return {
@@ -18,20 +19,21 @@ module.exports = (env) => {
     output: {
       path: __dirname + '/dist/',               // 번들 파일 폴더
       filename: 'js/[name].[hash].bundle.js',   // 번들 파일 이름 규칙
-      sourceMapFilename: 'js/[name].[chunkhash].bundle.map',  // SourceMap 이름 규칙
-      chunkFilename: 'js/[name].[chunkhash].chunk.js',  // Chunk file 이름 규칙
+      // sourceMapFilename: 'js/[name].[chunkhash].bundle.map',  // SourceMap 이름 규칙
+      // chunkFilename: 'js/[name].[chunkhash].chunk.js',  // Chunk file 이름 규칙
     },
 
     devServer: {
-      inline: true,
-      compress: true,
+      // inline: true,
+      // compress: true,
       port: 5000,
       contentBase: __dirname + '/dist/',
       publicPath: '/',
       historyApiFallback: true,
+      disableHostCheck: true
     },
 
-    devtool: 'inline-source-map',
+    //devtool: 'inline-source-map',
 
     module: {
       rules: [{
@@ -76,6 +78,7 @@ module.exports = (env) => {
         template: './index.html',
         chunksSortMode: 'dependency'
       }),
+      new CompressionPlugin(),
     ],
   };
 };
