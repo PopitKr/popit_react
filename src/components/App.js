@@ -5,11 +5,12 @@ import RecentPosts from "./RecentPosts";
 import './popit.css';
 import TagPostsList from "./TagPostsList";
 import AuthorPostsList from "./AuthorPostsList";
+import GoogleAd from './GoogleAd';
 
 const { Content, Footer } = Layout;
 
 export default class App extends React.Component {
-  render(){
+  render() {
     return (
       <Layout className="layout" hasSider={false} style={{background: '#ffffff'}}>
         <PopitHeader/>
@@ -19,10 +20,9 @@ export default class App extends React.Component {
               <RecentPosts/>
             </div>
             <div style={{textAlign: 'center'}}>
-              <ins className="adsbygoogle"
-                   style={{display: 'inline-block', width:728, height:90}}
-                   data-ad-client="ca-pub-9913849834747247"
-                   data-ad-slot="8038920473"></ins>
+              <GoogleAd style={{display: 'inline-block', width:728, height:90}}
+                        slot="8038920473">
+              </GoogleAd>
             </div>
             <div>
               <div style={{padding: 15}}>
@@ -38,12 +38,9 @@ export default class App extends React.Component {
           </div>
           <div style={{float: 'left'}}>
             <div style={{width: 320, marginBottom: 15}}>
-              <ins className="adsbygoogle"
-                   style={{display: 'block'}}
-                   data-ad-format="fluid"
-                   data-ad-layout-key="-8d+1f-e9+fe+k6"
-                   data-ad-client="ca-pub-9913849834747247"
-                   data-ad-slot="5956995695"></ins>
+              <GoogleAd style={{display: 'inline-block', width:300, height: 250}}
+                        slot="6500771233">
+              </GoogleAd>
             </div>
             <div style={{width: 320}}>
               <div className="fb-page"
@@ -56,12 +53,9 @@ export default class App extends React.Component {
               </div>
             </div>
             <div style={{width: 320, marginTop: 120}}>
-              <ins className="adsbygoogle"
-                   style={{display: 'block'}}
-                   data-ad-format="fluid"
-                   data-ad-layout-key="-8d+1f-e9+fe+k6"
-                   data-ad-client="ca-pub-9913849834747247"
-                   data-ad-slot="5897285940"></ins>
+              <GoogleAd style={{display: 'inline-block', width:300, height: 600}}
+                        slot="9919828418">
+              </GoogleAd>
             </div>
           </div>
           <div style={{clear: 'both'}}></div>
