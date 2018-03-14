@@ -37,7 +37,7 @@ export default class App extends React.Component {
             </div>
           </div>
           <div style={{float: 'left'}}>
-            <div style={{width: 300, height: 250, marginTop: 15, marginBottom: 15}}>
+            <div style={{width: 300, marginTop: 15, marginBottom: 15}}>
               <GoogleAd adStyle={{display: 'inline-block', width: 300}}
                         slot="6500771233">
               </GoogleAd>
