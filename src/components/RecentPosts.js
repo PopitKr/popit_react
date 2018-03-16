@@ -80,6 +80,7 @@ export default class RecentPosts extends React.Component {
 
     return (
       <div>
+        <h2 className="author_title">최신글</h2>
         <div>{ postItems }</div>
         <div style={{clear: "both"}}></div>
       </div>

@@ -54,6 +54,13 @@ export default class PostApi extends React.Component {
       .then(res => res.json())
   };
 
+  static getGoogleAds = () => {
+    const apiPath = `${PostApi.getApiServer()}/api/GetGoogleAd`;
+    return fetch(apiPath, {headers: PostApi.getHeader()})
+      .then(HttpUtil.handleHttpStatus)
+      .then(res => res.json())
+  };
+
   static getHeader = () => {
     return {
       'Content-Type': 'application/json'

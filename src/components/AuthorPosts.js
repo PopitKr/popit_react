@@ -102,7 +102,7 @@ export default class AuthorPosts extends React.Component {
             <h2>
               <a className="author_title"
                  href={authorPostsLink}>
-                {this.author.displayName}
+                { this.author.displayName }
               </a>
             </h2>
           </span>

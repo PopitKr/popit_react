@@ -6,11 +6,47 @@ import './popit.css';
 import TagPostsList from "./TagPostsList";
 import AuthorPostsList from "./AuthorPostsList";
 import GoogleAd from './GoogleAd';
+import PostApi from "../services/PostApi";
 
 const { Content, Footer } = Layout;
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      googleAds: null,
+    };
+  }
+  componentDidMount() {
+    PostApi.getGoogleAds()
+      .then(json => {
+        if (json.success !== true) {
+          alert("Error:" + json.message);
+          return;
+        }
+
+        this.setState({
+          googleAds: json.data,
+        });
+      })
+      .catch(error => {
+        alert("Error:" + error);
+      });
+  };
+
   render() {
+    const { googleAds } = this.state;
+
+    let topAd = null;
+    let middleAd = null;
+    let bottomAd = null;
+    if (googleAds) {
+      topAd = (googleAds["google_ad.index.top"]) ? (<GoogleAd googleAd={googleAds["google_ad.index.top"].value}></GoogleAd>) :(<div></div>);
+      middleAd = (googleAds["google_ad.index.middle"]) ? (<GoogleAd googleAd={googleAds["google_ad.index.middle"].value}></GoogleAd>) :(<div></div>);
+      bottomAd = (googleAds["google_ad.index.bottom"]) ? (<GoogleAd googleAd={googleAds["google_ad.index.bottom"].value}></GoogleAd>) :(<div></div>);
+    }
+
     return (
       <Layout className="layout" hasSider={false} style={{background: '#ffffff'}}>
         <PopitHeader/>
@@ -20,9 +56,7 @@ export default class App extends React.Component {
               <RecentPosts/>
             </div>
             <div style={{textAlign: 'center'}}>
-              <GoogleAd adStyle={{display: 'inline-block', width: 728, height: 90}}
-                        slot="8038920473">
-              </GoogleAd>
+              { topAd }
             </div>
             <div>
               <div style={{padding: 15}}>
@@ -38,9 +72,7 @@ export default class App extends React.Component {
           </div>
           <div style={{float: 'left'}}>
             <div style={{width: 300, marginTop: 15, marginBottom: 15}}>
-              <GoogleAd adStyle={{display: 'inline-block', width: 300}}
-                        slot="6500771233">
-              </GoogleAd>
+              { middleAd }
             </div>
             <div style={{width: 300}}>
               <div className="fb-page"
@@ -53,9 +85,7 @@ export default class App extends React.Component {
               </div>
             </div>
             <div style={{width: 300, marginTop: 15}}>
-              <GoogleAd adStyle={{display: 'inline-block', width: 300, height: 600}}
-                        slot="9919828418">
-              </GoogleAd>
+              { bottomAd }
             </div>
           </div>
           <div style={{clear: 'both'}}></div>

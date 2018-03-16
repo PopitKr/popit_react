@@ -87,7 +87,7 @@ export default class Post extends React.Component {
                 <div style={{float: 'left', marginRight: 10}}>
                   <a href={authorPostLink}><img src={post.author.avatar} className="author_avatar"/></a>
                 </div>
-                <div style={{float: 'left', marginRight: 10, fontSize: 12}}>
+                <div style={{float: 'left', marginRight: 10, fontSize: 13}}>
                   <div>
                     <a style={{textDecoration: "none"}} href={authorPostLink} target="_blank">{post.author.displayName}</a>
                   </div>

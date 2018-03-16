@@ -40,7 +40,7 @@ export default class AuthorPostsList extends React.Component {
       return (
         <div key={"authorlist-" + index} style={{marginTop: marginTop}}>
           { hrTag }
-          <AuthorPosts authorPosts={authorPosts}/>
+          <AuthorPosts index={index} authorPosts={authorPosts}/>
         </div>
       );
     });
