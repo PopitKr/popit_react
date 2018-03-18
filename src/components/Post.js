@@ -3,7 +3,9 @@ import { Icon, Button } from 'antd';
 import ShareButton from './ShareButton';
 import './popit.css';
 
-import defaultCover from '../asset/default_cover.jpg';
+import defaultCover1 from '../asset/default_cover1.jpg';
+import defaultCover2 from '../asset/default_cover2.jpg';
+import defaultCover3 from '../asset/default_cover3.jpg';
 
 export default class Post extends React.Component {
   constructor(props) {
@@ -14,6 +16,17 @@ export default class Post extends React.Component {
       avatar: "",
     }
   }
+
+  getDefaultImage = () => {
+    const randVal = Math.floor(Math.random() * 3) + 1;
+    if (randVal == 1) {
+      return defaultCover1;
+    } else if (randVal == 2) {
+      return defaultCover2;
+    } else {
+      return defaultCover3;
+    }
+  };
 
   //get facebook like ==> https://www.facebook.com/v2.11/plugins/like.php?app_id=0&channel=http://staticxx.facebook.com/connect/xd_arbiter/r/Nh1oH0K63yz.js?version=42
   render() {
@@ -33,14 +46,15 @@ export default class Post extends React.Component {
     });
 
     const separator = tags.length > 0 ? " | " : "";
-    const coverImage = post.image ? post.image : defaultCover;
+
+    const coverImage = post.image ? post.image : this.getDefaultImage();
     const postUrl = `http://www.popit.kr/${post.postName}/`;
     const authorPostLink = `http://www.popit.kr/author/${post.author.userLogin}`;
 
     return (
       <div className="post" style={{position: 'relative'}}>
         <div>
-          <a href={postUrl}><img src={coverImage} style={{width: 230, height: 140}}/></a>
+          <a href={postUrl}><img src={coverImage} style={{width: 230, height: 130}}/></a>
         </div>
         {
           this.props.showNext === true
