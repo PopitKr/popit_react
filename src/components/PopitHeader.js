@@ -15,8 +15,9 @@ export default class PopitHeader extends React.Component {
       <Header>
         <div className="logo" style={{cursor: 'pointer'}} onClick={() => {document.location.href = "/v2"}}/>
         <div style={{float: 'right', marginLeft: 20}}>
-          <a style={{color: '#DEDEDE', fontWeight: 'bold', marginRight: 20}} href="http://www.popit.kr/how-to-contribute/"><Icon type="edit" />&nbsp;&nbsp;저자신청</a>
-          <a style={{color: '#DEDEDE', fontWeight: 'bold'}} href="http://www.popit.kr/category/%ea%b3%b5%ec%a7%80%ec%82%ac%ed%95%ad/">&nbsp;&nbsp;<Icon type="sound" />&nbsp;&nbsp;공지사항</a>
+          <a style={{color: '#DEDEDE', fontWeight: 'bold', marginRight: 10}} href="http://www.popit.kr/how-to-contribute/"><Icon type="edit" />&nbsp;&nbsp;저자신청</a>
+          <a style={{color: '#DEDEDE', fontWeight: 'bold', marginRight: 10}} href="http://www.popit.kr/category/%ea%b3%b5%ec%a7%80%ec%82%ac%ed%95%ad/"><Icon type="sound" />&nbsp;&nbsp;공지사항</a>
+          <a style={{color: '#DEDEDE', fontWeight: 'bold'}} href="http://www.popit.kr/wp-admin/"><Icon type="setting" /> 로그인</a>
         </div>
         <div style={{float: 'right', marginLeft: 20}}>
           <Search

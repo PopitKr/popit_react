@@ -49,12 +49,10 @@ export default class ShareButton extends React.Component {
           </FBLoader>
         </div>
         <div style={{float: 'left', marginLeft: 5}}>
-          <span style={{display: 'inline-block', height: '100%', verticalAlign: 'top'}}>
-            <img src={TwitterShare} style={{width: 20, height: 20, cursor: 'pointer'}} onClick={this.shareTwitter}/>
-          </span>
+          <img src={TwitterShare} style={{width: 20, height: 20, marginTop: -3, cursor: 'pointer'}} onClick={this.shareTwitter}/>
         </div>
         <div style={{float: 'left', marginLeft: 5}}>
-          <img src={LinkedShare} style={{width: 20, height: 20, cursor: 'pointer'}} onClick={this.shareLinkedin}/>
+          <img src={LinkedShare} style={{width: 20, height: 20, marginTop: -3, cursor: 'pointer'}} onClick={this.shareLinkedin}/>
         </div>
         <div style={{clear: 'both'}}/>
       </div>

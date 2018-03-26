@@ -2,6 +2,7 @@ import React from 'react';
 
 let fbInjected = false;
 let fbLoaded = !!window.FB;
+let fbLoading = false;
 
 function onFbLoad() {
   fbLoaded = true;
@@ -17,7 +18,12 @@ export default class FBLoader extends React.Component {
         props.onFbLoad();
       }
     } else {
+      if (fbLoading == true) {
+        return;
+      }
+      fbLoading = true;
       // Not yet injected
+      console.log("==> fbLoaded load");
       fbInjected = true;
       let script = document.createElement('script');
       script.onload = onFbLoad;

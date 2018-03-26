@@ -34,7 +34,7 @@ export default class Post extends React.Component {
 
     const categories = post.categories.map((category, index) => {
       const delimiter = index === 0 ? "" : ",";
-      return (<span key={"categories-" + index}>{delimiter} <a href={`http://www.popit.kr/${category.slug}`}>{category.name}</a></span>)
+      return (<span key={"categories-" + index}>{delimiter} <a href={`http://www.popit.kr/category/${category.slug}`}>{category.name}</a></span>)
     });
 
     const tags = post.tags.map((tag, index) => {
@@ -42,7 +42,7 @@ export default class Post extends React.Component {
         return null;
       }
       const delimiter = index === 0 ? "" : ",";
-      return (<span key={"tags-" + index}>{delimiter} <a href={`http://www.popit.kr/${tag.slug}`}>{tag.name}</a></span>)
+      return (<span key={"tags-" + index}>{delimiter} <a href={`http://www.popit.kr/tag/${tag.slug}`}>{tag.name}</a></span>)
     });
 
     const separator = tags.length > 0 ? " | " : "";
@@ -60,9 +60,10 @@ export default class Post extends React.Component {
           this.props.showNext === true
             ?
             (
-              <div style={{position: 'absolute', top: 45, left: 215}}>
+              <div style={{position: 'absolute', top: 45, left: 210}}>
                 <Button shape="circle"
                         icon="right"
+                        size="large"
                         onClick={this.props.handleNextButton}
                         // style={{ color: '#F0F0F0'}}
                 />
@@ -76,9 +77,10 @@ export default class Post extends React.Component {
           this.props.showPrev === true
             ?
             (
-              <div style={{position: 'absolute', top: 45, left: -15}}>
+              <div style={{position: 'absolute', top: 45, left: -20}}>
                 <Button shape="circle"
                         icon="left"
+                        size="large"
                         onClick={this.props.handlePrevButton}
                   // style={{ color: '#F0F0F0'}}
                 />

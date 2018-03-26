@@ -2,7 +2,7 @@ import React from 'react';
 
 export default class GoogleAd extends React.Component {
   componentDidMount() {
-    (window.adsbygoogle = window.adsbygoogle || []).push({})
+    // (window.adsbygoogle = window.adsbygoogle || []).push({})
   }
 
   render() {
