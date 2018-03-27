@@ -27,7 +27,7 @@ export default class FBLoader extends React.Component {
       fbInjected = true;
       let script = document.createElement('script');
       script.onload = onFbLoad;
-      script.src = 'https://connect.facebook.net/es_US/sdk.js#xfbml=1&version=v2.5&appId=131306400631298';
+      script.src = 'https://connect.facebook.net/es_US/all.js#xfbml=1&version=v2.5&appId=131306400631298';
       document.body.appendChild(script);
     }
   }
