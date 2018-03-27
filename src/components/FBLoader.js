@@ -1,18 +1,18 @@
 import React from 'react';
 
-let fbInjected = false;
 let fbLoaded = !!window.FB;
 let fbLoading = false;
+let fbLoadFinished = false;
 
 function onFbLoad() {
-  fbLoaded = true;
+  fbLoadFinished = true;
 }
 
 export default class FBLoader extends React.Component {
   constructor(props) {
     super(props);
 
-    if (fbLoaded) {
+    if (fbLoaded && fbLoadFinished) {
       // Injected and loaded
       if (props.onFbLoad) {
         props.onFbLoad();
@@ -24,7 +24,6 @@ export default class FBLoader extends React.Component {
       fbLoading = true;
       // Not yet injected
       console.log("==> fbLoaded load");
-      fbInjected = true;
       let script = document.createElement('script');
       script.onload = onFbLoad;
       script.src = 'https://connect.facebook.net/es_US/all.js#xfbml=1&version=v2.5&appId=131306400631298';

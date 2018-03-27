@@ -12,7 +12,7 @@ export default class AuthorPostsList extends React.Component {
     }
   }
   componentDidMount() {
-    PostApi.getRandomAuthorPosts()
+    PostApi.getRandomAuthorPosts(false)
       .then(json => {
         if (json.success !== true) {
           alert("Error:" + json.message);

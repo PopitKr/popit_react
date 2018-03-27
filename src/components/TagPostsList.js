@@ -12,7 +12,7 @@ export default class TagPostsList extends React.Component {
     }
   }
   componentDidMount() {
-    PostApi.getTagPosts()
+    PostApi.getTagPosts(false)
       .then(json => {
         if (json.success !== true) {
           alert("Error:" + json.message);

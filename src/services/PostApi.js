@@ -26,8 +26,8 @@ export default class PostApi extends React.Component {
       .then(res => res.json())
   };
 
-  static getTagPosts = () => {
-    const apiPath = `${PostApi.getApiServer()}/api/TagPosts`;
+  static getTagPosts = (isMobile) => {
+    const apiPath = `${PostApi.getApiServer()}/api/TagPosts?isMobile=${isMobile}`;
     return fetch(apiPath, {headers: PostApi.getHeader()})
       .then(HttpUtil.handleHttpStatus)
       .then(res => res.json())
@@ -40,8 +40,8 @@ export default class PostApi extends React.Component {
       .then(res => res.json())
   };
 
-  static getRandomAuthorPosts = () => {
-    const apiPath = `${PostApi.getApiServer()}/api/RandomAuthorPosts`;
+  static getRandomAuthorPosts = (isMobile) => {
+    const apiPath = `${PostApi.getApiServer()}/api/RandomAuthorPosts?isMobile=${isMobile}`;
     return fetch(apiPath, {headers: PostApi.getHeader()})
       .then(HttpUtil.handleHttpStatus)
       .then(res => res.json())
@@ -54,8 +54,8 @@ export default class PostApi extends React.Component {
       .then(res => res.json())
   };
 
-  static getGoogleAds = () => {
-    const apiPath = `${PostApi.getApiServer()}/api/GetGoogleAd`;
+  static getGoogleAds = (mode) => {
+    const apiPath = `${PostApi.getApiServer()}/api/GetGoogleAd?mode=${mode}`;
     return fetch(apiPath, {headers: PostApi.getHeader()})
       .then(HttpUtil.handleHttpStatus)
       .then(res => res.json())

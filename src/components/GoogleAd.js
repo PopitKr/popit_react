@@ -6,6 +6,7 @@ export default class GoogleAd extends React.Component {
   }
 
   render() {
+    // return (<div style={{height: 100, width: 100}}>Ad</div>)
     return (
       <div dangerouslySetInnerHTML={ {__html: this.props.googleAd} }>
       </div>
