@@ -1,11 +1,11 @@
 import React from 'react';
 import { Icon, Button, Row, Col } from 'antd';
-import ShareButton from './ShareButton';
-import './popit.css';
+import ShareButton from '../ShareButton';
+import '../popit.css';
 
-import defaultCover1 from '../asset/default_cover1.jpg';
-import defaultCover2 from '../asset/default_cover2.jpg';
-import defaultCover3 from '../asset/default_cover3.jpg';
+// import defaultCover1 from '../../asset/default_cover1.jpg';
+// import defaultCover2 from '../../asset/default_cover2.jpg';
+// import defaultCover3 from '../../asset/default_cover3.jpg';
 
 export default class MobilePost extends React.Component {
   constructor(props) {
@@ -16,7 +16,7 @@ export default class MobilePost extends React.Component {
     }
   }
 
-  getDefaultImage = () => {
+  getDefaultImage() {
     const randVal = Math.floor(Math.random() * 3) + 1;
     if (randVal == 1) {
       return defaultCover1;
@@ -45,7 +45,8 @@ export default class MobilePost extends React.Component {
 
     const separator = tags.length > 0 ? " | " : "";
 
-    const coverImage = post.image ? post.image : this.getDefaultImage();
+    // const coverImage = post.image ? post.image : this.getDefaultImage();
+    const coverImage = post.image;
     const postUrl = `http://www.popit.kr/${post.postName}/`;
     const authorPostLink = `http://www.popit.kr/author/${post.author.userLogin}`;
 

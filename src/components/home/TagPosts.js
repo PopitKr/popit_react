@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Post from './Post';
-import PostApi from "../services/PostApi";
+import PostApi from "../../services/PostApi";
+import { PUBLIC_PATH } from "../../routes";
 
 const MAX_NUM_POSTS = 2;
 
@@ -15,15 +17,19 @@ export default class TagPosts extends React.Component {
     this.initShownPosts = [];
     this.term = null;
     this.page = 0;
+
+    this.getNextTagPost = this.getNextTagPost.bind(this);
+    this.getPrevTagPos = this.getPrevTagPos.bind(this);
+    this.getTagPosts = this.getTagPosts.bind(this);
   }
 
-  getNextTagPost = () => {
+  getNextTagPost() {
     this.useProps = false;
     this.page++;
     this.getTagPosts();
   };
 
-  getPrevTagPost = () => {
+  getPrevTagPos() {
     this.page--;
     if (this.page === 0) {
       this.setState({
@@ -34,10 +40,10 @@ export default class TagPosts extends React.Component {
     }
   };
 
-  getTagPosts = () => {
+  getTagPosts() {
     const excludePostIds = this.initShownPosts.map(post => post.id);
 
-    PostApi.getPostsByTag(this.term.id, excludePostIds, this.page, MAX_NUM_POSTS)
+    PostApi.getPostsByTagId(this.term.id, excludePostIds, this.page, MAX_NUM_POSTS)
       .then(json => {
         if (json.success !== true) {
           alert("Error:" + json.message);
@@ -69,7 +75,9 @@ export default class TagPosts extends React.Component {
     this.term = termPosts.term;
 
     const posts = this.useProps ? termPosts.posts : this.state.posts;
-    const termLink = `http://www.popit.kr/tag/${this.term.name}`;
+    //const termLink = `http://www.popit.kr/tag/${this.term.name}`;
+    // console.log(">>>>term.name:", this.term.name, ">>>", encodeURIComponent(this.term.slug));
+    const termLink = `${PUBLIC_PATH}/tag/${this.term.slug}`;
 
     const postItems = posts.map((post, index) => {
       if (index >= MAX_NUM_POSTS) {
@@ -97,9 +105,9 @@ export default class TagPosts extends React.Component {
     return (
       <div>
         <h2>
-          <a className="author_title" href={termLink}>
+          <Link to={termLink} className="author_title">
             {this.term.name.toUpperCase()}
-          </a>
+          </Link>
         </h2>
         <div>{ postItems }</div>
         <div style={{clear: 'both'}}></div>

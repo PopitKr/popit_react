@@ -1,7 +1,7 @@
 import React from 'react';
 
 import TagPosts from './TagPosts';
-import PostApi from '../services/PostApi';
+import PostApi from '../../services/PostApi';
 
 export default class TagPostsList extends React.Component {
   constructor(props) {

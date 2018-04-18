@@ -1,11 +1,11 @@
 import React from 'react';
 import { Layout, Menu, Icon, Input, Row, Col, Button } from 'antd';
 import MobilePost from "./MobilePost";
-import './popit.css';
-import GoogleAd from './GoogleAd';
-import PostApi from "../services/PostApi";
+import GoogleAd from '../GoogleAd';
+import PostApi from "../../services/PostApi";
 
-import popitLogo from '../asset/popit_logo.png';
+// import popitLogo from '../../asset/popit_logo.png';
+import '../popit.css';
 
 const Search = Input.Search;
 const { Header, Content, Footer, Sider } = Layout;
@@ -30,7 +30,7 @@ export default class MobileApp extends React.Component {
     this.getTagPosts();
   };
 
-  getGoogleAd = () => {
+  getGoogleAd() {
     PostApi.getGoogleAds('index.mobile')
       .then(json => {
         if (json.success !== true) {
@@ -47,7 +47,7 @@ export default class MobileApp extends React.Component {
       });
   };
 
-  getRecentPosts = (moreButtonClicked) => {
+  getRecentPosts(moreButtonClicked) {
     this.page++;
     PostApi.getRecentPosts(this.page, 5)
       .then(json => {
@@ -71,7 +71,7 @@ export default class MobileApp extends React.Component {
       });
   };
 
-  getAuthorPosts = () => {
+  getAuthorPosts() {
     PostApi.getRandomAuthorPosts(true)
       .then(json => {
         if (json.success !== true) {
@@ -88,7 +88,7 @@ export default class MobileApp extends React.Component {
       });
   };
 
-  getTagPosts = () => {
+  getTagPosts() {
     PostApi.getTagPosts(true)
       .then(json => {
         if (json.success !== true) {
@@ -105,15 +105,15 @@ export default class MobileApp extends React.Component {
       });
   };
 
-  search = (keyword) => {
+  search(keyword) {
     document.location.href = `http://www.popit.kr?s=${keyword}`;
   };
 
-  nextRecentPosts = () => {
+  nextRecentPosts() {
     this.getRecentPosts(true);
   };
 
-  clickSideMenu = (item) => {
+  clickSideMenu(item) {
     if (item.key === "1") {
       document.location.href = "http://www.popit.kr/wp-admin/";
     } else if (item.key === "2") {
@@ -125,6 +125,8 @@ export default class MobileApp extends React.Component {
 
   render() {
     const { googleAds, recentPosts, authorPosts, tagPosts, moreRecentPosts } = this.state;
+
+    const popitLogo = require('../../asset/popit_logo.png');
 
     const logoStyle = {
       /*background: rgba(255,255,255,.2);*/
@@ -283,7 +285,7 @@ export default class MobileApp extends React.Component {
             <div style={{marginTop: 10}}>
               <div
                 onClick={this.nextRecentPosts}
-                style={{pointer: 'cursor', textAlign: 'center', background: '#ffffff', borderRadius: 10, height: 40, lineHeight: '40px', fontSize: 18, fontWeight: 'bold'}}>
+                style={{cursor: 'pointer', textAlign: 'center', background: '#ffffff', borderRadius: 10, height: 40, lineHeight: '40px', fontSize: 18, fontWeight: 'bold'}}>
                 최신글 더보기
               </div>
             </div>

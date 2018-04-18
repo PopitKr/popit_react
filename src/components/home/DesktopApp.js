@@ -1,13 +1,14 @@
 import React from 'react';
 import { Layout } from 'antd';
-import PopitHeader from "./PopitHeader";
 import RecentPosts from "./RecentPosts";
 import TagPostsList from "./TagPostsList";
 import AuthorPostsList from "./AuthorPostsList";
-import GoogleAd from './GoogleAd';
-import PostApi from "../services/PostApi";
+import GoogleAd from '../GoogleAd';
+import PostApi from "../../services/PostApi";
+import PopitHeader from "../PopitHeader";
+import PopitFooter from "../PopitFooter";
 
-import './popit.css';
+import '../popit.css';
 
 const { Content, Footer } = Layout;
 
@@ -15,46 +16,68 @@ export default class DesktopApp extends React.Component {
   constructor(props) {
     super(props);
 
+    let googleAds;
+    if (process.env.BROWSER) {
+      if (window.__INITIAL_DATA__) {
+        googleAds = window.__INITIAL_DATA__.data;
+      }
+      delete window.__INITIAL_DATA__;
+    } else {
+      if (this.props.staticContext) {
+        googleAds = this.props.staticContext.data;
+      }
+    }
     this.state = {
-      googleAds: null,
+      googleAds: googleAds,
+      loading: googleAds ? false : true,
     };
   }
-  componentDidMount() {
-    PostApi.getGoogleAds('index.desktop')
-      .then(json => {
-        if (json.success !== true) {
-          alert("Error:" + json.message);
-          return;
-        }
 
-        this.setState({
-          googleAds: json.data,
-        });
-      })
-      .catch(error => {
-        alert("Error:" + error);
+  componentDidMount() {
+    if (!this.state.googleAds) {
+      this.setState({
+        loading: true,
       });
+      PostApi.getGoogleAds('index.desktop')
+        .then(json => {
+          if (json.success !== true) {
+            alert("Error:" + json.message);
+            return;
+          }
+
+          this.setState({
+            loading: false,
+            googleAds: json.data,
+          });
+        })
+        .catch(error => {
+          alert("Error:" + error);
+        });
+    }
   };
 
   render() {
-    const { googleAds } = this.state;
+    const { loading, googleAds } = this.state;
+    if (loading === true) {
+      return <p>Loading...</p>
+    }
 
     let topAd = null;
     let middleAd = null;
     let bottomAd = null;
 
-    if (googleAds) {
-      topAd = (googleAds["ad.index.desktop.top"]) ? (
-        <GoogleAd googleAd={googleAds["ad.index.desktop.top"].value}></GoogleAd>) : (<div></div>);
-      middleAd = (googleAds["ad.index.desktop.middle"]) ? (
-        <GoogleAd googleAd={googleAds["ad.index.desktop.middle"].value}></GoogleAd>) : (<div></div>);
-      bottomAd = (googleAds["ad.index.desktop.bottom"]) ? (
-        <GoogleAd googleAd={googleAds["ad.index.desktop.bottom"].value}></GoogleAd>) : (<div></div>);
-    }
+    // if (googleAds) {
+    //   topAd = (googleAds["ad.index.desktop.top"]) ? (
+    //     <GoogleAd googleAd={googleAds["ad.index.desktop.top"].value}></GoogleAd>) : (<div></div>);
+    //   middleAd = (googleAds["ad.index.desktop.middle"]) ? (
+    //     <GoogleAd googleAd={googleAds["ad.index.desktop.middle"].value}></GoogleAd>) : (<div></div>);
+    //   bottomAd = (googleAds["ad.index.desktop.bottom"]) ? (
+    //     <GoogleAd googleAd={googleAds["ad.index.desktop.bottom"].value}></GoogleAd>) : (<div></div>);
+    // }
 
     return (
       <Layout className="layout" hasSider={false} style={{background: '#ffffff'}}>
-        <PopitHeader/>
+        <PopitHeader />
         <Content style={{padding: '0 10px', maxWidth: 1360, margin: 'auto auto'}}>
           <div style={{float: 'left', maxWidth: 1040}}>
             <div style={{padding: 15}}>
@@ -95,10 +118,7 @@ export default class DesktopApp extends React.Component {
           </div>
           <div style={{clear: 'both'}}></div>
         </Content>
-        <Footer style={{textAlign: 'center'}}>
-          Copyright© popit.kr | popit.kr에 등록된 모든 글의 저작권은 저작자에 있으며<br/>
-          popit.kr은 사용권만 가지고 있습니다.
-        </Footer>
+        <PopitFooter/>
       </Layout>
     );
   }

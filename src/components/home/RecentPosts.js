@@ -1,8 +1,8 @@
 import React from 'react';
 import Post from './Post';
-import PostApi from '../services/PostApi';
+import PostApi from '../../services/PostApi';
 
-import './popit.css';
+import '../popit.css';
 
 const MAX_NUM_POSTS = 4;
 
@@ -14,12 +14,15 @@ export default class RecentPosts extends React.Component {
       posts: [],
     };
     this.page = 0;
+    this.getPrevPosts = this.getPrevPosts.bind(this);
+    this.getNextPosts = this.getNextPosts.bind(this);
+    this.getPosts = this.getPosts.bind(this);
   }
   componentDidMount() {
     this.getNextPosts();
   };
 
-  getPrevPosts = () => {
+  getPrevPosts() {
     if (this.page == 1) {
       return;
     }
@@ -27,12 +30,12 @@ export default class RecentPosts extends React.Component {
     this.getPosts()
   };
 
-  getNextPosts = () => {
+  getNextPosts() {
     this.page++;
     this.getPosts()
   };
 
-  getPosts = () => {
+  getPosts() {
     PostApi.getRecentPosts(this.page, MAX_NUM_POSTS)
       .then(json => {
         if (json.success !== true) {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AuthorPosts from './AuthorPosts';
-import PostApi from '../services/PostApi';
+import PostApi from '../../services/PostApi';
 
 export default class AuthorPostsList extends React.Component {
   constructor(props) {
