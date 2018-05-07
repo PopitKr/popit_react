@@ -17,6 +17,9 @@ export default class FBLoader extends React.Component {
 
     this.fbLoadFinished = false;
 
+    if (!process.env.BROWSER) {
+      return;
+    }
     if (fbLoaded) {
       // Injected and loaded
       if (props.onFbLoad) {

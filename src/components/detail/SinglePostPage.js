@@ -33,7 +33,6 @@ export default class SinglePostPage extends React.Component {
     this.state = {
       post: post,
       googleAds: null,
-      loading: post ? false : true,
     };
     this.page = 0;
     this.getPostByPermalink = this.getPostByPermalink.bind(this);
@@ -79,21 +78,13 @@ export default class SinglePostPage extends React.Component {
   }
 
   getPostByPermalink(permalink) {
-    this.setState({
-      loading: true,
-    });
-
     PostApi.getPostByPermalink(permalink)
       .then(json => {
         if (json.success !== true) {
           alert("Error:" + json.message);
-          this.setState({
-            loading: false,
-          });
           return;
         }
         this.setState({
-          loading: false,
           post: json.data,
         });
       })
@@ -103,11 +94,7 @@ export default class SinglePostPage extends React.Component {
   };
 
   render() {
-    const { loading, post, googleAds } = this.state;
-
-    if (loading === true) {
-      return <div style={{textAlign: 'center'}}>Loading...</div>
-    }
+    const { post, googleAds } = this.state;
 
     let topAd = null;
     let middleAd = null;
@@ -121,13 +108,18 @@ export default class SinglePostPage extends React.Component {
       bottomAd = (googleAds["ad.post.desktop.bottom"]) ? (
         <GoogleAd googleAd={googleAds["ad.post.desktop.bottom"].value} key={'ad_google_bottom'}></GoogleAd>) : null;
     } else {
+      /*
       topAd = (<div style={{width: '100%', height: 100, background: '#ECECEC'}} key={'ad_google_top'}>Top 광고 영역</div>);
       middleAd = (
         <div style={{width: '100%', height: 100, background: '#ECECEC'}} key={'ad_google_middle'}>중간 광고 영역</div>);
       bottomAd = (
         <div style={{width: '100%', height: 100, background: '#ECECEC'}} key={'ad_google_bottom'}>마지막 광고 영역</div>);
+      */
     }
 
+    if (!post) {
+      return (<div style={{textAlign: 'center', marginTop: 20}}>Loading...</div>);
+    }
     const sentences = post.content.split("\n");
 
     let postElement = null;
@@ -174,8 +166,8 @@ export default class SinglePostPage extends React.Component {
 
     let componentIndex = 0;
     let adInterval = Math.floor(postElements.length / 3);
-    if (adInterval > 6) {
-      adInterval = 6;
+    if (adInterval > 10) {
+      adInterval = 10;
     }
 
     let postHtml = "";
@@ -195,6 +187,9 @@ export default class SinglePostPage extends React.Component {
         }
       }
     });
+    if (adIndex < ads.length) {
+      postComponents.push(ads[addIndex]);
+    }
 
     return (
       <Layout className="layout" hasSider={false} style={{background: '#ffffff'}}>
