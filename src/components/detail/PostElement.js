@@ -44,7 +44,11 @@ class PostElement {
   }
 
   getComponent(key) {
-    return (<HtmlElement key={key} html={this.getHtmlString()}/>)
+    const html = this.getHtmlString();
+    if (!html) {
+      return null;
+    }
+    return (<HtmlElement key={key} html={html}/>)
   }
 }
 
@@ -55,7 +59,44 @@ class ParagraphElement extends PostElement {
   }
 
   getHtmlString() {
+    if (!this.paragraph) {
+      return "";
+    }
+    if (this.paragraph.startsWith("<")) {
+      return this.paragraph;
+    }
     return `<p>${this.paragraph}</p>`;
+  }
+}
+
+class BlockQuoteElement extends PostElement {
+  constructor(firstLine) {
+    super();
+    this.finish = false;
+    this.lines = [firstLine];
+  }
+
+  needNextLine() {
+    return !this.finish;
+  }
+
+  isFinished() {
+    return this.finish;
+  }
+
+  addNextLine(line) {
+    const endTagIndex = line.indexOf("</blockquote>");
+    if (endTagIndex >= 0) {
+      this.finish = true;
+    }
+    this.lines.push(line);
+  }
+
+  getHtmlString() {
+    let html = "";
+    this.lines.forEach((line) => html += line + "\n");
+
+    return html;
   }
 }
 
@@ -215,4 +256,4 @@ class SourceCodeElement extends PostElement {
   };
 }
 
-export { PostElement, EmbeddedElement, ParagraphElement, CaptionImageElement, SourceCodeElement, ItemsElement }
+export { PostElement, EmbeddedElement, ParagraphElement, CaptionImageElement, SourceCodeElement, ItemsElement, BlockQuoteElement }

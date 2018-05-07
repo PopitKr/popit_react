@@ -2,6 +2,7 @@ import React from 'react';
 import PostApi from "../../services/PostApi";
 import { Layout } from 'antd';
 import ShareButton from '../ShareButton';
+import FBComment from '../FBComment';
 import PopitHeader from "../PopitHeader";
 import { renderToString } from "react-dom/server";
 import decodeHtml from 'decode-html';
@@ -10,7 +11,7 @@ import GoogleAd from '../GoogleAd';
 
 import {
   PostElement, EmbeddedElement, ParagraphElement,
-  CaptionImageElement, SourceCodeElement, ItemsElement } from './PostElement';
+  CaptionImageElement, SourceCodeElement, ItemsElement, BlockQuoteElement } from './PostElement';
 
 import '../popit.css';
 
@@ -48,6 +49,8 @@ export default class SinglePostPage extends React.Component {
       return new SourceCodeElement(line);
     } else if (line.indexOf("<ul") >= 0) {
       return new ItemsElement(line);
+    } else if (line.indexOf("<blockquote") >=0 && line.indexOf("</blockquote>") < 0) {
+      return new BlockQuoteElement(line);
     } else {
       return new ParagraphElement(line);
     }
@@ -163,10 +166,10 @@ export default class SinglePostPage extends React.Component {
     }
 
     const postUrl = `https://www.popit.kr/${post.postName}/`;
-
+    const fbPluginUrl = PostApi.getFacebookShareLink(post);
     let shareButton = (<div></div>);
     if (process.env.BROWSER) {
-      shareButton = (<ShareButton url={postUrl} title={post.title} fbLikeUrl={PostApi.getFacebookShareLink(post)} />)
+      shareButton = (<ShareButton url={postUrl} title={post.title} fbLikeUrl={fbPluginUrl} />)
     }
 
     let componentIndex = 0;
@@ -182,11 +185,14 @@ export default class SinglePostPage extends React.Component {
     let adIndex = 0;
     postElements.forEach((element, index) => {
       postHtml += "\n" + element.getHtmlString();
-      postComponents.push(element.getComponent(index));
-      componentIndex++;
-      if (componentIndex == 1 || (componentIndex % adInterval == 0 && adIndex < ads.length)) {
-        //componentIndex == 1 <- add top
-        postComponents.push(ads[adIndex++]);
+      const component = element.getComponent(index);
+      if (component != null) {
+        postComponents.push(component);
+        componentIndex++;
+        if (componentIndex == 1 || (componentIndex % adInterval == 0 && adIndex < ads.length)) {
+          //componentIndex == 1 <- add top
+          postComponents.push(ads[adIndex++]);
+        }
       }
     });
 
@@ -245,10 +251,7 @@ export default class SinglePostPage extends React.Component {
                   </div>
                   <div style={{marginTop:30}} >
                     <hr/>
-                    <div className="fb-comments"
-                         data-width="100%"
-                         data-href={postUrl} data-numposts="10">
-                    </div>
+                    <FBComment fbPluginUrl={fbPluginUrl}/>
                     <div style={{marginTop:10, fontSize: 12, fontStyle: 'italic', color: '#C3C3C3'}}>
                       Popit은 페이스북 댓글만 사용하고 있습니다. 페이스북 로그인 후 글을 보시면 댓글이 나타납니다.
                     </div>
