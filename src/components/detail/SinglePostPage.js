@@ -96,25 +96,17 @@ export default class SinglePostPage extends React.Component {
   render() {
     const { post, googleAds } = this.state;
 
-    let topAd = null;
-    let middleAd = null;
-    let bottomAd = null;
-
+    const ads = [];
     if (googleAds) {
-      topAd = (googleAds["ad.post.desktop.top"]) ? (
-        <GoogleAd googleAd={googleAds["ad.post.desktop.top"].value} key={'ad_google_top'}></GoogleAd>) : null;
-      middleAd = (googleAds["ad.post.desktop.middle"]) ? (
-        <GoogleAd googleAd={googleAds["ad.post.desktop.middle"].value} key={'ad_google_middle'}></GoogleAd>) : null;
-      bottomAd = (googleAds["ad.post.desktop.bottom"]) ? (
-        <GoogleAd googleAd={googleAds["ad.post.desktop.bottom"].value} key={'ad_google_bottom'}></GoogleAd>) : null;
-    } else {
-      /*
-      topAd = (<div style={{width: '100%', height: 100, background: '#ECECEC'}} key={'ad_google_top'}>Top 광고 영역</div>);
-      middleAd = (
-        <div style={{width: '100%', height: 100, background: '#ECECEC'}} key={'ad_google_middle'}>중간 광고 영역</div>);
-      bottomAd = (
-        <div style={{width: '100%', height: 100, background: '#ECECEC'}} key={'ad_google_bottom'}>마지막 광고 영역</div>);
-      */
+      if (googleAds["ad.post.desktop.top"]) ads.push(
+        (<GoogleAd googleAd={googleAds["ad.post.desktop.top"].value} key={'ad_google_top'}></GoogleAd>)
+      );
+      if (googleAds["ad.post.desktop.middle"]) ads.push(
+        (<GoogleAd googleAd={googleAds["ad.post.desktop.middle"].value} key={'ad_google_middle'}></GoogleAd>)
+      );
+      if (googleAds["ad.post.desktop.bottom"]) ads.push(
+        (<GoogleAd googleAd={googleAds["ad.post.desktop.bottom"].value} key={'ad_google_bottom'}></GoogleAd>)
+      );
     }
 
     if (!post) {
@@ -165,15 +157,14 @@ export default class SinglePostPage extends React.Component {
     }
 
     let componentIndex = 0;
-    let adInterval = Math.floor(postElements.length / 3);
-    if (adInterval > 10) {
+    let adInterval = Math.floor(postElements.length / ads.length);
+    if (adInterval != 10) {
       adInterval = 10;
     }
 
     let postHtml = "";
     let postComponents = [];
 
-    const ads = [topAd, middleAd, bottomAd];
     let adIndex = 0;
     postElements.forEach((element, index) => {
       postHtml += "\n" + element.getHtmlString();
@@ -188,7 +179,7 @@ export default class SinglePostPage extends React.Component {
       }
     });
     if (adIndex < ads.length) {
-      postComponents.push(ads[addIndex]);
+      postComponents.push(ads[adIndex]);
     }
 
     return (

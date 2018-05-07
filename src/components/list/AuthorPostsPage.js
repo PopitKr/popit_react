@@ -31,7 +31,6 @@ export default class AuthorPostsPage extends React.Component {
     this.state = {
       posts: posts,
       author: author,
-      loading: posts ? false : true,
       errorMessage: "",
     };
     this.page = posts ? 1 : 0;
@@ -51,11 +50,9 @@ export default class AuthorPostsPage extends React.Component {
       .then(json => {
         if (json.success !== true) {
           this.setState({
-            loading: false,
             errorMessage: json.message,
             posts: [],
           });
-          // alert("Error:" + json.message);
           return;
         }
 
@@ -68,7 +65,6 @@ export default class AuthorPostsPage extends React.Component {
 
         const mergedPosts = (this.state.posts) ? ([...this.state.posts, ...posts]) : posts;
         this.setState({
-          loading: false,
           posts: mergedPosts,
           author: json.data.author,
         });
@@ -80,12 +76,11 @@ export default class AuthorPostsPage extends React.Component {
 
 
   render() {
-    const { loading, posts, author, errorMessage } = this.state;
+    const { posts, author, errorMessage } = this.state;
 
-    if (loading === true) {
-      return (<div>Loading...</div>)
+    if (!author) {
+      return (<div style={{textAlign: 'center', marginTop: 20}}>Loading...</div>);
     }
-
     return (
       <Layout className="layout" hasSider={false} style={{background: '#ffffff'}}>
         <PopitHeader />
