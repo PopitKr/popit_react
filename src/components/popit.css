@@ -2,6 +2,10 @@ a {
   text-decoration: none;
 }
 
+.post_card {
+  width: 900px;
+}
+
 .post {
   width: 230px;
 }
@@ -17,8 +21,8 @@ a {
 }
 
 .author_avatar {
-  width: 33px;
-  height: 33px;
+  width: 42px;
+  height: 42px;
   border-radius: 100%;
 }
 
@@ -42,6 +46,15 @@ a {
   color: #888888;
 }
 
+.post_card_description {
+  text-overflow: ellipsis;
+  word-break: break-all;
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: 5px;
+  color: #888888;
+}
+
 .post_title {
   color: #111111;
   height: 42px;
@@ -52,6 +65,14 @@ a {
   margin-top: 5px;
   text-overflow: ellipsis;
   overflow: hidden;
+  word-wrap: break-word;
+}
+
+.post_card_title {
+  color: #111111;
+  font-size: 18px;
+  font-weight: bold;
+  text-overflow: ellipsis;
   word-wrap: break-word;
 }
 
@@ -139,4 +160,72 @@ a {
   border-radius: 50%;
   /*border: 1px solid red;*/
   background-color: #ffffff;
+}
+
+/*******************************
+Wordpress
+*******************************/
+body {
+  font: 1em/1.7em 'Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: #666;
+  word-wrap: break-word;
+}
+
+.alignleft {
+  float: left;
+  margin-right: 30px;
+}
+.alignright {
+  float: right;
+  margin-left: 30px;
+}
+.aligncenter {
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.post-content h1 {
+  line-height: 40px;
+}
+
+.entry-content p {
+  margin-bottom: 10px;
+}
+
+.entry-content h1 {
+  margin-top: 20px;
+  line-height: 40px;
+  font-size: 32px;
+}
+
+.entry-content h2 {
+  margin-top: 20px;
+  font-size: 26px;
+}
+
+.entry-content h3 {
+  margin-top: 15px;
+  font-size: 20px;
+}
+
+.entry-content h4 {
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+.entry-content blockquote {
+  font: italic 1.2em/1.4em Georgia, "Times New Roman", Times, serif;
+  padding: 20px 30px 15px;
+}
+
+.entry-content a,
+.entry-content a:hover,
+.entry-content a:active,
+.entry-content a:visited,
+.entry-content a:link {
+  color: #00a562;
+  border-bottom: 1px solid #f1f1f1;
+  text-decoration: none;
 }

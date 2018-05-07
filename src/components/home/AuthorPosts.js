@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Post from './Post';
-import "./popit.css";
-import PostApi from "../services/PostApi";
+import "../popit.css";
+import PostApi from "../../services/PostApi";
 
 const MAX_NUM_POSTS = 2;
 
@@ -16,15 +17,19 @@ export default class AuthorPosts extends React.Component {
     this.initShownPosts = [];
     this.author = null;
     this.page = 0;
+
+    this.getNextTagPost = this.getNextTagPost.bind(this);
+    this.getPrevTagPost = this.getPrevTagPost.bind(this);
+    this.getAuthorPosts = this.getAuthorPosts.bind(this);
   }
 
-  getNextTagPost = () => {
+  getNextTagPost() {
     this.useProps = false;
     this.page++;
     this.getAuthorPosts();
   };
 
-  getPrevTagPost = () => {
+  getPrevTagPost() {
     this.page--;
     if (this.page === 0) {
       this.setState({
@@ -35,17 +40,17 @@ export default class AuthorPosts extends React.Component {
     }
   };
 
-  getAuthorPosts = () => {
+  getAuthorPosts() {
     const excludePostIds = this.initShownPosts.map(post => post.id);
 
-    PostApi.getPostsByAuthor(this.author.id, excludePostIds, this.page, MAX_NUM_POSTS)
+    PostApi.getPostsByAuthorId(this.author.id, excludePostIds, this.page, MAX_NUM_POSTS)
       .then(json => {
         if (json.success !== true) {
           alert("Error:" + json.message);
           return;
         }
 
-        const posts = json.data;
+        const posts = json.data.posts;
         if (posts.length == 0) {
           this.page--;
           alert("마지막 글 입니다.");
@@ -69,7 +74,7 @@ export default class AuthorPosts extends React.Component {
     this.author = authorPosts.author;
 
     const posts = this.useProps ? authorPosts.posts : this.state.posts;
-    const authorPostsLink = `http://www.popit.kr/author/${this.author.userLogin}`;
+    const authorPostsLink = `/author/${this.author.userLogin}`;
 
     const postItems = posts.map((post, index) => {
       if (index >= MAX_NUM_POSTS) {
@@ -100,10 +105,10 @@ export default class AuthorPosts extends React.Component {
         <div>
           <span style={{display: 'inline-block'}}>
             <h2>
-              <a className="author_title"
-                 href={authorPostsLink}>
+              <Link className="author_title"
+                 to={authorPostsLink}>
                 { this.author.displayName }
-              </a>
+              </Link>
             </h2>
           </span>
           {

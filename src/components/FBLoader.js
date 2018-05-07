@@ -1,18 +1,23 @@
 import React from 'react';
 
-let fbLoaded = !!window.FB;
+if (!process.env.BROWSER) {
+  global.window = {};
+}
+
+let fbLoaded = !!global.window.FB;
 let fbLoading = false;
-let fbLoadFinished = false;
 
 function onFbLoad() {
-  fbLoadFinished = true;
+  fbLoaded = !!global.window.FB;
 }
 
 export default class FBLoader extends React.Component {
   constructor(props) {
     super(props);
 
-    if (fbLoaded && fbLoadFinished) {
+    this.fbLoadFinished = false;
+
+    if (fbLoaded) {
       // Injected and loaded
       if (props.onFbLoad) {
         props.onFbLoad();
@@ -26,7 +31,9 @@ export default class FBLoader extends React.Component {
       console.log("==> fbLoaded load");
       let script = document.createElement('script');
       script.onload = onFbLoad;
-      script.src = 'https://connect.facebook.net/es_US/all.js#xfbml=1&version=v2.5&appId=131306400631298';
+      // script.src = 'https://connect.facebook.net/es_US/all.js#xfbml=1&version=v2.5&appId=131306400631298';
+      // script.src = 'https://connect.facebook.net/es_US/all.js#xfbml=1&version=v2.5&appId=131306400631298';
+      script.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=131306400631298&autoLogAppEvents=1';
       document.body.appendChild(script);
     }
   }

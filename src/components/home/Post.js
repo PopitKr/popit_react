@@ -1,11 +1,17 @@
 import React from 'react';
 import { Icon, Button } from 'antd';
-import ShareButton from './ShareButton';
-import './popit.css';
+import ShareButton from '../ShareButton';
+import AuthorCard from '../AuthorCard';
 
-import defaultCover1 from '../asset/default_cover1.jpg';
-import defaultCover2 from '../asset/default_cover2.jpg';
-import defaultCover3 from '../asset/default_cover3.jpg';
+import { Link } from 'react-router-dom';
+import decodeHtml from 'decode-html';
+import { PUBLIC_PATH } from "../../routes";
+import '../popit.css';
+
+import defaultCover1 from '../../asset/default_cover1.jpg';
+import defaultCover2 from '../../asset/default_cover2.jpg';
+import defaultCover3 from '../../asset/default_cover3.jpg';
+import PostApi from "../../services/PostApi";
 
 export default class Post extends React.Component {
   constructor(props) {
@@ -14,14 +20,13 @@ export default class Post extends React.Component {
     //console.log("Post created:", this.props.post.title);
     this.state = {
       avatar: "",
-    }
+    };
   }
 
-  getDefaultImage = () => {
-    const randVal = Math.floor(Math.random() * 3) + 1;
-    if (randVal == 1) {
+  getDefaultImage(id) {
+    if (id % 3 == 0) {
       return defaultCover1;
-    } else if (randVal == 2) {
+    } else if (id % 3 == 1) {
       return defaultCover2;
     } else {
       return defaultCover3;
@@ -34,7 +39,7 @@ export default class Post extends React.Component {
 
     const categories = post.categories.map((category, index) => {
       const delimiter = index === 0 ? "" : ",";
-      return (<span key={"categories-" + index}>{delimiter} <a href={`http://www.popit.kr/category/${category.slug}`}>{category.name}</a></span>)
+      return (<span key={"categories-" + index}>{delimiter} <Link to={`${PUBLIC_PATH}/category/${category.slug}`}>{category.name}</Link></span>)
     });
 
     const tags = post.tags.map((tag, index) => {
@@ -42,19 +47,20 @@ export default class Post extends React.Component {
         return null;
       }
       const delimiter = index === 0 ? "" : ",";
-      return (<span key={"tags-" + index}>{delimiter} <a href={`http://www.popit.kr/tag/${tag.slug}`}>{tag.name}</a></span>)
+      return (<span key={"tags-" + index}>{delimiter} <Link to={`${PUBLIC_PATH}/tag/${tag.slug}`}>{tag.name}</Link></span>)
     });
 
     const separator = tags.length > 0 ? " | " : "";
 
-    const coverImage = post.image ? post.image : this.getDefaultImage();
-    const postUrl = `http://www.popit.kr/${post.postName}/`;
-    const authorPostLink = `http://www.popit.kr/author/${post.author.userLogin}`;
+    const coverImage = post.image ? post.image : this.getDefaultImage(post.id);
+    const postUrl = `https://www.popit.kr/${post.postName}/`;
+    const postLink = `${PUBLIC_PATH}/${post.postName}/`;
+    const fbLikeUrl = PostApi.getFacebookShareLink(post);
 
     return (
       <div className="post" style={{position: 'relative'}}>
         <div>
-          <a href={postUrl}><img src={coverImage} style={{width: 230, height: 130}}/></a>
+          <Link to={postLink}><img src={coverImage} style={{width: 230, height: 130}}/></Link>
         </div>
         {
           this.props.showNext === true
@@ -90,30 +96,15 @@ export default class Post extends React.Component {
             (<div></div>)
         }
         <div>
-          <a href={postUrl}><h3 className="post_title">{post.title}</h3></a>
+          <Link to={postLink}><h3 className="post_title">{decodeHtml(post.title)}</h3></Link>
         </div>
         <div style={{marginTop: 5}}>
-          <ShareButton url={postUrl} title={post.title}/>
+          <ShareButton post_id={post.id} url={postUrl} title={post.title} fbLikeUrl={fbLikeUrl} />
         </div>
         {
           this.props.showAuthor === true
             ?
-            (
-              <div className="author" style={{marginTop:5}}>
-                <div style={{float: 'left', marginRight: 10}}>
-                  <a href={authorPostLink}><img src={post.author.avatar} className="author_avatar"/></a>
-                </div>
-                <div style={{float: 'left', marginRight: 10, fontSize: 13}}>
-                  <div>
-                    <a style={{textDecoration: "none"}} href={authorPostLink} target="_blank">{post.author.displayName}</a>
-                  </div>
-                  <div style={{color: "#888888"}}>
-                    {post.date.substr(0, 10)}
-                  </div>
-                </div>
-                <div style={{clear: 'both'}}></div>
-              </div>
-            )
+            (<AuthorCard author={post.author} postDate={post.date}/>)
             :
             (<div></div>)
         }
@@ -125,7 +116,7 @@ export default class Post extends React.Component {
             (
               <div>
                 <div className="post_description">{post.socialDesc}</div>
-                { (this.props.showDescriptionLink === true) ? (<div className={"post_description_link"}><a href={postUrl} target="_blank">[...]</a></div>) : (<div></div>) }
+                { (this.props.showDescriptionLink === true) ? (<div className={"post_description_link"}><Link to={postLink}>[...]</Link></div>) : (<div></div>) }
                 </div>
             )
           :
