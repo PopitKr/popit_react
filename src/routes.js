@@ -42,7 +42,6 @@ const routes =  [
     path: PUBLIC_PATH + '/:permalink/',
     component: SinglePostPage,
     fetchInitialData: (path = '') => {
-      console.log(">>>>>>>>>>>>>Path:", path);
       const tokens = path.split('/');
       if (tokens.length < 2) {
         return Promise.resolve();

@@ -229,3 +229,9 @@ body {
   border-bottom: 1px solid #f1f1f1;
   text-decoration: none;
 }
+
+.text_caption {
+  font-size: 14px;
+  color: #505050;
+  margin-bottom: 10px;
+}
