@@ -99,7 +99,7 @@ export default class Post extends React.Component {
           <Link to={postLink}><h3 className="post_title">{decodeHtml(post.title)}</h3></Link>
         </div>
         <div style={{marginTop: 5}}>
-          <ShareButton post_id={post.id} url={postUrl} title={post.title} fbLikeUrl={fbLikeUrl} />
+	  <ShareButton post_id={post.id} url={postUrl} title={post.title} fbLikeUrl={fbLikeUrl} />
         </div>
         {
           this.props.showAuthor === true
