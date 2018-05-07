@@ -24,20 +24,16 @@ export default class DesktopApp extends React.Component {
       delete window.__INITIAL_DATA__;
     } else {
       if (this.props.staticContext) {
-        googleAds = this.props.staticContext.data;
+        googleAds = this.props.staticContext.data.data;
       }
     }
     this.state = {
       googleAds: googleAds,
-      loading: googleAds ? false : true,
     };
   }
 
   componentDidMount() {
     if (!this.state.googleAds) {
-      this.setState({
-        loading: true,
-      });
       PostApi.getGoogleAds('index.desktop')
         .then(json => {
           if (json.success !== true) {
@@ -46,7 +42,6 @@ export default class DesktopApp extends React.Component {
           }
 
           this.setState({
-            loading: false,
             googleAds: json.data,
           });
         })
@@ -57,23 +52,19 @@ export default class DesktopApp extends React.Component {
   };
 
   render() {
-    const { loading, googleAds } = this.state;
-    if (loading === true) {
-      return <p>Loading...</p>
-    }
-
+    const { googleAds } = this.state;
     let topAd = null;
     let middleAd = null;
     let bottomAd = null;
 
-    // if (googleAds) {
-    //   topAd = (googleAds["ad.index.desktop.top"]) ? (
-    //     <GoogleAd googleAd={googleAds["ad.index.desktop.top"].value}></GoogleAd>) : (<div></div>);
-    //   middleAd = (googleAds["ad.index.desktop.middle"]) ? (
-    //     <GoogleAd googleAd={googleAds["ad.index.desktop.middle"].value}></GoogleAd>) : (<div></div>);
-    //   bottomAd = (googleAds["ad.index.desktop.bottom"]) ? (
-    //     <GoogleAd googleAd={googleAds["ad.index.desktop.bottom"].value}></GoogleAd>) : (<div></div>);
-    // }
+     if (googleAds) {
+       topAd = (googleAds["ad.index.desktop.top"]) ? (
+         <GoogleAd googleAd={googleAds["ad.index.desktop.top"].value}></GoogleAd>) : (<div>Ad top</div>);
+       middleAd = (googleAds["ad.index.desktop.middle"]) ? (
+         <GoogleAd googleAd={googleAds["ad.index.desktop.middle"].value}></GoogleAd>) : (<div>Ad middle</div>);
+       bottomAd = (googleAds["ad.index.desktop.bottom"]) ? (
+         <GoogleAd googleAd={googleAds["ad.index.desktop.bottom"].value}></GoogleAd>) : (<div>Ad bottom</div>);
+     }
 
     return (
       <Layout className="layout" hasSider={false} style={{background: '#ffffff'}}>

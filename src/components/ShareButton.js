@@ -9,11 +9,17 @@ export default class ShareButton extends React.Component {
     this.state = {
       fbLoaded: false,
     };
+    this.loaded = false;
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (nextState.fbLoaded && !this.state.fbLoaded) {
-      global.window.FB.XFBML.parse(this._scope);
+    if (!this.loaded && nextState.fbLoaded && !this.state.fbLoaded) {
+      this.loaded = true;
+      // sleep: https://davidwalsh.name/javascript-sleep-function
+      const sleep =  new Promise((resolve) => setTimeout(resolve, 200));
+      sleep.then(() => {
+        global.window.FB.XFBML.parse(this._scope);
+      });
     }
   }
 

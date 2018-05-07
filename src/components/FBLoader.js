@@ -28,13 +28,11 @@ export default class FBLoader extends React.Component {
       }
       fbLoading = true;
       // Not yet injected
-      console.log("==> fbLoaded load");
       let script = document.createElement('script');
-      script.onload = onFbLoad;
-      // script.src = 'https://connect.facebook.net/es_US/all.js#xfbml=1&version=v2.5&appId=131306400631298';
-      // script.src = 'https://connect.facebook.net/es_US/all.js#xfbml=1&version=v2.5&appId=131306400631298';
       script.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=131306400631298&autoLogAppEvents=1';
+      script.onload = onFbLoad;
       document.body.appendChild(script);
+      console.log("==> fbLoaded load");
     }
   }
 
