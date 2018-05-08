@@ -4,7 +4,6 @@ import TagPostsPage from './components/list/TagPostsPage';
 import CategoryPostsPage from './components/list/CategoryPostsPage';
 import PostApi from './services/PostApi';
 import AuthorPostsPage from "./components/list/AuthorPostsPage";
-import DesktopApp from "./components/home/DesktopApp";
 
 const PUBLIC_PATH = '/v2';
 
@@ -12,10 +11,10 @@ const routes =  [
   {
     path: PUBLIC_PATH + '/',
     exact: true,
-    component: DesktopApp,
-    fetchInitialData: (path = '') => {
-      return PostApi.getGoogleAds('index.desktop');
-    }
+    component: Home,
+    // fetchInitialData: (path = '') => {
+    //   return PostApi.getGoogleAds('index.desktop');
+    // }
   }, {
     path: PUBLIC_PATH + '/tag/:tag',
     component: TagPostsPage,
@@ -34,7 +33,6 @@ const routes =  [
     path: PUBLIC_PATH + '/author/:author',
     component: AuthorPostsPage,
     fetchInitialData: (path = '') => {
-
       const authorParam = path.split('/').pop();
       return PostApi.getPostsByAuthor(authorParam, [], 1, 10);
     }

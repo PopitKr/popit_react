@@ -3,12 +3,13 @@ import { Layout, Menu, Icon, Input, Row, Col, Button } from 'antd';
 import MobilePost from "./MobilePost";
 import GoogleAd from '../GoogleAd';
 import PostApi from "../../services/PostApi";
+import PopitMobileHeader from "../PopitMobileHeader";
+import PopitMobileSider from "../PopitMobileSider";
+import PopitFooter from "../PopitFooter";
 
-// import popitLogo from '../../asset/popit_logo.png';
 import '../popit.css';
 
-const Search = Input.Search;
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer } = Layout;
 
 export default class MobileApp extends React.Component {
   constructor(props) {
@@ -21,6 +22,12 @@ export default class MobileApp extends React.Component {
       moreRecentPosts: [],
     };
     this.page = 0;
+
+    this.getRecentPosts = this.getRecentPosts.bind(this);
+    this.getAuthorPosts = this.getAuthorPosts.bind(this);
+    this.getTagPosts  = this.getTagPosts.bind(this);
+    this.getGoogleAd = this.getGoogleAd.bind(this);
+    this.nextRecentPosts = this.nextRecentPosts.bind(this);
   };
 
   componentDidMount() {
@@ -105,22 +112,8 @@ export default class MobileApp extends React.Component {
       });
   };
 
-  search(keyword) {
-    document.location.href = `http://www.popit.kr?s=${keyword}`;
-  };
-
   nextRecentPosts() {
     this.getRecentPosts(true);
-  };
-
-  clickSideMenu(item) {
-    if (item.key === "1") {
-      document.location.href = "http://www.popit.kr/wp-admin/";
-    } else if (item.key === "2") {
-      document.location.href = "http://www.popit.kr/how-to-contribute/";
-    } else if (item.key === "3") {
-      document.location.href = "http://www.popit.kr/category/%ea%b3%b5%ec%a7%80%ec%82%ac%ed%95%ad/";
-    }
   };
 
   render() {
@@ -246,39 +239,9 @@ export default class MobileApp extends React.Component {
 
     return (
       <Layout className="layout" style={{background: '#ffffff'}}>
-        <Sider
-          breakpoint="lg"
-          collapsedWidth="0"
-          onCollapse={(collapsed, type) => { console.log(collapsed, type); }}
-        >
-          <Menu theme="dark" mode="inline" onClick={this.clickSideMenu}>
-            <Menu.Item key="1">
-              <Icon type="setting" />
-              <span className="nav-text">로그인</span>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <Icon type="edit" />
-              <span className="nav-text">저자신청</span>
-            </Menu.Item>
-            <Menu.Item key="3">
-              <Icon type="sound" />
-              <span className="nav-text">공지사항</span>
-            </Menu.Item>
-          </Menu>
-        </Sider>
+        <PopitMobileSider/>
         <Layout>
-          <Header style={{ paddingLeft: 20, width: '100%'}}>
-            <div>
-              <div style={logoStyle} onClick={() => {document.location.href = "/v2"}}/>
-              <div style={{marginLeft: 20, float: 'left'}}>
-                <Search
-                  placeholder="Search"
-                  onSearch={value => this.search(value)}
-                  style={{ width: 150 }}
-                />
-              </div>
-            </div>
-          </Header>
+          <PopitMobileHeader/>
           <Content style={{ padding: '10px', marginTop: 64}}>
             {cardItems}
             {morePosts}
@@ -290,10 +253,7 @@ export default class MobileApp extends React.Component {
               </div>
             </div>
           </Content>
-          <Footer style={{textAlign: 'center'}}>
-            Copyright© popit.kr<br/>
-            popit.kr에 등록된 모든 글의 저작권은 저작자에 있으며popit.kr은 사용권만 가지고 있습니다.
-          </Footer>
+          <PopitFooter/>
         </Layout>
       </Layout>
     )

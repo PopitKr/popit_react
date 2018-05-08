@@ -1,0 +1,41 @@
+import React from 'react';
+import { PUBLIC_PATH } from "../routes";
+import { Input, Layout } from 'antd';
+
+const Search = Input.Search;
+const { Header } = Layout;
+
+export default class PopitMobileHeader extends React.Component {
+  search(keyword) {
+    document.location.href = `https://www.popit.kr?s=${keyword}`;
+  };
+
+  render() {
+    const popitLogo = require('../asset/popit_logo.png');
+
+    const logoStyle = {
+      /*background: rgba(255,255,255,.2);*/
+      backgroundImage: `url(${popitLogo})`,
+      margin: '16px 24px 16px 0',
+      width: 79,
+      height: 32,
+      float: 'left',
+      cursor: 'pointer'
+    };
+
+    return (
+      <Header style={{ paddingLeft: 20, width: '100%'}}>
+        <div>
+          <div style={logoStyle} onClick={() => {document.location.href = PUBLIC_PATH}}/>
+          <div style={{marginLeft: 20, float: 'left'}}>
+            <Search
+              placeholder="Search"
+              onSearch={value => this.search(value)}
+              style={{ width: 150 }}
+            />
+          </div>
+        </div>
+      </Header>
+    )
+  }
+}
