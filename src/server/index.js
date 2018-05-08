@@ -7,6 +7,7 @@ import serialize from "serialize-javascript";
 import App from '../App';
 import PostApi from "../services/PostApi";
 import { routes, PUBLIC_PATH } from '../routes';
+import MobileDetect from 'mobile-detect';
 
 const app = express();
 
@@ -14,6 +15,9 @@ app.use(cors());
 app.use(express.static("public"));
 
 app.get("*", (req, res, next) => {
+  const md = new MobileDetect(req.headers['user-agent']);
+  const isMobile = md.mobile() ? true : false;
+
   const activeRoute = routes.find((route) => matchPath(PUBLIC_PATH + req.url, route)) || {};
 
   const promise = activeRoute.fetchInitialData ? activeRoute.fetchInitialData(req.path) : Promise.resolve();
@@ -29,7 +33,7 @@ app.get("*", (req, res, next) => {
 
     const markup = renderToString(
       <StaticRouter location={PUBLIC_PATH + req.url} context={context}>
-        <App />
+        <App isMobile={isMobile}/>
       </StaticRouter>
     );
 

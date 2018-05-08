@@ -4,6 +4,9 @@ import { Layout } from 'antd';
 import ShareButton from '../ShareButton';
 import FBComment from '../FBComment';
 import PopitHeader from "../PopitHeader";
+import PopitMobileHeader from "../PopitMobileHeader";
+import PopitMobileSider from "../PopitMobileSider";
+import PopitFooter from "../PopitFooter";
 import { renderToString } from "react-dom/server";
 import decodeHtml from 'decode-html';
 import AuthorCard from '../AuthorCard';
@@ -166,42 +169,91 @@ export default class SinglePostPage extends React.Component {
     let postComponents = [];
 
     let adIndex = 0;
-    postElements.forEach((element, index) => {
-      postHtml += "\n" + element.getHtmlString();
-      const component = element.getComponent(index);
-      if (component != null) {
-        postComponents.push(component);
-        componentIndex++;
-        if (componentIndex == 1 || (componentIndex % adInterval == 0 && adIndex < ads.length)) {
-          //componentIndex == 1 <- add top
+    if (this.props.isMobile) {
+      postComponents.push(ads[adIndex++]);
+      postElements.forEach((element, index) => {
+        const component = element.getComponent(index);
+        if (component != null) {
+          postComponents.push(component);
+        }
+        if ((index + 1) % adInterval == 0 && adIndex < ads.length) {
           postComponents.push(ads[adIndex++]);
         }
-      }
-    });
+      });
+    } else {
+      postElements.forEach((element, index) => {
+        const component = element.getComponent(index);
+        if (component != null) {
+          postComponents.push(component);
+          componentIndex++;
+          if (componentIndex == 1 || (componentIndex % adInterval == 0 && adIndex < ads.length)) {
+            //componentIndex == 1 <- add top
+            postComponents.push(ads[adIndex++]);
+          }
+        }
+      });
+    }
     if (adIndex < ads.length) {
       postComponents.push(ads[adIndex]);
     }
 
+    if (this.props.isMobile) {
+      return (
+        <Layout className="layout" style={{background: '#ffffff'}}>
+          <PopitMobileSider/>
+          <Layout>
+            <PopitMobileHeader/>
+            <Content style={{ padding: '10px', marginTop: 64}}>
+              <div style={{padding: "10px", background: '#ffffff', borderRadius: 10}}>
+                <div className="list-post">
+                  <div className="post-inner">
+                    <div className="post-content">
+                      <div><h1>{decodeHtml(post.title)}</h1></div>
+                      <div>
+                        <div style={{display: 'none'}}>{post.id}</div>
+                        <AuthorCard author={post.author} postDate={post.date}/>
+                        <div style={{marginTop: 10}}>
+                          { shareButton }
+                        </div>
+                      </div>
+                      <div style={{marginTop:10}} className="entry-content">
+                        <div>
+                          { postComponents }
+                        </div>
+                      </div>
+                      <div style={{marginTop:20, textAlign: 'center'}} >
+                        <div className="fb-page"
+                             data-href="https://www.facebook.com/popitkr"
+                             data-width="300"
+                             data-height="80"
+                             small_header="true"
+                             data-hide-cover="false"
+                             adapt_container_width="false"
+                             data-show-facepile="false"
+                        />
+                      </div>
+                      <div style={{marginTop:30}} >
+                        <hr/>
+                        <FBComment fbPluginUrl={fbPluginUrl}/>
+                        <div style={{marginTop:10, fontSize: 12, lineHeight: '18px', fontStyle: 'italic', color: '#C3C3C3'}}>
+                          Popit은 페이스북 댓글만 사용하고 있습니다. 페이스북 로그인 후 글을 보시면 댓글이 나타납니다.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Content>
+            <PopitFooter/>
+          </Layout>
+        </Layout>
+      );
+    }
+
     return (
       <Layout className="layout" hasSider={false} style={{background: '#ffffff'}}>
-        <PopitHeader />
+        <PopitHeader/>
         <Content style={{padding: '20px 10px', maxWidth: 1360, margin: 'auto auto'}}>
-          {/*
-            (
-            <div style={{float: 'left', width: 350, marginRight: 20}}>
-              <div style={{height: 150, background: '#f0f0f0'}}>
-                Facebook like
-              </div>
-              <div style={{height: 150, marginTop: 20, background: '#f0f0f0'}}>
-                저자 글
-              </div>
-              <div style={{height: 150, marginTop: 20, background: '#f0f0f0'}}>
-                광고
-              </div>
-            </div>
-            )*/
-          }
-
           <div style={{width: 900}}>
             <div className="list-post">
               <div className="post-inner">
@@ -247,6 +299,7 @@ export default class SinglePostPage extends React.Component {
             </div>
           </div>
         </Content>
+        <PopitFooter/>
       </Layout>
     )
   }

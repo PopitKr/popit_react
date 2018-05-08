@@ -2,9 +2,9 @@ import React from 'react';
 import { Icon, Button } from 'antd';
 import ShareButton from '../ShareButton';
 import AuthorCard from '../AuthorCard';
+import decodeHtml from 'decode-html';
 
 import { Link } from 'react-router-dom';
-import decodeHtml from 'decode-html';
 import { PUBLIC_PATH } from "../../routes";
 import '../popit.css';
 

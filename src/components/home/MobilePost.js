@@ -1,11 +1,15 @@
 import React from 'react';
 import { Icon, Button, Row, Col } from 'antd';
 import ShareButton from '../ShareButton';
+import { Link } from 'react-router-dom';
+import { PUBLIC_PATH } from "../../routes";
+
 import '../popit.css';
 
-// import defaultCover1 from '../../asset/default_cover1.jpg';
-// import defaultCover2 from '../../asset/default_cover2.jpg';
-// import defaultCover3 from '../../asset/default_cover3.jpg';
+import defaultCover1 from '../../asset/default_cover1.jpg';
+import defaultCover2 from '../../asset/default_cover2.jpg';
+import defaultCover3 from '../../asset/default_cover3.jpg';
+import PostApi from "../../services/PostApi";
 
 export default class MobilePost extends React.Component {
   constructor(props) {
@@ -16,11 +20,10 @@ export default class MobilePost extends React.Component {
     }
   }
 
-  getDefaultImage() {
-    const randVal = Math.floor(Math.random() * 3) + 1;
-    if (randVal == 1) {
+  getDefaultImage(id) {
+    if (id % 3 == 0) {
       return defaultCover1;
-    } else if (randVal == 2) {
+    } else if (id % 3 == 1) {
       return defaultCover2;
     } else {
       return defaultCover3;
@@ -32,7 +35,7 @@ export default class MobilePost extends React.Component {
 
     const categories = post.categories.map((category, index) => {
       const delimiter = index === 0 ? "" : ",";
-      return (<span key={"categories-" + index}>{delimiter} <a href={`http://www.popit.kr/category/${category.slug}`}>{category.name}</a></span>)
+      return (<span key={"categories-" + index}>{delimiter} <Link to={`${PUBLIC_PATH}/category/${category.slug}`}>{category.name}</Link></span>)
     });
 
     const tags = post.tags.map((tag, index) => {
@@ -40,27 +43,28 @@ export default class MobilePost extends React.Component {
         return null;
       }
       const delimiter = index === 0 ? "" : ",";
-      return (<span key={"tags-" + index}>{delimiter} <a href={`http://www.popit.kr/tag/${tag.slug}`}>{tag.name}</a></span>)
+      return (<span key={"tags-" + index}>{delimiter} <Link to={`${PUBLIC_PATH}/tag/${tag.slug}`}>{tag.name}</Link></span>)
     });
 
     const separator = tags.length > 0 ? " | " : "";
 
-    // const coverImage = post.image ? post.image : this.getDefaultImage();
-    const coverImage = post.image;
-    const postUrl = `http://www.popit.kr/${post.postName}/`;
-    const authorPostLink = `http://www.popit.kr/author/${post.author.userLogin}`;
+    const coverImage = post.image ? post.image : this.getDefaultImage(post.id);
+    const postUrl = `https://www.popit.kr/${post.postName}/`;
+    const postLink = `${PUBLIC_PATH}/${post.postName}/`;
+    const fbLikeUrl = PostApi.getFacebookShareLink(post);
+    const authorPostLink = `${PUBLIC_PATH}/author/${post.author.userLogin}`;
 
     const marginTop = this.props.index === 0 ? 0: 20;
     return (
       <div style={{marginTop: marginTop, padding: "10px", background: '#ffffff', borderRadius: 10}}>
         <Row>
           <Col span={24}>
-            <a href={postUrl}><h3 className="post_title_mobile">{post.title}</h3></a>
+            <Link to={postLink}><h3 className="post_title_mobile">{post.title}</h3></Link>
           </Col>
         </Row>
         <Row>
           <Col span={24}>
-            <div style={{marginTop: 10}}><a href={postUrl}><img style={{width: '100%', height: 200}} src={coverImage}/></a></div>
+            <div style={{marginTop: 10}}><Link to={postLink}><img style={{width: '100%', height: 200}} src={coverImage}/></Link></div>
           </Col>
         </Row>
         <Row>
@@ -70,8 +74,8 @@ export default class MobilePost extends React.Component {
                 <a href={authorPostLink}><img src={post.author.avatar} className="author_avatar"/></a>
               </div>
               <div style={{float: 'left', marginRight: 10, fontSize: 13}}>
-                <div>
-                  <a style={{textDecoration: "none"}} href={authorPostLink} target="_blank">{post.author.displayName}</a>
+                <div style={{lineHeight: '18px'}}>
+                  <Link to={authorPostLink}>{post.author.displayName}</Link>
                 </div>
                 <div style={{color: "#888888"}}>
                   {post.date.substr(0, 10)}
@@ -82,7 +86,7 @@ export default class MobilePost extends React.Component {
           </Col>
           <Col span={14}>
             <div style={{marginTop: 25}}>
-              <ShareButton url={postUrl} title={post.title}/>
+              <ShareButton post_id={post.id} url={postUrl} title={post.title} fbLikeUrl={fbLikeUrl}/>
             </div>
           </Col>
         </Row>
@@ -93,7 +97,7 @@ export default class MobilePost extends React.Component {
         </Row>
         <Row>
           <Col span={24}>
-            <div className="post_description_link" style={{marginTop: 10}}><a href={postUrl}>{post.socialDesc}</a></div>
+            <div className="post_description_link" style={{marginTop: 10}}><Link to={postLink}>{post.socialDesc}</Link></div>
           </Col>
         </Row>
       </div>
