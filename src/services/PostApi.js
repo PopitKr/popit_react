@@ -31,10 +31,21 @@ export default class PostApi {
       // return "http://127.0.0.1:8000";
       return "https://www.popit.kr";
     } else {
-      return "https://www.popit.kr";
       // return "http://127.0.0.1:8000";
+      return "https://www.popit.kr";
     }
   };
+
+  static searchPosts(keyword, page) {
+    if (!keyword) {
+      console.log("Error: No keyword");
+      throw new Error("No keyword");
+    }
+    const apiPath = `${PostApi.getApiServer()}/api/Search?keyword=${keyword}&page=${page}`;
+    return fetch(apiPath, {headers: PostApi.getHeader()})
+      .then(HttpUtil.handleHttpStatus)
+      .then(res => res.json())
+  }
 
   static getPostByPermalink(link) {
     const apiPath = `${PostApi.getApiServer()}/api/PostByPermalink?permalink=${link}`;

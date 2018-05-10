@@ -56,7 +56,14 @@ export default class PostCardList extends React.Component {
       if (index == 0 || (index % adInterval == 0 && adIndex < ads.length - 1)) {
         postCards.push((<div key={'ad_google_' + adIndex} style={{marginTop:10, marginBottom: 10}}>{ads[adIndex++]}</div>));
       }
-      postCards.push((<PostCard key={post.id} post={post} index={index} showAuthor={this.props.showAuthor}></PostCard>));
+      postCards.push(
+        (<PostCard key={post.id}
+                   post={post}
+                   index={index}
+                   showAuthor={this.props.showAuthor}
+                   showHighlight={this.props.showAuthor}
+        />)
+      );
     });
 
     if (adIndex < ads.length) {
@@ -70,7 +77,9 @@ export default class PostCardList extends React.Component {
 
             (
               <div
-                onClick={this.props.getNextPosts}
+                onClick={() => {
+                  this.props.getNextPosts();
+                }}
                 style={{
                   marginTop: 20,
                   cursor: 'pointer',
