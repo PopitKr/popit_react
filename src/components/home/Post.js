@@ -60,7 +60,7 @@ export default class Post extends React.Component {
     return (
       <div className="post" style={{position: 'relative'}}>
         <div>
-          <Link to={postLink}><img src={coverImage} style={{width: 230, height: 130}}/></Link>
+          <a href={postLink}><img src={coverImage} style={{width: 230, height: 130}}/></a>
         </div>
         {
           this.props.showNext === true
@@ -96,7 +96,7 @@ export default class Post extends React.Component {
             (<div></div>)
         }
         <div>
-          <Link to={postLink}><h3 className="post_title">{decodeHtml(post.title)}</h3></Link>
+          <a href={postLink}><h3 className="post_title">{decodeHtml(post.title)}</h3></a>
         </div>
         <div style={{marginTop: 5}}>
 	  <ShareButton post_id={post.id} url={postUrl} title={post.title} fbLikeUrl={fbLikeUrl} />
@@ -116,7 +116,7 @@ export default class Post extends React.Component {
             (
               <div>
                 <div className="post_description">{post.socialDesc}</div>
-                { (this.props.showDescriptionLink === true) ? (<div className={"post_description_link"}><Link to={postLink}>[...]</Link></div>) : (<div></div>) }
+                { (this.props.showDescriptionLink === true) ? (<div className={"post_description_link"}><a href={postLink}>[...]</a></div>) : (<div></div>) }
                 </div>
             )
           :

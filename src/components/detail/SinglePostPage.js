@@ -207,7 +207,7 @@ export default class SinglePostPage extends React.Component {
               <div style={{padding: "10px", background: '#ffffff', borderRadius: 10}}>
                 <div className="list-post">
                   <div className="post-inner">
-                    <div className="post-content">
+                    <div className="post-content" itemProp="articleBody">
                       <div><h1>{decodeHtml(post.title)}</h1></div>
                       <div>
                         <div style={{display: 'none'}}>{post.id}</div>
@@ -257,7 +257,7 @@ export default class SinglePostPage extends React.Component {
           <div style={{width: 900}}>
             <div className="list-post">
               <div className="post-inner">
-                <div className="post-content">
+                <div className="post-content" itemProp="articleBody">
                   <div><h1>{decodeHtml(post.title)}</h1></div>
                   <div>
                     <div style={{float: 'left', width: 300}}>

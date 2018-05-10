@@ -80,11 +80,11 @@ export default class PostCard extends React.Component {
       <div className="post_card" style={{marginTop: marginTop}}>
         <div>
           <div style={{float: 'left'}}>
-            <Link to={postLink}><img src={coverImage} style={{width: 250, height: 170, borderRadius: '5%', background: '#F3F3F3'}}/></Link>
+            <a href={postLink}><img src={coverImage} style={{width: 250, height: 170, borderRadius: '5%', background: '#F3F3F3'}}/></a>
           </div>
           <div style={{float: 'left', marginLeft: 15, maxWidth: 630}}>
             <div>
-              <Link to={postLink}><h3 className="post_card_title">{post.title}</h3></Link>
+              <a href={postLink}><h3 className="post_card_title">{post.title}</h3></a>
             </div>
             <div style={{marginTop: 0}}>
               <div style={{float: 'left'}}>

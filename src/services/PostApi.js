@@ -26,6 +26,19 @@ export default class PostApi {
     return `${useHttp ? "http" : "https"}://www.popit.kr/${decodeURIComponent(post.postName)}/`;
   };
 
+  static getCanonicalLink(post) {
+    let useHttps = false;
+    if (post.metas) {
+      let metaValues = post.metas.filter(meta => {
+        return meta.name === "canonical.https"
+      });
+      if (metaValues.length > 0) {
+        useHttps = metaValues[0].value === "true";
+      }
+    }
+    return `${useHttps ? "https" : "http"}://www.popit.kr/${decodeURIComponent(post.postName)}/`;
+  };
+
   static getApiServer() {
     if (process.env.NODE_ENV === 'production') {
       // return "http://127.0.0.1:8000";
