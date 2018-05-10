@@ -4,6 +4,7 @@ import TagPostsPage from './components/list/TagPostsPage';
 import CategoryPostsPage from './components/list/CategoryPostsPage';
 import PostApi from './services/PostApi';
 import AuthorPostsPage from "./components/list/AuthorPostsPage";
+import SearchPostsPage from './components/list/SearchPostsPage';
 
 const PUBLIC_PATH = '/v2';
 
@@ -15,6 +16,13 @@ const routes =  [
     // fetchInitialData: (path = '') => {
     //   return PostApi.getGoogleAds('index.desktop');
     // }
+  }, {
+    path: PUBLIC_PATH + '/search/:keyword',
+    component: SearchPostsPage,
+    fetchInitialData: (path = '') => {
+      const keyword = path.split('/').pop();
+      return PostApi.searchPosts(keyword, 1);
+    }
   }, {
     path: PUBLIC_PATH + '/tag/:tag',
     component: TagPostsPage,

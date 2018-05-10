@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter, Redirect } from 'react-router-dom';
 import { Layout, Icon, Input } from "antd";
 import './popit.css';
 import { PUBLIC_PATH } from '../routes';
@@ -7,8 +8,14 @@ const Search = Input.Search;
 const { Header } = Layout;
 
 export default class PopitHeader extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.search = this.search.bind(this);
+  }
+
   search(keyword) {
-    document.location.href = `https://www.popit.kr?s=${keyword}`;
+    document.location.href = `${PUBLIC_PATH}/search/${encodeURIComponent(keyword)}`;
   };
 
   render() {
@@ -23,11 +30,10 @@ export default class PopitHeader extends React.Component {
         <div style={{float: 'right', marginLeft: 20}}>
           <Search
             placeholder="Search"
-            onSearch={value => this.search(value)}
+            onSearch={ (value) => this.search(value) }
             style={{ width: 200 }}
           />
         </div>
-
       </Header>
     )
   }

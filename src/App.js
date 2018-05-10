@@ -11,7 +11,7 @@ class App extends Component {
         <Switch>
           {routes.map(({ path, exact, component: Component, ...rest }) => (
             <Route key={path} path={path} exact={exact} render={(props) => (
-              <Component isMobile={this.props.isMobile} {...props} {...rest} />
+              <Component {...props} {...rest} />
             )} />
           ))}
           <Route render={(props) => <NoMatch {...props} /> } />
