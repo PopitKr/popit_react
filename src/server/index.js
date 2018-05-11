@@ -25,10 +25,27 @@ app.get("*", (req, res, next) => {
   promise.then((data) => {
     const context = { data };
 
+    let detailPage = false;
     let ogUrl = `https://www.popit.kr${decodeURIComponent(req.path)}`;
+    let dableMeta = "";
 
-    if (activeRoute.path === '/:permalink/' && context.data && context.data.data) {
-      ogUrl = PostApi.getFacebookShareLink(context.data.data);
+    let description = "전문 지식 공유를 위한 팀블로그";
+    let title = "Popit";
+    if (activeRoute.path === PUBLIC_PATH + '/:permalink/' && context.data && context.data.data) {
+      detailPage = true;
+      ogUrl = PostApi.getCanonicalLink(context.data.data);
+
+      dableMeta = `<meta property="dable:item_id" content="${context.data.data.id}"/>\n`;
+      dableMeta += `<meta name="dable:author" content="${context.data.data.author.displayName}"/>\n`;
+      let catalog = "미분류";
+      if (context.data.data.categories && context.data.data.categories.length > 0) {
+        catalog = context.data.data.categories[0].name;
+      }
+      dableMeta += `<meta name="article:section" content="${catalog}"/>\n`;
+      dableMeta += `<meta name="article:published_time" content="${context.data.data.date}" />\n`;
+
+      description = context.data.data.socialDesc;
+      title = context.data.data.title + " | Popit";
     }
 
     const markup = renderToString(
@@ -41,7 +58,7 @@ app.get("*", (req, res, next) => {
       <!DOCTYPE html>
       <html>
         <head>
-          <title>Popit</title>
+          <title>${title}</title>
 
           <link href="https://www.popit.kr/wp-content/uploads/2016/08/favicon_32x32.png" rel="shortcut icon" /> 
           <link rel='next' href='https://www.popit.kr/page/2/' />
@@ -49,15 +66,16 @@ app.get("*", (req, res, next) => {
 
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, user-scalable=no">
-          <meta name="description" itemprop="description" content="전문 지식 공유를 위한 팀블로그" />
+          ${dableMeta}
+          <meta name="description" itemprop="description" content="${description}" />
           <meta property="og:title" content="Pop your experience. Share it." />
           <meta property="og:url" content="${ogUrl}" />
           <meta property="og:image" content="https://www.popit.kr/wp-content/uploads/2016/08/logo.png" />
           <meta property="og:site_name" content="Popit" />
-          <meta property="og:description" content="전문 지식 공유를 위한 팀블로그" />
+          <meta property="og:description" content="${description}" />
           <meta name="twitter:card" content="summary" />
           <meta name="twitter:title" content="Pop your experience. Share it." />
-          <meta name="twitter:description" content="전문 지식 공유를 위한 팀블로그" />
+          <meta name="twitter:description" content="${description}" />
           <meta name="twitter:image" content="https://www.popit.kr/wp-content/uploads/2016/08/logo.png" />
           <meta itemprop="image" content="https://www.popit.kr/wp-content/uploads/2016/08/logo.png" />
 
