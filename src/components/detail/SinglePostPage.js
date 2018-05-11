@@ -42,23 +42,7 @@ export default class SinglePostPage extends React.Component {
     };
     this.page = 0;
     this.getPostByPermalink = this.getPostByPermalink.bind(this);
-    this.newPostElement = this.newPostElement.bind(this);
-  }
-
-  newPostElement(line) {
-    if (line.indexOf('[embed]') >= 0) {
-      return new EmbeddedElement(line);
-    } else if (line.indexOf("[caption") === 0) {
-      return new CaptionImageElement(line);
-    } else if (line.indexOf("<pre class=\"lang") >= 0) {
-      return new SourceCodeElement(line);
-    } else if (line.indexOf("<ul") >= 0) {
-      return new ItemsElement(line);
-    } else if (line.indexOf("<blockquote") >=0 && line.indexOf("</blockquote>") < 0) {
-      return new BlockQuoteElement(line);
-    } else {
-      return new ParagraphElement(line);
-    }
+    // this.newPostElement = this.newPostElement.bind(this);
   }
 
   componentDidMount () {
@@ -136,6 +120,7 @@ export default class SinglePostPage extends React.Component {
     let postElement = null;
     let postElements = [];
 
+    let verbose = false;
     for (let i = 0; i < sentences.length; i++) {
       let eachSentence = "";
       try {
@@ -151,12 +136,20 @@ export default class SinglePostPage extends React.Component {
       }
 
       if (postElement == null) {
-        postElement = this.newPostElement(eachSentence);
+        postElement = PostElement.newPostElement(eachSentence);
       } else {
         if (postElement.needNextLine()) {
           postElement.addNextLine(eachSentence);
         }
       }
+
+      // if (eachSentence.indexOf("Graph Panel 설정") >= 0) {
+      //   verbose = true;
+      // }
+      // if (verbose) {
+      //   console.log(">>>>line>", eachSentence);
+      //   console.log(">>>>element>", postElement);
+      // }
 
       if (postElement.isFinished()) {
         postElements.push(postElement);

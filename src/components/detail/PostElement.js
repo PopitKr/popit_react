@@ -29,6 +29,22 @@ class PostElement {
     this.getComponent = this.getComponent.bind(this);
   }
 
+  static newPostElement(line) {
+    if (line.indexOf('[embed]') >= 0) {
+      return new EmbeddedElement(line);
+    } else if (line.indexOf("[caption") === 0) {
+      return new CaptionImageElement(line);
+    } else if (line.indexOf("<pre class=\"lang") >= 0) {
+      return new SourceCodeElement(line);
+    } else if (line.indexOf("<ul") >= 0) {
+      return new ItemsElement(line);
+    } else if (line.indexOf("<blockquote") >=0 && line.indexOf("</blockquote>") < 0) {
+      return new BlockQuoteElement(line);
+    } else {
+      return new ParagraphElement(line);
+    }
+  }
+
   addNextLine(line) {
   }
 
@@ -126,9 +142,61 @@ class ItemsElement extends PostElement {
 
   getHtmlString() {
     let html = "";
-    this.lines.forEach((line) => html += line + "\n");
+    let startListItemTag = false; // <li>
+    this.lines.forEach((line) => {
+      html += line;
+      if (startListItemTag) {
+        html += "<br/>";
+      }
+      html += "\n";
+
+      if (line.trim().replace("\t", "").startsWith("<li>")) {
+        startListItemTag = true;
+      }
+      if (line.endsWith("</li>")) {
+        startListItemTag = false;
+      }
+    });
 
     return html;
+  }
+
+  getComponent(key) {
+    let html = "";
+    let startListItemTag = false; // <li>
+
+    let codeComponentIndex = 1;
+    let codeComponent = null;
+    this.lines.forEach((line) => {
+      if (line.indexOf("<pre class=\"lang") >= 0) {
+        // <li> 내부에 다시 소스 코드가 있는 경우
+        codeComponent = PostElement.newPostElement(line);
+        return;
+      }
+      if (codeComponent != null) {
+        codeComponent.addNextLine(line);
+        if (codeComponent.isFinished()) {
+          html += renderToString(codeComponent.getComponent(key + "_" + codeComponentIndex));
+          codeComponent = null;
+          codeComponentIndex++;
+        }
+        return;
+      }
+      html += line;
+      if (startListItemTag) {
+        html += "<br/>";
+      }
+      html += "\n";
+
+      if (line.trim().replace("\t", "").startsWith("<li>")) {
+        startListItemTag = true;
+      }
+      if (line.endsWith("</li>")) {
+        startListItemTag = false;
+      }
+    });
+
+    return (<HtmlElement key={key} html={html}/>)
   }
 }
 
@@ -227,7 +295,7 @@ class SourceCodeElement extends PostElement {
 
     const firstLineSourceCode = firstLine.substring(preTagClosingIndex + 1);
     this.sourceCodes = [decodeHtml(firstLineSourceCode)];
-    this.finish = false;
+    this.finish = firstLine.endsWith("</pre>");
 
     this.getComponent = this.getComponent.bind(this);
   }
