@@ -46,7 +46,7 @@ export default class AuthorPostsPage extends React.Component {
 
   getAuthorPosts() {
     this.page++;
-    PostApi.getPostsByAuthor(this.props.match.params.author, [], this.page, MAX_NUM_POSTS)
+    PostApi.getPostsByAuthor(this.props.authorParam, [], this.page, MAX_NUM_POSTS)
       .then(json => {
         if (json.success !== true) {
           this.setState({
