@@ -10,6 +10,9 @@ export default class ShareButton extends React.Component {
       fbLoaded: false,
     };
     this.loaded = false;
+
+    this.shareTwitter = this.shareTwitter.bind(this);
+    this.shareLinkedin = this.shareLinkedin.bind(this);
   }
 
   componentWillUpdate(nextProps, nextState) {
