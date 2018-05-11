@@ -1,14 +1,16 @@
 import React from 'react';
-import PostApi from "../../services/PostApi";
 import { Layout } from 'antd';
+import { Link } from 'react-router-dom';
+import { renderToString } from "react-dom/server";
+import decodeHtml from 'decode-html';
+
+import PostApi from "../../services/PostApi";
 import ShareButton from '../ShareButton';
 import FBComment from '../FBComment';
 import PopitHeader from "../PopitHeader";
 import PopitMobileHeader from "../PopitMobileHeader";
 import PopitMobileSider from "../PopitMobileSider";
 import PopitFooter from "../PopitFooter";
-import { renderToString } from "react-dom/server";
-import decodeHtml from 'decode-html';
 import AuthorCard from '../AuthorCard';
 import GoogleAd from '../GoogleAd';
 
@@ -17,6 +19,7 @@ import {
   CaptionImageElement, SourceCodeElement, ItemsElement, BlockQuoteElement } from './PostElement';
 
 import '../popit.css';
+import {PUBLIC_PATH} from "../../routes";
 
 const { Content, Footer } = Layout;
 
@@ -98,6 +101,9 @@ export default class SinglePostPage extends React.Component {
 
   render() {
     const { post, googleAds } = this.state;
+    if (!post) {
+      return (<div style={{textAlign: 'center', marginTop: 20}}>Loading...</div>);
+    }
 
     const ads = [];
     if (googleAds) {
@@ -111,10 +117,20 @@ export default class SinglePostPage extends React.Component {
         (<GoogleAd googleAd={googleAds["ad.post.desktop.bottom"].value} key={'ad_google_bottom'}></GoogleAd>)
       );
     }
+    const categories = post.categories.map((category, index) => {
+      const delimiter = index === 0 ? "" : ",";
+      return (<span key={"categories-" + index}>{delimiter} <Link to={`${PUBLIC_PATH}/category/${category.slug}`}>{category.name}</Link></span>)
+    });
 
-    if (!post) {
-      return (<div style={{textAlign: 'center', marginTop: 20}}>Loading...</div>);
-    }
+    const tags = post.tags.map((tag, index) => {
+      if (index > 2) {
+        return null;
+      }
+      const delimiter = index === 0 ? "" : ",";
+      return (<span key={"tags-" + index}>{delimiter} <Link to={`${PUBLIC_PATH}/tag/${tag.slug}`}>{tag.name}</Link></span>)
+    });
+    const separator = tags.length > 0 ? " | " : "";
+
     const sentences = post.content.split("\n");
 
     let postElement = null;
@@ -212,6 +228,7 @@ export default class SinglePostPage extends React.Component {
                       <div>
                         <div style={{display: 'none'}}>{post.id}</div>
                         <AuthorCard author={post.author} postDate={post.date}/>
+                        <div className="post_tag">{categories}{separator}{tags}</div>
                         <div style={{marginTop: 10}}>
                           { shareButton }
                         </div>
@@ -263,6 +280,7 @@ export default class SinglePostPage extends React.Component {
                     <div style={{float: 'left', width: 300}}>
                       <div style={{display: 'none'}}>{post.id}</div>
                       <AuthorCard author={post.author} postDate={post.date}/>
+                      <div className="post_tag">{categories}{separator}{tags}</div>
                       <div style={{marginTop: 10}}>
                         { shareButton }
                       </div>
