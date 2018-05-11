@@ -53,10 +53,13 @@ img {
 
 .post_card_description {
   text-overflow: ellipsis;
+  overflow: hidden;
   word-break: break-all;
   font-size: 14px;
-  line-height: 20px;
+  line-height: 19px;
   margin-top: 5px;
+  height: 75px;
+  max-height: 75px;
   color: #888888;
 }
 

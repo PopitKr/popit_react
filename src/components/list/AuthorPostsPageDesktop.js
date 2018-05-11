@@ -89,7 +89,10 @@ export default class AuthorPostsPage extends React.Component {
             {
               (author.userUrl)
                 ?
-                (<h1><img src={author.avatar} className="author_avatar"/> {author.displayName}({author.userLogin}), <a href={author.userUrl} target="_blank">{author.userUrl}</a></h1>)
+                (<h1>
+                  <img src={author.avatar} className="author_avatar"/> {author.displayName}({author.userLogin})
+                  <span className="author_home" style={{fontSize: 20}}><a href={author.userUrl} target="_blank">{author.userUrl}</a></span>
+                </h1>)
                 :
                 (<h1><img src={author.avatar} className="author_avatar"/> {author.displayName}({author.userLogin})</h1>)
             }

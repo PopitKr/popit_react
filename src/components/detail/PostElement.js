@@ -1,5 +1,6 @@
 import React from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
+import decodeHtml from 'decode-html';
 import { dracula } from 'react-syntax-highlighter/styles/hljs';
 import {renderToString} from "react-dom/server";
 import Iframe from 'react-iframe';
@@ -224,7 +225,8 @@ class SourceCodeElement extends PostElement {
     // parse first line
     const preTagClosingIndex = firstLine.indexOf(">");
 
-    this.sourceCodes = [firstLine.substring(preTagClosingIndex + 1)];
+    const firstLineSourceCode = firstLine.substring(preTagClosingIndex + 1);
+    this.sourceCodes = [decodeHtml(firstLineSourceCode)];
     this.finish = false;
 
     this.getComponent = this.getComponent.bind(this);
@@ -239,12 +241,12 @@ class SourceCodeElement extends PostElement {
   }
 
   addNextLine(line) {
-    const preTagIndex = line.indexOf("</pre>");
-    if (preTagIndex >= 0) {
+    if (line.endsWith("</pre>")) {
+      const preTagIndex = line.lastIndexOf("</pre>");
       this.finish = true;
-      this.sourceCodes.push(line.substring(0, preTagIndex));
+      this.sourceCodes.push(decodeHtml(line.substring(0, preTagIndex)));
     } else {
-      this.sourceCodes.push(line);
+      this.sourceCodes.push(decodeHtml(line));
     }
   }
 

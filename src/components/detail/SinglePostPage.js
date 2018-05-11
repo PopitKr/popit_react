@@ -129,7 +129,7 @@ export default class SinglePostPage extends React.Component {
       const delimiter = index === 0 ? "" : ",";
       return (<span key={"tags-" + index}>{delimiter} <Link to={`${PUBLIC_PATH}/tag/${tag.slug}`}>{tag.name}</Link></span>)
     });
-    const separator = tags.length > 0 ? " | " : "";
+    const tagSeparator = tags.length > 0 ? " | " : "";
 
     const sentences = post.content.split("\n");
 
@@ -228,7 +228,7 @@ export default class SinglePostPage extends React.Component {
                       <div>
                         <div style={{display: 'none'}}>{post.id}</div>
                         <AuthorCard author={post.author} postDate={post.date}/>
-                        <div className="post_tag">{categories}{separator}{tags}</div>
+                        <div className="post_tag">{categories}{tagSeparator}{tags}</div>
                         <div style={{marginTop: 10}}>
                           { shareButton }
                         </div>
@@ -280,7 +280,7 @@ export default class SinglePostPage extends React.Component {
                     <div style={{float: 'left', width: 300}}>
                       <div style={{display: 'none'}}>{post.id}</div>
                       <AuthorCard author={post.author} postDate={post.date}/>
-                      <div className="post_tag">{categories}{separator}{tags}</div>
+                      <div className="post_tag">{categories}{tagSeparator}{tags}</div>
                       <div style={{marginTop: 10}}>
                         { shareButton }
                       </div>
