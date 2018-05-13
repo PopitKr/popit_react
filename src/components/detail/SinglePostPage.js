@@ -100,6 +100,10 @@ export default class SinglePostPage extends React.Component {
       if (googleAds["ad.post.desktop.bottom"]) ads.push(
         (<GoogleAd googleAd={googleAds["ad.post.desktop.bottom"].value} key={'ad_google_bottom'}></GoogleAd>)
       );
+    }  else {
+      ads.push((<div key={'ad_google_top'}></div>));
+      ads.push((<div key={'ad_google_middle'}></div>));
+      ads.push((<div key={'ad_google_bottom'}></div>));
     }
     const categories = post.categories.map((category, index) => {
       const delimiter = index === 0 ? "" : ",";
@@ -169,24 +173,20 @@ export default class SinglePostPage extends React.Component {
     }
 
     let componentIndex = 0;
-    let adInterval = Math.floor(postElements.length / ads.length);
-    if (adInterval != 10) {
-      adInterval = 10;
-    }
+    let middleAdIndex = Math.floor(postElements.length / 2);
 
     let postHtml = "";
     let postComponents = [];
 
-    let adIndex = 0;
     if (this.props.isMobile) {
-      postComponents.push(ads[adIndex++]);
+      postComponents.push(ads[0]);
       postElements.forEach((element, index) => {
         const component = element.getComponent(index);
         if (component != null) {
           postComponents.push(component);
         }
-        if ((index + 1) % adInterval == 0 && adIndex < ads.length) {
-          postComponents.push(ads[adIndex++]);
+        if (index == middleAdIndex) {
+          postComponents.push(ads[1]);
         }
       });
     } else {
@@ -195,16 +195,15 @@ export default class SinglePostPage extends React.Component {
         if (component != null) {
           postComponents.push(component);
           componentIndex++;
-          if (componentIndex == 1 || (componentIndex % adInterval == 0 && adIndex < ads.length)) {
-            //componentIndex == 1 <- add top
-            postComponents.push(ads[adIndex++]);
+          if (componentIndex == 1) {
+            postComponents.push(ads[0]);
+          } else if (index == middleAdIndex) {
+            postComponents.push(ads[1]);
           }
         }
       });
     }
-    if (adIndex < ads.length) {
-      postComponents.push(ads[adIndex]);
-    }
+    postComponents.push(ads[2]);
 
     if (this.props.isMobile) {
       return (
