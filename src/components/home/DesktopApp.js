@@ -68,8 +68,8 @@ export default class DesktopApp extends React.Component {
 
     return (
       <Layout className="layout" hasSider={false} style={{background: '#ffffff'}}>
-        <PopitHeader />
-        <Content style={{padding: '0 10px', maxWidth: 1360, margin: 'auto auto'}}>
+        <PopitHeader/>
+        <Content style={{padding: '0 10px', maxWidth: 1360, margin: '74px auto auto auto'}}>
           <div style={{float: 'left', maxWidth: 1040}}>
             <div style={{padding: 15}}>
               <RecentPosts/>

@@ -24,7 +24,7 @@ export default class PopitMobileHeader extends React.Component {
     };
 
     return (
-      <Header style={{ paddingLeft: 20, width: '100%'}}>
+      <Header style={{ position: 'fixed', zIndex: 999, paddingLeft: 20, width: '100%'}}>
         <div>
           <div style={logoStyle} onClick={() => {document.location.href = PUBLIC_PATH}}/>
           <div style={{marginLeft: 20, float: 'left'}}>

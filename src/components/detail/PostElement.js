@@ -265,6 +265,7 @@ class EmbeddedElement extends PostElement {
       const url = new URL(this.embeddedLink);
       const contentId = url.searchParams.get("v");
       if (contentId) {
+        const link = `https://www.youtube.com/embed/${contentId}`;
         return (
           <div className="post-embed" style={{margin: 10}} key={key}>
             <Iframe url={link}

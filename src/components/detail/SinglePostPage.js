@@ -211,7 +211,7 @@ export default class SinglePostPage extends React.Component {
           <PopitMobileSider/>
           <Layout>
             <PopitMobileHeader/>
-            <Content style={{ padding: '10px', marginTop: 64}}>
+            <Content style={{ padding: '10px', marginTop: 94}}>
               <div style={{padding: "10px", background: '#ffffff', borderRadius: 10}}>
                 <div className="list-post">
                   <div className="post-inner">
@@ -262,7 +262,7 @@ export default class SinglePostPage extends React.Component {
     return (
       <Layout className="layout" hasSider={false} style={{background: '#ffffff'}}>
         <PopitHeader/>
-        <Content style={{padding: '20px 10px', maxWidth: 1360, margin: 'auto auto'}}>
+        <Content style={{padding: '20px 10px', maxWidth: 1360, margin: '74px auto auto auto'}}>
           <div style={{width: 900}}>
             <div className="list-post">
               <div className="post-inner">
