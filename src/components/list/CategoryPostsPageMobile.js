@@ -86,7 +86,7 @@ export default class CategoryPostsPageMobile extends React.Component {
         <PopitMobileSider />
         <Layout>
           <PopitMobileHeader/>
-          <Content style={{ padding: '10px', marginTop: 64}}>
+          <Content style={{ padding: '10px', marginTop: 84}}>
             <div>
               <h1>{this.props.categoryParam.toUpperCase()}</h1>
               { (errorMessage) ? (<div style={{fontWeight: 'bold', fontSize: 16}}>Error: {errorMessage}</div>) : null }

@@ -84,7 +84,7 @@ export default class AuthorPostsPage extends React.Component {
     return (
       <Layout className="layout" hasSider={false} style={{background: '#ffffff'}}>
         <PopitHeader />
-        <Content style={{padding: '20px 10px', maxWidth: 1360, margin: 'auto auto'}}>
+        <Content style={{padding: '20px 10px', maxWidth: 1360, margin: '74px auto auto auto'}}>
           <div style={{width: 900}}>
             {
               (author.userUrl)

@@ -99,14 +99,14 @@ export default class Post extends React.Component {
           <a href={postLink}><h3 className="post_title">{decodeHtml(post.title)}</h3></a>
         </div>
         <div style={{marginTop: 5}}>
-	  <ShareButton post_id={post.id} url={postUrl} title={post.title} fbLikeUrl={fbLikeUrl} />
+	        <ShareButton post_id={post.id} url={postUrl} title={post.title} fbLikeUrl={fbLikeUrl} />
         </div>
         {
           this.props.showAuthor === true
             ?
             (<AuthorCard author={post.author} postDate={post.date}/>)
             :
-            (<div></div>)
+            (null)
         }
         <div className="post_tag">{categories}{separator}{tags}</div>
 
@@ -115,12 +115,12 @@ export default class Post extends React.Component {
           ?
             (
               <div>
-                <div className="post_description">{post.socialDesc}</div>
+                <div className="post_description"><div dangerouslySetInnerHTML={{ __html: post.socialDesc }} /></div>
                 { (this.props.showDescriptionLink === true) ? (<div className={"post_description_link"}><a href={postLink}>[...]</a></div>) : (<div></div>) }
                 </div>
             )
           :
-            (<div></div>)
+            (null)
         }
       </div>
     );

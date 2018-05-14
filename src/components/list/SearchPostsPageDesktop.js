@@ -81,7 +81,7 @@ export default class SearchPostsPageDesktop extends React.Component {
     return (
       <Layout className="layout" hasSider={false} style={{background: '#ffffff'}}>
         <PopitHeader />
-        <Content style={{padding: '20px 10px', maxWidth: 1360, margin: 'auto auto'}}>
+        <Content style={{padding: '20px 10px', maxWidth: 1360, margin: '74px auto auto auto'}}>
           <div style={{width: 900}}>
             <h1>Keyword: {this.props.keywordParam}</h1>
             { (errorMessage) ? (<div style={{fontWeight: 'bold', fontSize: 16}}>Error: {errorMessage}</div>) : null }

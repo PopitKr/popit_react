@@ -89,7 +89,7 @@ export default class AuthorPostsPage extends React.Component {
         <PopitMobileSider />
         <Layout>
           <PopitMobileHeader/>
-          <Content style={{ padding: '10px', marginTop: 64}}>
+          <Content style={{ padding: '10px', marginTop: 84}}>
             <div>
               {
                 (author.userUrl)

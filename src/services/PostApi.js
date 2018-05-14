@@ -41,11 +41,11 @@ export default class PostApi {
 
   static getApiServer() {
     if (process.env.NODE_ENV === 'production') {
-      // return "http://127.0.0.1:8000";
-      return "https://www.popit.kr";
+      return "http://127.0.0.1:8000";
+      // return "https://www.popit.kr";
     } else {
-      // return "http://127.0.0.1:8000";
-      return "https://www.popit.kr";
+      return "http://127.0.0.1:8000";
+      // return "https://www.popit.kr";
     }
   };
 

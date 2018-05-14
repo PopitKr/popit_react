@@ -97,7 +97,7 @@ export default class MobilePost extends React.Component {
         </Row>
         <Row>
           <Col span={24}>
-            <div className="post_description_link" style={{marginTop: 10}}><Link to={postLink}>{post.socialDesc}</Link></div>
+            <div className="post_description_link" style={{marginTop: 10}}><Link to={postLink}><div dangerouslySetInnerHTML={{ __html: post.socialDesc }} /></Link></div>
           </Col>
         </Row>
       </div>

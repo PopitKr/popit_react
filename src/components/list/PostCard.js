@@ -106,8 +106,8 @@ export default class PostCard extends React.Component {
             }
             <div className="post_tag">{categories}{separator}{tags}</div>
             <div className="post_card_description">
-              {post.socialDesc + "..."}
-              </div>
+              <div dangerouslySetInnerHTML={{ __html: post.socialDesc + "..." }} />
+            </div>
           </div>
           <div style={{clear: 'both'}}/>
         </div>
