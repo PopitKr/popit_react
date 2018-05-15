@@ -143,7 +143,24 @@ class ItemsElement extends PostElement {
   getHtmlString() {
     let html = "";
     let startListItemTag = false; // <li>
+    let codeComponentIndex = 1;
+    let codeComponent = null;
     this.lines.forEach((line) => {
+      if (line.indexOf("<pre class=\"") >= 0) {
+        // <li> 내부에 다시 소스 코드가 있는 경우
+        codeComponent = PostElement.newPostElement(line);
+        return;
+      }
+      if (codeComponent != null) {
+        codeComponent.addNextLine(line);
+        if (codeComponent.isFinished()) {
+          html += renderToString(codeComponent.getComponent(codeComponentIndex));
+          codeComponent = null;
+          codeComponentIndex++;
+        }
+        return;
+      }
+
       html += line;
       if (startListItemTag) {
         html += "<br/>";
@@ -168,7 +185,7 @@ class ItemsElement extends PostElement {
     let codeComponentIndex = 1;
     let codeComponent = null;
     this.lines.forEach((line) => {
-      if (line.indexOf("<pre class=\"lang") >= 0) {
+      if (line.indexOf("<pre class=\"") >= 0) {
         // <li> 내부에 다시 소스 코드가 있는 경우
         codeComponent = PostElement.newPostElement(line);
         return;

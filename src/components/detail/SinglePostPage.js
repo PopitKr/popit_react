@@ -119,6 +119,8 @@ export default class SinglePostPage extends React.Component {
     });
     const tagSeparator = tags.length > 0 ? " | " : "";
 
+    // console.log(">>>>>post.content");
+    // console.log(post.content);
     const sentences = post.content.split("\n");
 
     let postElement = null;
@@ -147,14 +149,6 @@ export default class SinglePostPage extends React.Component {
         }
       }
 
-      // if (eachSentence.indexOf("문제점은 다음과 같다") >= 0) {
-      //   verbose = true;
-      // }
-      // if (verbose) {
-      //   console.log(">>>>line>", eachSentence);
-      //   console.log(">>>>element>", postElement);
-      // }
-
       if (postElement.isFinished()) {
         postElements.push(postElement);
         postElement = null;
@@ -165,45 +159,66 @@ export default class SinglePostPage extends React.Component {
       postElements.push(postElement);
     }
 
+    let middleAdIndex = Math.floor(postElements.length / 2);
+
+    let componentIndex = 0;
+    let postHtml = "";
+    // let postComponents = [];
+
+    if (this.props.isMobile) {
+      // postComponents.push(ads[0]);
+      postHtml += renderToString(ads[0]);
+      postElements.forEach((element, index) => {
+        // const component = element.getComponent(index);
+        // if (component != null) {
+        //   postComponents.push(component);
+        // }
+        // if (index == middleAdIndex) {
+        //   postComponents.push(ads[1]);
+        // }
+        const elementHtml = element.getHtmlString();
+        if (elementHtml) {
+          postHtml += "\n" + elementHtml;
+          componentIndex++;
+          if (componentIndex == middleAdIndex) {
+            postHtml += "\n" + renderToString(ads[1]);
+          }
+        }
+      });
+    } else {
+      postElements.forEach((element, index) => {
+        // const component = element.getComponent(index);
+        // if (component != null) {
+        //   postComponents.push(component);
+        //   componentIndex++;
+        //   if (componentIndex == 1) {
+        //     postComponents.push(ads[0]);
+        //   } else if (index == middleAdIndex) {
+        //     postComponents.push(ads[1]);
+        //   }
+        // }
+
+        const elementHtml = element.getHtmlString();
+        if (elementHtml) {
+          postHtml += "\n" + elementHtml;
+          componentIndex++;
+          if (componentIndex == 1) {
+            postHtml += "\n" + renderToString(ads[0]);
+          } else if (componentIndex == middleAdIndex) {
+            postHtml += "\n" + renderToString(ads[1]);
+          }
+        }
+      });
+    }
+    //postComponents.push(ads[2]);
+    postHtml += "\n" + renderToString(ads[2]);
+
     const postUrl = `https://www.popit.kr/${post.postName}/`;
     const fbPluginUrl = PostApi.getFacebookShareLink(post);
     let shareButton = (<div></div>);
     if (process.env.BROWSER) {
       shareButton = (<ShareButton url={postUrl} title={post.title} fbLikeUrl={fbPluginUrl} />)
     }
-
-    let componentIndex = 0;
-    let middleAdIndex = Math.floor(postElements.length / 2);
-
-    let postHtml = "";
-    let postComponents = [];
-
-    if (this.props.isMobile) {
-      postComponents.push(ads[0]);
-      postElements.forEach((element, index) => {
-        const component = element.getComponent(index);
-        if (component != null) {
-          postComponents.push(component);
-        }
-        if (index == middleAdIndex) {
-          postComponents.push(ads[1]);
-        }
-      });
-    } else {
-      postElements.forEach((element, index) => {
-        const component = element.getComponent(index);
-        if (component != null) {
-          postComponents.push(component);
-          componentIndex++;
-          if (componentIndex == 1) {
-            postComponents.push(ads[0]);
-          } else if (index == middleAdIndex) {
-            postComponents.push(ads[1]);
-          }
-        }
-      });
-    }
-    postComponents.push(ads[2]);
 
     if (this.props.isMobile) {
       return (
@@ -226,9 +241,7 @@ export default class SinglePostPage extends React.Component {
                         </div>
                       </div>
                       <div style={{marginTop:10}} className="entry-content">
-                        <div>
-                          { postComponents }
-                        </div>
+                        <div dangerouslySetInnerHTML={{ __html: postHtml }} />
                       </div>
                       <div style={{marginTop:20, textAlign: 'center'}} >
                         <div className="fb-page"
@@ -293,9 +306,7 @@ export default class SinglePostPage extends React.Component {
                     <div style={{clear: 'both'}}/>
                   </div>
                   <div style={{marginTop:10}} className="entry-content">
-                    <div>
-                      { postComponents }
-                    </div>
+                    <div dangerouslySetInnerHTML={{ __html: postHtml }} />
                   </div>
                   <div style={{marginTop:30}} >
                     <hr/>
