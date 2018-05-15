@@ -23,10 +23,12 @@ export default class PopitMobileHeader extends React.Component {
       cursor: 'pointer'
     };
 
+    const rootPath = PUBLIC_PATH.length > 0 ? PUBLIC_PATH : "/";
+
     return (
       <Header style={{ position: 'fixed', zIndex: 999, paddingLeft: 20, width: '100%'}}>
         <div>
-          <div style={logoStyle} onClick={() => {document.location.href = PUBLIC_PATH}}/>
+          <div style={logoStyle} onClick={() => {document.location.href = rootPath}}/>
           <div style={{marginLeft: 20, float: 'left'}}>
             <Search
               placeholder="Search"

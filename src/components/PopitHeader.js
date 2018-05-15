@@ -19,14 +19,10 @@ export default class PopitHeader extends React.Component {
   };
 
   render() {
-    // let style = {
-    //   zIndex: 999,
-    //   ...this.props.style
-    // };
-
+    const rootPath = PUBLIC_PATH.length > 0 ? PUBLIC_PATH : "/";
     return (
       <Header style={{ position: 'fixed', width: '100%', zIndex: 999 }}>
-        <div className="logo" style={{cursor: 'pointer'}} onClick={() => {document.location.href = PUBLIC_PATH}}/>
+        <div className="logo" style={{cursor: 'pointer'}} onClick={() => {document.location.href = rootPath}}/>
         <div style={{float: 'right', marginLeft: 20, lineHeight: '64px' }}>
           <a style={{color: '#DEDEDE', fontWeight: 'bold', marginRight: 10, fontSize: 14, fontFamily: "'Helvetica Neue',Helvetica,Arial,sans-serif"}} href="https://www.popit.kr/how-to-contribute/"><Icon type="edit" />&nbsp;&nbsp;저자신청</a>
           <a style={{color: '#DEDEDE', fontWeight: 'bold', marginRight: 10, fontSize: 14, fontFamily: "'Helvetica Neue',Helvetica,Arial,sans-serif"}} href="https://www.popit.kr/category/%ea%b3%b5%ec%a7%80%ec%82%ac%ed%95%ad/"><Icon type="sound" />&nbsp;&nbsp;공지사항</a>
