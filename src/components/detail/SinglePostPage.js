@@ -147,7 +147,7 @@ export default class SinglePostPage extends React.Component {
         }
       }
 
-      // if (eachSentence.indexOf("Graph Panel 설정") >= 0) {
+      // if (eachSentence.indexOf("문제점은 다음과 같다") >= 0) {
       //   verbose = true;
       // }
       // if (verbose) {

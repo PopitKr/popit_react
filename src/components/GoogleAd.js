@@ -7,7 +7,9 @@ export default class GoogleAd extends React.Component {
 
   render() {
     return (
-      <div dangerouslySetInnerHTML={ {__html: this.props.googleAd} }>
+      <div style={{marginTop: 10, marginBottom: 10}}>
+        <div dangerouslySetInnerHTML={ {__html: this.props.googleAd} }>
+        </div>
       </div>
     );
   }

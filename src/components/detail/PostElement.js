@@ -34,7 +34,7 @@ class PostElement {
       return new EmbeddedElement(line);
     } else if (line.indexOf("[caption") === 0) {
       return new CaptionImageElement(line);
-    } else if (line.indexOf("<pre class=\"lang") >= 0) {
+    } else if (line.indexOf("<pre class=\"") >= 0) {
       return new SourceCodeElement(line);
     } else if (line.indexOf("<ul") >= 0) {
       return new ItemsElement(line);
@@ -212,11 +212,13 @@ class CaptionImageElement extends PostElement {
 
     //[caption id="attachment_11782" align="alignnone" width="600"]<img class="size-medium wp-image-11782" src="http://www.popit.kr/wp-content/uploads/2017/03/tony-1-600x600.png" alt="소통은 언제나 환영하니 메일 주세요" wit="600" /> 소통은 언제나 환영하니 메일 주세요[/caption]
     const captionIndex = captionTag.indexOf("]");
-    const captionDiv = captionTag.substring(captionTag.indexOf("[caption") + 8, captionIndex);
+    let captionDiv = captionTag.substring(captionTag.indexOf("[caption") + 8, captionIndex);
+    captionDiv = captionDiv.replace("aligncenter", "center");
+
     const imageTag = captionTag.substring(captionIndex + 1, captionTag.indexOf("/>") + 2);
     const caption = captionTag.substring(captionTag.indexOf("/>") + 2, captionTag.indexOf("[/caption]")).trim();
 
-    return `<div className="wp-caption alignnone" ${captionDiv}>\n${imageTag}\n<p class="wp-caption-text">${caption}</p></div>`;
+    return `<div ${captionDiv}>\n${imageTag}\n<p class="wp-caption-text">${caption}</p></div>`;
   }
 }
 
