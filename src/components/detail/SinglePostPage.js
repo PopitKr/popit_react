@@ -13,6 +13,7 @@ import PopitMobileSider from "../PopitMobileSider";
 import PopitFooter from "../PopitFooter";
 import AuthorCard from '../AuthorCard';
 import GoogleAd from '../GoogleAd';
+import DableWidget from '../DableWidget';
 
 import {
   PostElement, EmbeddedElement, ParagraphElement,
@@ -202,10 +203,11 @@ export default class SinglePostPage extends React.Component {
         if (elementHtml) {
           postHtml += "\n" + elementHtml;
           componentIndex++;
-          if (componentIndex == 1) {
+          if (componentIndex == 2) {
             postHtml += "\n" + renderToString(ads[0]);
           } else if (componentIndex == middleAdIndex) {
-            postHtml += "\n" + renderToString(ads[1]);
+            // postHtml += "\n" + renderToString(ads[1]);
+            postHtml += "\n" + renderToString((<DableWidget widgetId="wXQ42RlA"/>));
           }
         }
       });
@@ -231,6 +233,7 @@ export default class SinglePostPage extends React.Component {
                 <div className="list-post">
                   <div className="post-inner">
                     <div className="post-content" itemProp="articleBody">
+                      <DableWidget widgetId='1XDOg2le'/>
                       <div><h1>{decodeHtml(post.title)}</h1></div>
                       <div>
                         <div style={{display: 'none'}}>{post.id}</div>
@@ -243,6 +246,7 @@ export default class SinglePostPage extends React.Component {
                       <div style={{marginTop:10}} className="entry-content">
                         <div dangerouslySetInnerHTML={{ __html: postHtml }} />
                       </div>
+                      <DableWidget widgetId='370W3Kox'/>
                       <div style={{marginTop:20, textAlign: 'center'}} >
                         <div className="fb-page"
                              data-href="https://www.facebook.com/popitkr"
@@ -276,49 +280,49 @@ export default class SinglePostPage extends React.Component {
       <Layout className="layout" hasSider={false} style={{background: '#ffffff'}}>
         <PopitHeader/>
         <Content style={{padding: '20px 10px', maxWidth: 1360, margin: '74px auto auto auto'}}>
-          <div style={{width: 900}}>
-            <div className="list-post">
-              <div className="post-inner">
-                <div className="post-content" itemProp="articleBody">
-                  <div><h1>{decodeHtml(post.title)}</h1></div>
-                  <div>
-                    <div style={{float: 'left', width: 300}}>
-                      <div style={{display: 'none'}}>{post.id}</div>
-                      <AuthorCard author={post.author} postDate={post.date}/>
-                      <div className="post_tag">{categories}{tagSeparator}{tags}</div>
-                      <div style={{marginTop: 10}}>
-                        { shareButton }
-                      </div>
-                    </div>
-                    <div style={{float: 'right'}}>
-                      <div style={{position: 'relative', top: '50%'}}>
-                        <div className="fb-page"
-                             data-href="https://www.facebook.com/popitkr"
-                             data-width="280"
-                             data-height="80"
-                             small_header="true"
-                             data-hide-cover="false"
-                             adapt_container_width="false"
-                             data-show-facepile="false"
-                        />
-                      </div>
-                    </div>
-                    <div style={{clear: 'both'}}/>
+          <div style={{width: 800, float: 'left'}}>
+            <div className="post-content" itemProp="articleBody">
+              <DableWidget widgetId='1XDOg2le'/>
+              <div><h1>{decodeHtml(post.title)}</h1></div>
+              <div>
+                <div style={{float: 'left', width: 300}}>
+                  <div style={{display: 'none'}}>{post.id}</div>
+                  <AuthorCard author={post.author} postDate={post.date}/>
+                  <div className="post_tag">{categories}{tagSeparator}{tags}</div>
+                  <div style={{marginTop: 10}}>
+                    { shareButton }
                   </div>
-                  <div style={{marginTop:10}} className="entry-content">
-                    <div dangerouslySetInnerHTML={{ __html: postHtml }} />
-                  </div>
-                  <div style={{marginTop:30}} >
-                    <hr/>
-                    <FBComment fbPluginUrl={fbPluginUrl}/>
-                    <div style={{marginTop:10, fontSize: 12, fontStyle: 'italic', color: '#C3C3C3'}}>
-                      Popit은 페이스북 댓글만 사용하고 있습니다. 페이스북 로그인 후 글을 보시면 댓글이 나타납니다.
-                    </div>
-                  </div>
+                </div>
+              </div>
+              <div style={{marginTop:10}} className="entry-content">
+                <div dangerouslySetInnerHTML={{ __html: postHtml }} />
+              </div>
+              <div style={{marginTop:30}} >
+                <hr/>
+                <FBComment fbPluginUrl={fbPluginUrl}/>
+                <div style={{marginTop:10, fontSize: 12, fontStyle: 'italic', color: '#C3C3C3'}}>
+                  Popit은 페이스북 댓글만 사용하고 있습니다. 페이스북 로그인 후 글을 보시면 댓글이 나타납니다.
                 </div>
               </div>
             </div>
           </div>
+          <div style={{ width: 400, float: 'left'}}>
+            <div style={{marginTop: 10}}>
+                <div className="fb-page"
+                     data-href="https://www.facebook.com/popitkr"
+                     data-width="390"
+                     data-height="200"
+                     small_header="true"
+                     data-hide-cover="true"
+                     adapt_container_width="false"
+                     data-show-facepile="true"
+                />
+            </div>
+            <div style={{marginTop: 10}}>
+              { ads[1] }
+            </div>
+          </div>
+          <div style={{clear: 'both'}}/>
         </Content>
         <PopitFooter/>
       </Layout>
