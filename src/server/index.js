@@ -20,6 +20,15 @@ app.get("*", (req, res, next) => {
 
   const activeRoute = routes.find((route) => matchPath(PUBLIC_PATH + req.url, route)) || {};
 
+  if (req.path === "/wp-admin" ||
+    req.path === "/wp-content" ||
+    req.path === "/wp-login" ||
+    req.path === "/wp-includes" ||
+    req.path === "/rss" ||
+    req.path === "/feed") {
+    res.redirect(req.path + '/');
+    return;
+  }
   const promise = activeRoute.fetchInitialData ? activeRoute.fetchInitialData(req.path) : Promise.resolve();
 
   promise.then((data) => {

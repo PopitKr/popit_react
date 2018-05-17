@@ -55,6 +55,14 @@ const routes =  [
       if (tokens[1] === "favicon.ico") {
         return Promise.resolve();
       }
+      if (tokens[1] === "/wp-admin" ||
+        tokens[1] === "/wp-content" ||
+        tokens[1] === "/wp-login" ||
+        tokens[1] === "/wp-includes" ||
+        tokens[1] === "/rss" ||
+        tokens[1] === "/feed") {
+        return Promise.resolve();
+      }
       return PostApi.getPostByPermalink(tokens[1]);
     }
   }
