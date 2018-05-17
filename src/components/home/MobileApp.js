@@ -187,10 +187,6 @@ export default class MobileApp extends React.Component {
       });
     });
 
-    if (mobileAds.length > 2) {
-      cardItems.push(<div key={cardItemIndex++}>{mobileAds[2]}</div>);
-    }
-
     tagPosts.forEach((eachTagPost, index) => {
       const term = eachTagPost.term;
       const termLink = `http://www.popit.kr/tag/${term.name}`;
@@ -251,9 +247,9 @@ export default class MobileApp extends React.Component {
                 style={{cursor: 'pointer', textAlign: 'center', background: '#ffffff', borderRadius: 10, height: 40, lineHeight: '40px', fontSize: 18, fontWeight: 'bold'}}>
                 최신글 더보기
               </div>
+              { mobileAds.length > 2 ? (mobileAds[2]) : null }
             </div>
           </Content>
-          <PopitFooter/>
         </Layout>
       </Layout>
     )

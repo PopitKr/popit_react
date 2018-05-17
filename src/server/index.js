@@ -145,7 +145,7 @@ app.get("*", (req, res, next) => {
       </html>
     `)
   }).catch(error => {
-    console.log(error);
+    console.log("Error:", error.response.url, " ==> ", error.response.statusText);
     res.status(error.response.status).send(`
       <!DOCTYPE html>
       <html>

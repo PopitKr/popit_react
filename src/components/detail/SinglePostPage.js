@@ -43,14 +43,17 @@ export default class SinglePostPage extends React.Component {
     };
     this.page = 0;
     this.getPostByPermalink = this.getPostByPermalink.bind(this);
-    // this.newPostElement = this.newPostElement.bind(this);
+    this.getGoogleAd = this.getGoogleAd.bind(this);
   }
 
   componentDidMount () {
     if (!this.state.post) {
-      this.getPostByPermalink(this.props.match.params.permalink)
+      this.getPostByPermalink(this.props.match.params.permalink);
     }
+    this.getGoogleAd();
+  }
 
+  getGoogleAd() {
     if (!this.state.googleAds) {
       PostApi.getGoogleAds('post.desktop')
         .then(json => {
@@ -162,56 +165,30 @@ export default class SinglePostPage extends React.Component {
 
     let componentIndex = 0;
     let postHtml = "";
-    // let postComponents = [];
 
     if (this.props.isMobile) {
-      // postComponents.push(ads[0]);
-      postHtml += renderToString(ads[0]);
       postElements.forEach((element, index) => {
-        // const component = element.getComponent(index);
-        // if (component != null) {
-        //   postComponents.push(component);
-        // }
-        // if (index == middleAdIndex) {
-        //   postComponents.push(ads[1]);
-        // }
         const elementHtml = element.getHtmlString();
         if (elementHtml) {
           postHtml += "\n" + elementHtml;
           componentIndex++;
         }
         if (index == middleAdIndex) {
-          postHtml += "\n" + renderToString(ads[1]);
+          postHtml += "\n" + renderToString((<DableWidget widgetId="1XDOg2le"/>));
         }
       });
     } else {
       postElements.forEach((element, index) => {
-        // const component = element.getComponent(index);
-        // if (component != null) {
-        //   postComponents.push(component);
-        //   componentIndex++;
-        //   if (componentIndex == 1) {
-        //     postComponents.push(ads[0]);
-        //   } else if (index == middleAdIndex) {
-        //     postComponents.push(ads[1]);
-        //   }
-        // }
-
         const elementHtml = element.getHtmlString();
         if (elementHtml) {
           postHtml += "\n" + elementHtml;
           componentIndex++;
         }
-        if (index == 0) {
-          postHtml += "\n" + renderToString(ads[0]);
-        } else if (index == middleAdIndex) {
-          // postHtml += "\n" + renderToString(ads[1]);
+        if (index == middleAdIndex) {
           postHtml += "\n" + renderToString((<DableWidget widgetId="1XDOg2le"/>));
         }
       });
     }
-    //postComponents.push(ads[2]);
-    postHtml += "\n" + renderToString(ads[2]);
 
     const postUrl = `https://www.popit.kr/${post.postName}/`;
     const fbPluginUrl = PostApi.getFacebookShareLink(post);
@@ -231,6 +208,7 @@ export default class SinglePostPage extends React.Component {
                 <div className="list-post">
                   <div className="post-inner">
                     <div className="post-content" itemProp="articleBody">
+                      { ads[0] }
                       <div><h1>{decodeHtml(post.title)}</h1></div>
                       <div>
                         <div style={{display: 'none'}}>{post.id}</div>
@@ -244,6 +222,7 @@ export default class SinglePostPage extends React.Component {
                       <div style={{marginTop:10}} className="entry-content">
                         <div dangerouslySetInnerHTML={{ __html: postHtml }} />
                       </div>
+                      { ads[1] }
                       <DableWidget widgetId='370W3Kox'/>
                       <div style={{marginTop:20, textAlign: 'center'}} >
                         <div className="fb-page"
@@ -259,6 +238,7 @@ export default class SinglePostPage extends React.Component {
                       <div style={{marginTop:30}} >
                         <hr/>
                         <FBComment fbPluginUrl={fbPluginUrl}/>
+                        { ads[2] }
                         <div style={{marginTop:10, fontSize: 12, lineHeight: '18px', fontStyle: 'italic', color: '#C3C3C3'}}>
                           Popit은 페이스북 댓글만 사용하고 있습니다. 페이스북 로그인 후 글을 보시면 댓글이 나타납니다.
                         </div>
@@ -281,6 +261,7 @@ export default class SinglePostPage extends React.Component {
           <div style={{width: 800, float: 'left'}}>
             <div className="post-content" itemProp="articleBody">
               <div><h1>{decodeHtml(post.title)}</h1></div>
+              { ads[0] }
               <div>
                 <div>
                   <div style={{display: 'none'}}>{post.id}</div>
@@ -293,13 +274,14 @@ export default class SinglePostPage extends React.Component {
               </div>
               <div style={{marginTop:10}} className="entry-content">
                 <div dangerouslySetInnerHTML={{ __html: postHtml }} />
+                { ads[2] }
               </div>
               <DableWidget widgetId="wXQ42RlA"/>
               <DableWidget widgetId='370W3Kox'/>
               <div style={{marginTop:30}} >
                 <hr/>
                 <FBComment fbPluginUrl={fbPluginUrl}/>
-                <div style={{marginTop:10, fontSize: 12, fontStyle: 'italic', color: '#C3C3C3'}}>
+                <div style={{marginTop: 10, fontSize: 12, fontStyle: 'italic', color: '#C3C3C3'}}>
                   Popit은 페이스북 댓글만 사용하고 있습니다. 페이스북 로그인 후 글을 보시면 댓글이 나타납니다.
                 </div>
               </div>
@@ -317,8 +299,7 @@ export default class SinglePostPage extends React.Component {
                    data-show-facepile="true"
               />
             </div>
-
-            <div style={{width: 300, marginTop: 10}}>
+            <div style={{width: 300, height: 900}}>
               { ads[1] }
             </div>
           </div>
