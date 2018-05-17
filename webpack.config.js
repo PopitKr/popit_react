@@ -11,7 +11,7 @@ const browserConfig = {
   output: {
     path: __dirname + '/public/',
     filename: 'bundle.js',
-    publicPath: '/v2/',
+    publicPath: '/',
   },
   module: {
     rules: [{

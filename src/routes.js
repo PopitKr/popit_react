@@ -6,7 +6,7 @@ import PostApi from './services/PostApi';
 import AuthorPostsPage from "./components/list/AuthorPostsPage";
 import SearchPostsPage from './components/list/SearchPostsPage';
 
-const PUBLIC_PATH = '/v2';
+const PUBLIC_PATH = '';
 
 const routes =  [
   {

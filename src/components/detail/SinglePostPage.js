@@ -120,8 +120,6 @@ export default class SinglePostPage extends React.Component {
     });
     const tagSeparator = tags.length > 0 ? " | " : "";
 
-    // console.log(">>>>>post.content");
-    // console.log(post.content);
     const sentences = post.content.split("\n");
 
     let postElement = null;
@@ -135,13 +133,13 @@ export default class SinglePostPage extends React.Component {
       } catch(e) {
         eachSentence = sentences[i];
       }
-
       eachSentence = eachSentence.replace('\n', '').replace('\r', '');
 
       if (eachSentence.toString().trim().length == 0 || eachSentence === '&nbsp;') {
         continue;
       }
 
+      //console.log(">>>>eachSentence>", eachSentence);
       if (postElement == null) {
         postElement = PostElement.newPostElement(eachSentence);
       } else {
@@ -181,9 +179,9 @@ export default class SinglePostPage extends React.Component {
         if (elementHtml) {
           postHtml += "\n" + elementHtml;
           componentIndex++;
-          if (componentIndex == middleAdIndex) {
-            postHtml += "\n" + renderToString(ads[1]);
-          }
+        }
+        if (index == middleAdIndex) {
+          postHtml += "\n" + renderToString(ads[1]);
         }
       });
     } else {
@@ -203,12 +201,12 @@ export default class SinglePostPage extends React.Component {
         if (elementHtml) {
           postHtml += "\n" + elementHtml;
           componentIndex++;
-          if (componentIndex == 2) {
-            postHtml += "\n" + renderToString(ads[0]);
-          } else if (componentIndex == middleAdIndex) {
-            // postHtml += "\n" + renderToString(ads[1]);
-            postHtml += "\n" + renderToString((<DableWidget widgetId="wXQ42RlA"/>));
-          }
+        }
+        if (index == 0) {
+          postHtml += "\n" + renderToString(ads[0]);
+        } else if (index == middleAdIndex) {
+          // postHtml += "\n" + renderToString(ads[1]);
+          postHtml += "\n" + renderToString((<DableWidget widgetId="1XDOg2le"/>));
         }
       });
     }
@@ -233,7 +231,6 @@ export default class SinglePostPage extends React.Component {
                 <div className="list-post">
                   <div className="post-inner">
                     <div className="post-content" itemProp="articleBody">
-                      <DableWidget widgetId='1XDOg2le'/>
                       <div><h1>{decodeHtml(post.title)}</h1></div>
                       <div>
                         <div style={{display: 'none'}}>{post.id}</div>
@@ -243,6 +240,7 @@ export default class SinglePostPage extends React.Component {
                           { shareButton }
                         </div>
                       </div>
+                      <DableWidget widgetId='1XDOg2le'/>
                       <div style={{marginTop:10}} className="entry-content">
                         <div dangerouslySetInnerHTML={{ __html: postHtml }} />
                       </div>
@@ -282,10 +280,9 @@ export default class SinglePostPage extends React.Component {
         <Content style={{padding: '20px 10px', maxWidth: 1360, margin: '74px auto auto auto'}}>
           <div style={{width: 800, float: 'left'}}>
             <div className="post-content" itemProp="articleBody">
-              <DableWidget widgetId='1XDOg2le'/>
               <div><h1>{decodeHtml(post.title)}</h1></div>
               <div>
-                <div style={{float: 'left', width: 300}}>
+                <div>
                   <div style={{display: 'none'}}>{post.id}</div>
                   <AuthorCard author={post.author} postDate={post.date}/>
                   <div className="post_tag">{categories}{tagSeparator}{tags}</div>
@@ -297,6 +294,8 @@ export default class SinglePostPage extends React.Component {
               <div style={{marginTop:10}} className="entry-content">
                 <div dangerouslySetInnerHTML={{ __html: postHtml }} />
               </div>
+              <DableWidget widgetId="wXQ42RlA"/>
+              <DableWidget widgetId='370W3Kox'/>
               <div style={{marginTop:30}} >
                 <hr/>
                 <FBComment fbPluginUrl={fbPluginUrl}/>
@@ -306,19 +305,20 @@ export default class SinglePostPage extends React.Component {
               </div>
             </div>
           </div>
-          <div style={{ width: 400, float: 'left'}}>
+          <div style={{ width: 310, marginLeft: 20, float: 'left'}}>
             <div style={{marginTop: 10}}>
-                <div className="fb-page"
-                     data-href="https://www.facebook.com/popitkr"
-                     data-width="390"
-                     data-height="200"
-                     small_header="true"
-                     data-hide-cover="true"
-                     adapt_container_width="false"
-                     data-show-facepile="true"
-                />
+              <div className="fb-page"
+                   data-href="https://www.facebook.com/popitkr"
+                   data-width="300"
+                   data-height="200"
+                   small_header="true"
+                   data-hide-cover="false"
+                   adapt_container_width="false"
+                   data-show-facepile="true"
+              />
             </div>
-            <div style={{marginTop: 10}}>
+
+            <div style={{width: 300, marginTop: 10}}>
               { ads[1] }
             </div>
           </div>

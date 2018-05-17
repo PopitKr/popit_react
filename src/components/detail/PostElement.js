@@ -32,6 +32,8 @@ class PostElement {
   static newPostElement(line) {
     if (line.indexOf('[embed]') >= 0) {
       return new EmbeddedElement(line);
+    } else if (line.trim().indexOf('[gallery') >= 0) {
+      return new GalleryElement(line);
     } else if (line.indexOf("[caption") === 0) {
       return new CaptionImageElement(line);
     } else if (line.indexOf("<pre class=\"") >= 0) {
@@ -66,6 +68,94 @@ class PostElement {
       return null;
     }
     return (<HtmlElement key={key} html={html}/>)
+  }
+}
+
+class GalleryComponent extends React.Component {
+  render() {
+    const { columns, size, images, captions } = this.props;
+
+    const itemWidth = Math.floor(100/columns);
+
+    const galleryItemStyle = {
+      float: 'left',
+      marginTop: '10px',
+      textAlign: 'center',
+      width: itemWidth + '%'
+    };
+
+    const galleryImageStyle = {
+      border: 'none',
+      verticalAlign: 'bottom',
+      maxWidth: '100%',
+      height: 'auto',
+      padding: 5,
+    };
+
+    const galleryCaptionStyle = {
+      marginLeft: 0
+    };
+
+    const items = [];
+    for (let i = 0; i < columns; i++) {
+      const caption = (captions && captions.length >= i - 1) ? captions[i] : "";
+      items.push((
+        <div key={i}>
+          <dl className="gallery-item" style={galleryItemStyle}>
+            <dt className="gallery-icon landscape">
+              <a href={images[i]} target='_blank' style={{borderBottom: 'none'}}>
+                <img style={galleryImageStyle}
+                   width="600" height="449"
+                   src={images[i]}
+                   className={`attachment-${size} size-${size}`}
+                   alt={caption}
+                   sizes="(max-width: 600px) 100vw, 600px"/>
+              </a>
+            </dt>
+            <dd style={galleryCaptionStyle} className="wp-caption-text gallery-caption">
+              {caption}
+            </dd>
+          </dl>
+        </div>
+      ));
+    }
+
+    return (
+      <div className={`gallery gallery-columns-${columns} gallery-size-${size}`} style={{margin: 'auto'}}>
+        {items}
+        <br style={{clear: 'both'}}/>
+      </div>
+    )
+  }
+}
+class GalleryElement extends PostElement {
+  constructor(line) {
+    super();
+
+    const tokens = line.split(" ");
+    for (let i = 0; i < tokens.length; i++) {
+      if (tokens[i].startsWith("size=")) {
+        const val = tokens[i].split("=")[1].trim();
+        this.size = val.substr(1, val.length - 2);
+      } else if (tokens[i].startsWith("columns=")) {
+        const val = tokens[i].split("=")[1].trim();
+        this.columns = parseInt(val.substr(1, val.length - 2), 10);
+      } else if (tokens[i].startsWith("images=")) {
+        const val = tokens[i].split("=")[1].trim();
+        this.images = val.substr(1, val.length - 2).split(",")
+      } else if (tokens[i].startsWith("captions=")) {
+        const val = decodeURIComponent(tokens[i].split("=")[1].trim().replace(/\+/g, ' '));
+        this.captions = val.substr(1, val.length - 3).split(",")
+      }
+    }
+  }
+
+  getHtmlString() {
+    return renderToString(this.getComponent(""));
+  }
+
+  getComponent(key) {
+    return (<GalleryComponent size={this.size} columns={this.columns} images={this.images} captions={this.captions}/>);
   }
 }
 

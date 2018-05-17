@@ -198,6 +198,10 @@ body {
   line-height: 40px;
 }
 
+.entry-content img {
+  margin-bottom: 10px;
+}
+
 .entry-content p {
   margin-bottom: 10px;
 }
@@ -224,7 +228,7 @@ body {
 }
 
 .entry-content blockquote {
-  font: italic 1.2em/1.4em Georgia, "Times New Roman", Times, serif;
+  font: italic 1.1em/1.4em Georgia, "Times New Roman", Times, serif;
   padding: 20px 30px 15px;
 }
 
