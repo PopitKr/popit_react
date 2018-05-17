@@ -30,7 +30,8 @@ app.get("*", (req, res, next) => {
     let dableMeta = "";
 
     let description = "전문 지식 공유를 위한 팀블로그";
-    let title = "Popit";
+    let title = "Popit | 전문 지식 공유를 위한 팀블로그";
+    let image = "https://www.popit.kr/wp-content/uploads/2016/08/logo.png";
     if (activeRoute.path === PUBLIC_PATH + '/:permalink/' && context.data && context.data.data) {
       detailPage = true;
       ogUrl = PostApi.getCanonicalLink(context.data.data);
@@ -46,6 +47,9 @@ app.get("*", (req, res, next) => {
 
       description = context.data.data.socialDesc;
       title = context.data.data.title + " | Popit";
+      if (image) {
+        image = context.data.data.image;
+      }
     }
 
     const markup = renderToString(
@@ -68,16 +72,16 @@ app.get("*", (req, res, next) => {
           <meta name="viewport" content="width=device-width, user-scalable=no">
           ${dableMeta}
           <meta name="description" itemprop="description" content="${description}" />
-          <meta property="og:title" content="Pop your experience. Share it." />
+          <meta property="og:title" content="${title}" />
           <meta property="og:url" content="${ogUrl}" />
-          <meta property="og:image" content="https://www.popit.kr/wp-content/uploads/2016/08/logo.png" />
+          <meta property="og:image" content="${image}" />
           <meta property="og:site_name" content="Popit" />
           <meta property="og:description" content="${description}" />
           <meta name="twitter:card" content="summary" />
-          <meta name="twitter:title" content="Pop your experience. Share it." />
+          <meta name="twitter:title" content="${title}" />
           <meta name="twitter:description" content="${description}" />
-          <meta name="twitter:image" content="https://www.popit.kr/wp-content/uploads/2016/08/logo.png" />
-          <meta itemprop="image" content="https://www.popit.kr/wp-content/uploads/2016/08/logo.png" />
+          <meta name="twitter:image" content="${image}" />
+          <meta itemprop="image" content="${image}" />
 
           <script>window.__INITIAL_DATA__ = ${serialize(data)}</script>
 
