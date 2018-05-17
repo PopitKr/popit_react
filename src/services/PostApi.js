@@ -3,11 +3,22 @@ import fetch from 'isomorphic-fetch'
 
 const HttpUtil = {
   handleHttpStatus: (response) => {
-    if (response.ok) {
-      return response;
+    // console.log(response.status);
+    // if (response.status == 404) {
+    //   throw new Error("404");
+    // }
+    // if (response.ok) {
+    //   return response;
+    // } else {
+    //   //throw new Error(response.statusText);
+    //   return response;
+    // }
+    if (response.status >= 200 && response.status < 300) {
+      return Promise.resolve(response);
     } else {
-      //throw new Error(response.statusText);
-      return response;
+      var error = new Error(response.statusText || response.status)
+      error.response = response;
+      return Promise.reject(error);
     }
   },
 };
@@ -62,6 +73,13 @@ export default class PostApi {
 
   static getPostByPermalink(link) {
     const apiPath = `${PostApi.getApiServer()}/api/PostByPermalink?permalink=${link}`;
+    return fetch(apiPath, {headers: PostApi.getHeader()})
+      .then(HttpUtil.handleHttpStatus)
+      .then(res => res.json())
+  }
+
+  static getPostById(id) {
+    const apiPath = `${PostApi.getApiServer()}/api/PostById?id=${id}`;
     return fetch(apiPath, {headers: PostApi.getHeader()})
       .then(HttpUtil.handleHttpStatus)
       .then(res => res.json())

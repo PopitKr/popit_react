@@ -8,6 +8,7 @@ import App from '../App';
 import PostApi from "../services/PostApi";
 import { routes, PUBLIC_PATH } from '../routes';
 import MobileDetect from 'mobile-detect';
+import SinglePostPage from "../components/detail/SinglePostPage";
 
 const app = express();
 
@@ -29,8 +30,9 @@ app.get("*", (req, res, next) => {
     res.redirect(req.path + '/');
     return;
   }
-  const promise = activeRoute.fetchInitialData ? activeRoute.fetchInitialData(req.path) : Promise.resolve();
 
+  const promise = activeRoute.fetchInitialData ? activeRoute.fetchInitialData(req) : Promise.resolve();
+  let redirectUrl = null;
   promise.then((data) => {
     const context = { data };
 
@@ -43,22 +45,31 @@ app.get("*", (req, res, next) => {
     let image = "https://www.popit.kr/wp-content/uploads/2016/08/logo.png";
     if (activeRoute.path === PUBLIC_PATH + '/:permalink/' && context.data && context.data.data) {
       detailPage = true;
-      ogUrl = PostApi.getCanonicalLink(context.data.data);
+      if (req.query.preview) {
+        redirectUrl = PUBLIC_PATH + '/post/' + req.query.p + '?preview=true';
+      } else {
+        ogUrl = PostApi.getCanonicalLink(context.data.data);
 
-      dableMeta = `<meta property="dable:item_id" content="${context.data.data.id}"/>\n`;
-      dableMeta += `<meta name="dable:author" content="${context.data.data.author.displayName}"/>\n`;
-      let catalog = "미분류";
-      if (context.data.data.categories && context.data.data.categories.length > 0) {
-        catalog = context.data.data.categories[0].name;
-      }
-      dableMeta += `<meta name="article:section" content="${catalog}"/>\n`;
-      dableMeta += `<meta name="article:published_time" content="${context.data.data.date}" />\n`;
+        dableMeta = `<meta property="dable:item_id" content="${context.data.data.id}"/>\n`;
+        dableMeta += `<meta name="dable:author" content="${context.data.data.author.displayName}"/>\n`;
+        let catalog = "미분류";
+        if (context.data.data.categories && context.data.data.categories.length > 0) {
+          catalog = context.data.data.categories[0].name;
+        }
+        dableMeta += `<meta name="article:section" content="${catalog}"/>\n`;
+        dableMeta += `<meta name="article:published_time" content="${context.data.data.date}" />\n`;
 
-      description = context.data.data.socialDesc;
-      title = context.data.data.title + " | Popit";
-      if (image) {
-        image = context.data.data.image;
+        description = context.data.data.socialDesc;
+        title = context.data.data.title + " | Popit";
+        if (image) {
+          image = context.data.data.image;
+        }
       }
+    }
+
+    if (redirectUrl != null) {
+      res.redirect(redirectUrl);
+      return;
     }
 
     const markup = renderToString(
@@ -66,6 +77,20 @@ app.get("*", (req, res, next) => {
         <App isMobile={isMobile}/>
       </StaticRouter>
     );
+
+    const isPreview = req.query.preview;
+
+    const dableScript = isPreview ? "": `
+      <script>
+        (function(d,a,b,l,e,_) {
+        d[b]=d[b]||function(){(d[b].q=d[b].q||[]).push(arguments)};e=a.createElement(l);
+        e.async=1;e.charset='utf-8';e.src='//static.dable.io/dist/plugin.min.js';
+        _=a.getElementsByTagName(l)[0];_.parentNode.insertBefore(e,_);
+        })(window,document,'dable','script');
+        dable('setService', 'popit.kr');
+        dable('sendLog');
+      </script>    
+    `;
 
     res.send(`
       <!DOCTYPE html>
@@ -115,22 +140,23 @@ app.get("*", (req, res, next) => {
             gtag('js', new Date());
             gtag('config', 'UA-80256805-1');
           </script>
-          <script>
-            (function(d,a,b,l,e,_) {
-            d[b]=d[b]||function(){(d[b].q=d[b].q||[]).push(arguments)};e=a.createElement(l);
-            e.async=1;e.charset='utf-8';e.src='//static.dable.io/dist/plugin.min.js';
-            _=a.getElementsByTagName(l)[0];_.parentNode.insertBefore(e,_);
-            })(window,document,'dable','script');
-            dable('setService', 'popit.kr');
-            dable('sendLog');
-          </script>
+          ${dableScript}
           <script src="${PUBLIC_PATH}/bundle.js"></script>
       </html>
     `)
   }).catch(error => {
-    const message = error.message;
-    console.log("error message:", error);
-    next();
+    console.log(error);
+    res.status(error.response.status).send(`
+      <!DOCTYPE html>
+      <html>
+        <body>
+          <div style="margin-top:40px; text-align: center">
+            <div style="font-weight: bold; font-size: 16px">Error: ${error.response.statusText}</div>
+            <div style="margin-top: 20px"><a href="/">[Popit 메인]</a></div>
+          </div>
+        </body>
+      </html>
+    `);
   })
 });
 

@@ -216,7 +216,7 @@ export default class SinglePostPage extends React.Component {
     const postUrl = `https://www.popit.kr/${post.postName}/`;
     const fbPluginUrl = PostApi.getFacebookShareLink(post);
     let shareButton = (<div></div>);
-    if (process.env.BROWSER) {
+    if (process.env.BROWSER && post.postName) {
       shareButton = (<ShareButton url={postUrl} title={post.title} fbLikeUrl={fbPluginUrl} />)
     }
 

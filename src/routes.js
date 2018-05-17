@@ -13,42 +13,46 @@ const routes =  [
     path: PUBLIC_PATH + '/',
     exact: true,
     component: Home,
-    // fetchInitialData: (path = '') => {
-    //   return PostApi.getGoogleAds('index.desktop');
-    // }
   }, {
     path: PUBLIC_PATH + '/search/:keyword',
     component: SearchPostsPage,
-    fetchInitialData: (path = '') => {
-      const keyword = path.split('/').pop();
+    fetchInitialData: (req) => {
+      const keyword = req.path.split('/').pop();
       return PostApi.searchPosts(keyword, 1);
     }
   }, {
     path: PUBLIC_PATH + '/tag/:tag',
     component: TagPostsPage,
-    fetchInitialData: (path = '') => {
-      const tagParam = path.split('/').pop();
+    fetchInitialData: (req) => {
+      const tagParam = req.path.split('/').pop();
       return PostApi.getPostsByTag(tagParam, [], 1, 10);
     }
   }, {
     path: PUBLIC_PATH + '/category/:category',
     component: CategoryPostsPage,
-    fetchInitialData: (path = '') => {
-      const categoryParam = path.split('/').pop();
+    fetchInitialData: (req) => {
+      const categoryParam = req.path.split('/').pop();
       return PostApi.getPostsByCategory(categoryParam, [], 1, 10);
     }
   }, {
     path: PUBLIC_PATH + '/author/:author',
     component: AuthorPostsPage,
-    fetchInitialData: (path = '') => {
-      const authorParam = path.split('/').pop();
+    fetchInitialData: (req) => {
+      const authorParam = req.path.split('/').pop();
       return PostApi.getPostsByAuthor(authorParam, [], 1, 10);
+    }
+  }, {
+    path: PUBLIC_PATH + '/post/:id',
+    component: SinglePostPage,
+    fetchInitialData: (req) => {
+      const id = req.path.split('/').pop();
+      return PostApi.getPostById(id);
     }
   }, {
     path: PUBLIC_PATH + '/:permalink/',
     component: SinglePostPage,
-    fetchInitialData: (path = '') => {
-      const tokens = path.split('/');
+    fetchInitialData: (req) => {
+      const tokens = req.path.split('/');
       if (tokens.length < 2) {
         return Promise.resolve();
       }
@@ -63,7 +67,11 @@ const routes =  [
         tokens[1] === "/feed") {
         return Promise.resolve();
       }
-      return PostApi.getPostByPermalink(tokens[1]);
+      if (req.query.preview) {
+        return PostApi.getPostById(req.query.p);
+      } else {
+        return PostApi.getPostByPermalink(tokens[1]);
+      }
     }
   }
 ];
