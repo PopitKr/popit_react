@@ -169,9 +169,9 @@ class ParagraphElement extends PostElement {
     if (!this.paragraph) {
       return "";
     }
-    if (this.paragraph.startsWith("<")) {
-      return this.paragraph;
-    }
+    // if (this.paragraph.startsWith("<")) {
+    //   return `<p>${this.paragraph}</p>`;
+    // }
     return `<p>${this.paragraph}</p>`;
   }
 }
