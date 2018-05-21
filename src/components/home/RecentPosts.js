@@ -37,7 +37,7 @@ export default class RecentPosts extends React.Component {
   getNextPosts() {
     this.page++;
     // this.getPosts()
-    document.location.href = '/page/2';
+    document.location.href = '/page/1';
   };
 
   getPosts() {

@@ -122,6 +122,7 @@ app.get("*", (req, res, next) => {
           <link rel='stylesheet' id='crayon-css'  href='https://www.popit.kr/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css' type='text/css' media='all' />
           <link rel='stylesheet' id='crayon-theme-obsidian-css'  href='https://www.popit.kr/wp-content/plugins/crayon-syntax-highlighter/themes/obsidian/obsidian.css' type='text/css' media='all' />
           <link rel='stylesheet' id='crayon-font-monaco-css'  href='https://www.popit.kr/wp-content/plugins/crayon-syntax-highlighter/fonts/monaco.css' type='text/css' media='all' />
+          <link rel='stylesheet' href='${PUBLIC_PATH}/antd.css' type='text/css' media='all' />
         </head>
 
         <body>

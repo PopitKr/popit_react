@@ -78,34 +78,20 @@ export default class RecentPostsPageDesktop extends React.Component {
     const { loading, posts, errorMessage, totalRecords } = this.state;
 
     if (loading === true) {
-      return (<div>Loading...</div>)
+      return (<div style={{textAlign: 'center', marginTop: 20}}>Loading...</div>)
     }
 
     return (
       <Layout className="layout" hasSider={false} style={{background: '#ffffff'}}>
         <PopitHeader />
         <Content style={{padding: '20px 10px', maxWidth: 1360, margin: '74px auto auto auto'}}>
-          <div style={{width: 900, float: 'left'}}>
+          <div style={{width: 900, maxWidth: 900, margin: 'auto', textAlign: 'left'}}>
             <h1>전체글</h1>
             { (errorMessage) ? (<div style={{fontWeight: 'bold', fontSize: 16}}>Error: {errorMessage}</div>) : null }
             <PostCardList posts={posts}
                           showAuthor={true}/>
             <Pagination current={this.page} total={totalRecords} onChange={this.getNextPage}/>
           </div>
-          <div style={{ width: 310, marginLeft: 20, float: 'left'}}>
-            <div style={{marginTop: 10}}>
-              <div className="fb-page"
-                   data-href="https://www.facebook.com/popitkr"
-                   data-width="300"
-                   data-height="200"
-                   small_header="true"
-                   data-hide-cover="false"
-                   adapt_container_width="false"
-                   data-show-facepile="true"
-              />
-            </div>
-          </div>
-          <div style={{clear: 'both'}}/>
         </Content>
         <PopitFooter/>
       </Layout>

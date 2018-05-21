@@ -21,7 +21,7 @@ export default class PopitHeader extends React.Component {
   render() {
     const rootPath = PUBLIC_PATH.length > 0 ? PUBLIC_PATH : "/";
     return (
-      <Header style={{ position: 'fixed', width: '100%', zIndex: 999 }}>
+      <Header style={{ position: 'fixed', width: '100%', zIndex: 999, top: 0}}>
         <div className="logo" style={{cursor: 'pointer'}} onClick={() => {document.location.href = rootPath}}/>
         <div style={{float: 'right', marginLeft: 20, lineHeight: '64px' }}>
           <a style={{color: '#DEDEDE', fontWeight: 'bold', marginRight: 10, fontSize: 14, fontFamily: "'Helvetica Neue',Helvetica,Arial,sans-serif"}} href="https://www.popit.kr/how-to-contribute/"><Icon type="edit" />&nbsp;&nbsp;저자신청</a>
