@@ -85,8 +85,8 @@ export default class PostApi {
       .then(res => res.json())
   }
 
-  static getRecentPosts(page, pageSize) {
-    const apiPath = `${PostApi.getApiServer()}/api/RecentPosts?page=${page}&size=${pageSize}`;
+  static getRecentPosts(page, pageSize, includeTotal) {
+    const apiPath = `${PostApi.getApiServer()}/api/RecentPosts?page=${page}&size=${pageSize}&includeTotal=${includeTotal}`;
     return fetch(apiPath, {headers: PostApi.getHeader()})
       .then(HttpUtil.handleHttpStatus)
       .then(res => res.json())

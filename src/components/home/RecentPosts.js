@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Post from './Post';
 import PostApi from '../../services/PostApi';
 
@@ -19,7 +20,10 @@ export default class RecentPosts extends React.Component {
     this.getPosts = this.getPosts.bind(this);
   }
   componentDidMount() {
-    this.getNextPosts();
+    if (this.page == 0) {
+      this.page++;
+      this.getPosts();
+    }
   };
 
   getPrevPosts() {
@@ -32,7 +36,8 @@ export default class RecentPosts extends React.Component {
 
   getNextPosts() {
     this.page++;
-    this.getPosts()
+    // this.getPosts()
+    document.location.href = '/page/2';
   };
 
   getPosts() {
@@ -65,7 +70,8 @@ export default class RecentPosts extends React.Component {
       }
       const marginRight = index < (MAX_NUM_POSTS - 1) ? 25 : 10;
       const showNext = index >= (MAX_NUM_POSTS - 1);
-      const showPrev = this.page > 1 && index == 0;
+      // const showPrev = this.page > 1 && index == 0;
+      const showPrev = false;
       return(
         <div key={"recent-" + post.id} style={{float: "left", marginRight: marginRight}}>
           <Post post={post}
@@ -83,7 +89,9 @@ export default class RecentPosts extends React.Component {
 
     return (
       <div>
-        <h2 className="author_title">최신글</h2>
+        <h2 className="author_title">
+          <Link className="author_title" to={'/page/1'}>최신글</Link>
+        </h2>
         <div>{ postItems }</div>
         <div style={{clear: "both"}}></div>
       </div>
