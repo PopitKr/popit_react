@@ -20,7 +20,10 @@ export default class RecentPosts extends React.Component {
     this.getPosts = this.getPosts.bind(this);
   }
   componentDidMount() {
-    this.getNextPosts();
+    if (this.page == 0) {
+      this.page++;
+      this.getPosts();
+    }
   };
 
   getPrevPosts() {
@@ -66,9 +69,8 @@ export default class RecentPosts extends React.Component {
         return null;
       }
       const marginRight = index < (MAX_NUM_POSTS - 1) ? 25 : 10;
-      // const showNext = index >= (MAX_NUM_POSTS - 1);
+      const showNext = index >= (MAX_NUM_POSTS - 1);
       // const showPrev = this.page > 1 && index == 0;
-      const showNext = true;
       const showPrev = false;
       return(
         <div key={"recent-" + post.id} style={{float: "left", marginRight: marginRight}}>
