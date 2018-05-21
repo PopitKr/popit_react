@@ -14,6 +14,7 @@ import PopitFooter from "../PopitFooter";
 import AuthorCard from '../AuthorCard';
 import GoogleAd from '../GoogleAd';
 import DableWidget from '../DableWidget';
+import AuthorPostsWidget from '../list/AuthorPostsWidget';
 
 import {
   PostElement, EmbeddedElement, ParagraphElement,
@@ -142,7 +143,6 @@ export default class SinglePostPage extends React.Component {
         continue;
       }
 
-      //console.log(">>>>eachSentence>", eachSentence);
       if (postElement == null) {
         postElement = PostElement.newPostElement(eachSentence);
       } else {
@@ -173,8 +173,10 @@ export default class SinglePostPage extends React.Component {
           postHtml += "\n" + elementHtml;
           componentIndex++;
         }
-        if (index == middleAdIndex) {
+        if (index == 1) {
           postHtml += "\n" + renderToString((<DableWidget widgetId="1XDOg2le"/>));
+        } else if (index == middleAdIndex) {
+          postHtml += "\n" + renderToString((<DableWidget widgetId="wXQ42RlA"/>));
         }
       });
     } else {
@@ -184,7 +186,7 @@ export default class SinglePostPage extends React.Component {
           postHtml += "\n" + elementHtml;
           componentIndex++;
         }
-        if (index == middleAdIndex) {
+        if (index == 2) {
           postHtml += "\n" + renderToString((<DableWidget widgetId="1XDOg2le"/>));
         }
       });
@@ -208,8 +210,8 @@ export default class SinglePostPage extends React.Component {
                 <div className="list-post">
                   <div className="post-inner">
                     <div className="post-content" itemProp="articleBody">
-                      { ads[0] }
                       <div><h1>{decodeHtml(post.title)}</h1></div>
+                      { ads[0] }
                       <div>
                         <div style={{display: 'none'}}>{post.id}</div>
                         <AuthorCard author={post.author} postDate={post.date}/>
@@ -218,7 +220,6 @@ export default class SinglePostPage extends React.Component {
                           { shareButton }
                         </div>
                       </div>
-                      <DableWidget widgetId='1XDOg2le'/>
                       <div style={{marginTop:10}} className="entry-content">
                         <div dangerouslySetInnerHTML={{ __html: postHtml }} />
                       </div>
@@ -261,7 +262,6 @@ export default class SinglePostPage extends React.Component {
           <div style={{width: 800, float: 'left'}}>
             <div className="post-content" itemProp="articleBody">
               <div><h1>{decodeHtml(post.title)}</h1></div>
-              { ads[0] }
               <div>
                 <div>
                   <div style={{display: 'none'}}>{post.id}</div>
@@ -272,12 +272,12 @@ export default class SinglePostPage extends React.Component {
                   </div>
                 </div>
               </div>
+              { ads[0] }
               <div style={{marginTop:10}} className="entry-content">
                 <div dangerouslySetInnerHTML={{ __html: postHtml }} />
                 { ads[2] }
               </div>
               <DableWidget widgetId="wXQ42RlA"/>
-              <DableWidget widgetId='370W3Kox'/>
               <div style={{marginTop:30}} >
                 <hr/>
                 <FBComment fbPluginUrl={fbPluginUrl}/>
@@ -299,8 +299,14 @@ export default class SinglePostPage extends React.Component {
                    data-show-facepile="true"
               />
             </div>
-            <div style={{width: 300, height: 900}}>
+            <div style={{marginTop: 20}}>
+              <AuthorPostsWidget author={post.author} except={post.id}/>
+            </div>
+            <div style={{width: 300, height: 300}}>
               { ads[1] }
+            </div>
+            <div style={{marginTop: 20}}>
+              <DableWidget widgetId="goPgAyXQ"/>
             </div>
           </div>
           <div style={{clear: 'both'}}/>

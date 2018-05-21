@@ -403,10 +403,13 @@ class SourceCodeElement extends PostElement {
     // parse first line
     const preTagClosingIndex = firstLine.indexOf(">");
 
-    const firstLineSourceCode = firstLine.substring(preTagClosingIndex + 1);
-    this.sourceCodes = [decodeHtml(firstLineSourceCode)];
+    let firstLineSourceCode = firstLine.substring(preTagClosingIndex + 1);
     this.finish = firstLine.endsWith("</pre>");
+    if (this.finish) {
+      firstLineSourceCode = firstLineSourceCode.substr(0, firstLineSourceCode.indexOf("</pre>"));
+    }
 
+    this.sourceCodes = [decodeHtml(firstLineSourceCode)];
     this.getComponent = this.getComponent.bind(this);
   }
 

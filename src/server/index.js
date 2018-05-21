@@ -145,13 +145,24 @@ app.get("*", (req, res, next) => {
       </html>
     `)
   }).catch(error => {
-    console.log("Error:", error.response.url, " ==> ", error.response.statusText);
-    res.status(error.response.status).send(`
+    let status = 500;
+    let statusText = error;
+
+    if (error.response) {
+      status = error.response.status;
+      statusText = error.response.statusText;
+
+      console.log("Error:", error.response.url, " ==> ", error.response.statusText);
+    } else {
+      console.log("Error:", error);
+    }
+
+    res.status(status).send(`
       <!DOCTYPE html>
       <html>
         <body>
           <div style="margin-top:40px; text-align: center">
-            <div style="font-weight: bold; font-size: 16px">Error: ${error.response.statusText}</div>
+            <div style="font-weight: bold; font-size: 16px">Error: ${statusText}</div>
             <div style="margin-top: 20px"><a href="/">[Popit 메인]</a></div>
           </div>
         </body>
