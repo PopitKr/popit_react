@@ -1,11 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Layout, Menu, Icon, Input, Row, Col, Button } from 'antd';
 import MobilePost from "./MobilePost";
 import GoogleAd from '../GoogleAd';
 import PostApi from "../../services/PostApi";
 import PopitMobileHeader from "../PopitMobileHeader";
 import PopitMobileSider from "../PopitMobileSider";
-import PopitFooter from "../PopitFooter";
 
 import '../popit.css';
 
@@ -150,7 +150,9 @@ export default class MobileApp extends React.Component {
     recentPosts.forEach((post, index) => {
       if (index == 0) {
         cardItems.push(
-          <div key={cardItemIndex++}><h2 style={{fontWeight: 'bold'}}>최신글</h2></div>
+          <div key={cardItemIndex++}>
+            <h2 style={{fontWeight: 'bold'}}><Link className="author_title" to={'/page/1'}>최신글</Link></h2>
+          </div>
         )
       }
       cardItems.push(

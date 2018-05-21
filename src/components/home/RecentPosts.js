@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Post from './Post';
 import PostApi from '../../services/PostApi';
 
@@ -83,7 +84,9 @@ export default class RecentPosts extends React.Component {
 
     return (
       <div>
-        <h2 className="author_title">최신글</h2>
+        <h2 className="author_title">
+          <Link className="author_title" to={'/page/1'}>최신글</Link>
+        </h2>
         <div>{ postItems }</div>
         <div style={{clear: "both"}}></div>
       </div>

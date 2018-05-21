@@ -5,6 +5,7 @@ import CategoryPostsPage from './components/list/CategoryPostsPage';
 import PostApi from './services/PostApi';
 import AuthorPostsPage from "./components/list/AuthorPostsPage";
 import SearchPostsPage from './components/list/SearchPostsPage';
+import RecentPostsPage from './components/list/RecentPostsPage';
 
 const PUBLIC_PATH = '';
 
@@ -19,6 +20,13 @@ const routes =  [
     fetchInitialData: (req) => {
       const keyword = req.path.split('/').pop();
       return PostApi.searchPosts(keyword, 1);
+    }
+  }, {
+    path: PUBLIC_PATH + '/page/:page',
+    component: RecentPostsPage,
+    fetchInitialData: (req) => {
+      const pageParam = req.path.split('/').pop();
+      return PostApi.getRecentPosts(pageParam, 10, true);
     }
   }, {
     path: PUBLIC_PATH + '/tag/:tag',
