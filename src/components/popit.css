@@ -198,6 +198,14 @@ body {
   line-height: 40px;
 }
 
+.wp-caption-image img {
+  margin-bottom: 0px !important;
+}
+
+.wp-caption-text {
+  font-size: 13px;
+}
+
 .entry-content img {
   margin-bottom: 10px;
 }

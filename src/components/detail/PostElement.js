@@ -233,20 +233,24 @@ class ItemsElement extends PostElement {
   getHtmlString() {
     let html = "";
     let startListItemTag = false; // <li>
-    let codeComponentIndex = 1;
-    let codeComponent = null;
+    let nestedComponentIndex = 1;
+    let nestedComponent = null;
     this.lines.forEach((line) => {
+      line = line.trim();
       if (line.indexOf("<pre class=\"") >= 0) {
         // <li> 내부에 다시 소스 코드가 있는 경우
-        codeComponent = PostElement.newPostElement(line);
+        nestedComponent = PostElement.newPostElement(line);
         return;
+      } else if (line.indexOf("[caption") === 0) {
+        nestedComponent = PostElement.newPostElement(line);
       }
-      if (codeComponent != null) {
-        codeComponent.addNextLine(line);
-        if (codeComponent.isFinished()) {
-          html += renderToString(codeComponent.getComponent(codeComponentIndex));
-          codeComponent = null;
-          codeComponentIndex++;
+
+      if (nestedComponent != null) {
+        nestedComponent.addNextLine(line);
+        if (nestedComponent.isFinished()) {
+          html += renderToString(nestedComponent.getComponent(nestedComponentIndex));
+          nestedComponent = null;
+          nestedComponentIndex++;
         }
         return;
       }
@@ -272,20 +276,23 @@ class ItemsElement extends PostElement {
     let html = "";
     let startListItemTag = false; // <li>
 
-    let codeComponentIndex = 1;
-    let codeComponent = null;
+    let nestedComponentIndex = 1;
+    let nestedComponent = null;
     this.lines.forEach((line) => {
       if (line.indexOf("<pre class=\"") >= 0) {
         // <li> 내부에 다시 소스 코드가 있는 경우
-        codeComponent = PostElement.newPostElement(line);
+        nestedComponent = PostElement.newPostElement(line);
         return;
+      } else if (line.indexOf("[caption") === 0) {
+        nestedComponent = PostElement.newPostElement(line);
       }
-      if (codeComponent != null) {
-        codeComponent.addNextLine(line);
-        if (codeComponent.isFinished()) {
-          html += renderToString(codeComponent.getComponent(key + "_" + codeComponentIndex));
-          codeComponent = null;
-          codeComponentIndex++;
+
+      if (nestedComponent != null) {
+        nestedComponent.addNextLine(line);
+        if (nestedComponent.isFinished()) {
+          html += renderToString(nestedComponent.getComponent(key + "_" + nestedComponentIndex));
+          nestedComponent = null;
+          nestedComponentIndex++;
         }
         return;
       }
@@ -325,7 +332,7 @@ class CaptionImageElement extends PostElement {
     const imageTag = captionTag.substring(captionIndex + 1, captionTag.indexOf("/>") + 2);
     const caption = captionTag.substring(captionTag.indexOf("/>") + 2, captionTag.indexOf("[/caption]")).trim();
 
-    return `<div ${captionDiv}>\n${imageTag}\n<p class="wp-caption-text">${caption}</p></div>`;
+    return `<div class="wp-caption-image" ${captionDiv}>\n${imageTag}\n<p class="wp-caption-text">${caption}</p></div>`;
   }
 }
 
