@@ -32,18 +32,18 @@ export default class SearchPostsPageMobile extends React.Component {
     };
     this.page = posts ? 1 : 0;
 
-    this.getCategoryPosts = this.getCategoryPosts.bind(this);
+    this.searchPosts = this.searchPosts.bind(this);
   }
 
   componentDidMount () {
     if (!this.state.posts) {
-      this.getCategoryPosts()
+      this.searchPosts()
     }
   }
 
-  getCategoryPosts() {
+  searchPosts() {
     this.page++;
-    PostApi.getPostsByCategory(this.props.categoryParam, [], this.page, MAX_NUM_POSTS)
+    PostApi.searchPosts(this.props.keywordParam, this.page)
       .then(json => {
         if (json.success !== true) {
           this.setState({
@@ -62,7 +62,7 @@ export default class SearchPostsPageMobile extends React.Component {
           return;
         }
 
-        const mergedPosts = (this.state.posts) ? ([...this.state.posts, ...posts]) : posts
+        const mergedPosts = (this.state.posts) ? ([...this.state.posts, ...posts]) : posts;
         this.setState({
           loading: false,
           posts: mergedPosts,
@@ -88,11 +88,11 @@ export default class SearchPostsPageMobile extends React.Component {
           <PopitMobileHeader/>
           <Content style={{ padding: '10px', marginTop: 84}}>
             <div>
-              <h1>{this.props.categoryParam.toUpperCase()}</h1>
+              <h1>{this.props.keywordParam.toUpperCase()}</h1>
               { (errorMessage) ? (<div style={{fontWeight: 'bold', fontSize: 16}}>Error: {errorMessage}</div>) : null }
               <PostCardListMobile posts={posts}
-                                  moreButtonText={this.props.categoryParam.toUpperCase() + ' 글 더보기'}
-                                  getNextPosts={this.getCategoryPosts}
+                                  moreButtonText={this.props.keywordParam.toUpperCase() + ' 글 더보기'}
+                                  getNextPosts={this.searchPosts}
                                   showAuthor={true}/>
             </div>
           </Content>

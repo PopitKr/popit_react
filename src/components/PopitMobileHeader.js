@@ -7,7 +7,7 @@ const { Header } = Layout;
 
 export default class PopitMobileHeader extends React.Component {
   search(keyword) {
-    document.location.href = `https://www.popit.kr?s=${keyword}`;
+    document.location.href = `${PUBLIC_PATH}/search/${encodeURIComponent(keyword)}`;
   };
 
   render() {
