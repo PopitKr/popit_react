@@ -212,6 +212,9 @@ class ItemsElement extends PostElement {
     super();
     this.finish = false;
     this.lines = [ulTag];
+    this.startListItem = false;
+    this.currentNestedItemElement = null;
+    this.toString = this.toString.bind(this);
   }
 
   needNextLine() {
@@ -223,11 +226,31 @@ class ItemsElement extends PostElement {
   }
 
   addNextLine(line) {
-    const endTagIndex = line.indexOf("</ul>");
-    if (endTagIndex >= 0) {
-      this.finish = true;
+    if (line.trim().startsWith("<ul>")) {
+      this.currentNestedItemElement = new ItemsElement(line);
+      return;
     }
-    this.lines.push(line);
+    const endTagIndex = line.indexOf("</ul>");
+
+    if (this.currentNestedItemElement != null) {
+      this.currentNestedItemElement.addNextLine(line);
+
+      if (endTagIndex >= 0) {
+        if (this.currentNestedItemElement.isFinished()) {
+          this.lines.push(this.currentNestedItemElement);
+          this.currentNestedItemElement = null;
+        }
+      }
+    } else {
+      if (endTagIndex >= 0) {
+        this.finish = true;
+      }
+      this.lines.push(line);
+    }
+  }
+
+  toString() {
+    return this.getHtmlString();
   }
 
   getHtmlString() {
@@ -236,6 +259,10 @@ class ItemsElement extends PostElement {
     let nestedComponentIndex = 1;
     let nestedComponent = null;
     this.lines.forEach((line) => {
+      if (typeof line !== "string") {
+        html += line.toString();
+        return;
+      }
       line = line.trim();
       if (line.indexOf("<pre class=\"") >= 0) {
         // <li> 내부에 다시 소스 코드가 있는 경우
@@ -255,11 +282,7 @@ class ItemsElement extends PostElement {
         return;
       }
 
-      html += line;
-      if (startListItemTag) {
-        html += "<br/>";
-      }
-      html += "\n";
+      html += line + "\n";
 
       if (line.trim().replace("\t", "").startsWith("<li>")) {
         startListItemTag = true;
