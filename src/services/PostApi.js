@@ -31,7 +31,7 @@ export default class PostApi {
         return meta.name === "facebook.like.http"
       });
       if (metaValues.length > 0) {
-        useHttp = metaValues[0].value === "true";
+        useHttp = metaValues[0].value === "true" || metaValues[0].value === "1";
       }
     }
     return `${useHttp ? "http" : "https"}://www.popit.kr/${decodeURIComponent(post.postName)}/`;
@@ -44,7 +44,7 @@ export default class PostApi {
         return meta.name === "canonical.https"
       });
       if (metaValues.length > 0) {
-        useHttps = metaValues[0].value === "true";
+        useHttps = metaValues[0].value === "true" || metaValues[0].value === "1";
       }
     }
     return `${useHttps ? "https" : "http"}://www.popit.kr/${decodeURIComponent(post.postName)}/`;
