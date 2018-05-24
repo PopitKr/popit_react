@@ -10,8 +10,11 @@ import { routes, PUBLIC_PATH } from '../routes';
 import MobileDetect from 'mobile-detect';
 import SinglePostPage from "../components/detail/SinglePostPage";
 
+const compression = require('compression');
+
 const app = express();
 
+app.use(compression());
 app.use(cors());
 app.use(express.static("public"));
 

@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const cleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 //https://tylermcginnis.com/react-router-server-rendering/
 //https://codeburst.io/react-server-side-rendering-ssr-with-express-and-css-modules-722ef0cc8fa0
@@ -44,6 +45,10 @@ const browserConfig = {
     new CopyWebpackPlugin([
       {from: './src/asset/antd.css'},
     ]),
+    new webpack.optimize.UglifyJsPlugin({
+      include: /\.js$/,
+      minimize: true
+    })
   ]
 };
 
