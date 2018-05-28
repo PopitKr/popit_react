@@ -52,7 +52,9 @@ export default class Post extends React.Component {
 
     const separator = tags.length > 0 ? " | " : "";
 
-    const coverImage = post.image ? post.image : this.getDefaultImage(post.id);
+    let coverImage = post.mediumImage ? post.mediumImage : post.image;
+    coverImage = coverImage ? coverImage : this.getDefaultImage(post.id);
+
     const postUrl = `https://www.popit.kr/${post.postName}/`;
     const postLink = `${PUBLIC_PATH}/${post.postName}/`;
     const fbLikeUrl = PostApi.getFacebookShareLink(post);

@@ -46,6 +46,7 @@ app.get("*", (req, res, next) => {
     let description = "전문 지식 공유를 위한 팀블로그";
     let title = "Popit | 전문 지식 공유를 위한 팀블로그";
     let image = "https://www.popit.kr/wp-content/uploads/2016/08/logo.png";
+    let thumbnailImage = "https://www.popit.kr/wp-content/uploads/2016/08/logo.png";
     if (activeRoute.path === PUBLIC_PATH + '/:permalink/' && context.data && context.data.data) {
       detailPage = true;
       if (req.query.preview) {
@@ -64,9 +65,8 @@ app.get("*", (req, res, next) => {
 
         description = context.data.data.socialDesc;
         title = context.data.data.title + " | Popit";
-        if (image) {
-          image = context.data.data.image;
-        }
+        image = context.data.data.image;
+        thumbnailImage = context.data.data.thumbnailImage;
       }
     }
 
@@ -112,6 +112,7 @@ app.get("*", (req, res, next) => {
           <meta property="og:title" content="${title}" />
           <meta property="og:url" content="${ogUrl}" />
           <meta property="og:image" content="${image}" />
+          <meta property="dable:image" content="${thumbnailImage}" />
           <meta property="og:site_name" content="Popit" />
           <meta property="og:description" content="${description}" />
           <meta name="twitter:card" content="summary" />

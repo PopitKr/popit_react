@@ -82,7 +82,9 @@ export default class AuthorPostsWidget extends React.Component {
     };
     const postComponents = posts.map((post, index) => {
       const postLink = `${PUBLIC_PATH}/${post.postName}/`;
-      const coverImage = post.image ? post.image : this.getDefaultImage(post.id);
+      let coverImage = post.thumbnailImage ? post.thumbnailImage : post.image;
+      coverImage = coverImage ? coverImage : this.getDefaultImage(post.id);
+
       const marginTop = index == 0 ? 0 : 10;
       return (
         <div key={index} style={{marginTop: marginTop}}>
