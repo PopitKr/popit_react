@@ -15,6 +15,7 @@ import AuthorCard from '../AuthorCard';
 import GoogleAd from '../GoogleAd';
 import DableWidget from '../DableWidget';
 import AuthorPostsWidget from '../list/AuthorPostsWidget';
+import NoticeModal from './NoticeModal';
 
 import {
   PostElement, EmbeddedElement, ParagraphElement,
@@ -41,10 +42,14 @@ export default class SinglePostPage extends React.Component {
     this.state = {
       post: post,
       googleAds: null,
+      showNotice: false,
+      noticePostId: "",
+      noticeDesc: "",
     };
     this.page = 0;
     this.getPostByPermalink = this.getPostByPermalink.bind(this);
     this.getGoogleAd = this.getGoogleAd.bind(this);
+    this.getSitePreference = this.getSitePreference.bind(this);
   }
 
   componentDidMount () {
@@ -52,6 +57,7 @@ export default class SinglePostPage extends React.Component {
       this.getPostByPermalink(this.props.match.params.permalink);
     }
     this.getGoogleAd();
+    this.getSitePreference();
   }
 
   getGoogleAd() {
@@ -70,6 +76,34 @@ export default class SinglePostPage extends React.Component {
           console.log("Google Ad Error:" + error);
         });
     }
+  }
+
+  getSitePreference() {
+    PostApi.getSitePreference('notice.post')
+      .then(json => {
+        if (json.success !== true) {
+          alert("Error:" + json.message);
+          return;
+        }
+        if (json.data) {
+          const postId = json.data.value.split(",")[0];
+          const description = json.data.value.substr(postId.length + 1).trim();
+          if (postId == this.state.post.id) {
+            return;
+          }
+          setTimeout(() => {
+            this.setState({
+              showNotice: true,
+              noticePostId: postId,
+              noticeDesc: description,
+            })
+          }, 5000);
+
+        }
+      })
+      .catch(error => {
+        alert("Error:" + error);
+      });
   }
 
   getPostByPermalink(permalink) {
@@ -312,6 +346,7 @@ export default class SinglePostPage extends React.Component {
           <div style={{clear: 'both'}}/>
         </Content>
         <PopitFooter/>
+        <NoticeModal visible={this.state.showNotice} noticePostId={this.state.noticePostId} noticeDesc={this.state.noticeDesc}/>
       </Layout>
     )
   }

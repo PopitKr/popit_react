@@ -60,6 +60,13 @@ export default class PostApi {
     }
   };
 
+  static getSitePreference(name) {
+    const apiPath = `${PostApi.getApiServer()}/api/GetSitePreference?name=${name}`;
+    return fetch(apiPath, {headers: PostApi.getHeader()})
+      .then(HttpUtil.handleHttpStatus)
+      .then(res => res.json())
+  }
+
   static searchPosts(keyword, page) {
     if (!keyword) {
       console.log("Error: No keyword");
